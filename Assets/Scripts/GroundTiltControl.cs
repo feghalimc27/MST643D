@@ -25,7 +25,11 @@ public class GroundTiltControl : MonoBehaviour {
         planeTilt.y = Mathf.Clamp(tilt.y, -tiltAngle, tiltAngle);
         planeTilt.x = Mathf.Clamp(tilt.x, -tiltAngle, tiltAngle);
 
-        transform.localRotation = Quaternion.AngleAxis(tilt.y, Vector3.right);
-        transform.localRotation = Quaternion.AngleAxis(tilt.x, Vector3.back);
+        Quaternion xRot = Quaternion.AngleAxis(planeTilt.x, Vector3.back);
+        Quaternion yRot = Quaternion.AngleAxis(planeTilt.y, Vector3.right);
+
+        Quaternion rotation = new Quaternion(xRot.x + yRot.x, xRot.y + yRot.y, xRot.z + yRot.z, xRot.w + yRot.w);
+
+        transform.rotation = rotation;
     }
 }
