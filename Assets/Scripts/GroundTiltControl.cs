@@ -16,8 +16,12 @@ public class GroundTiltControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        TiltControl();
+        
 	}
+
+    void FixedUpdate() {
+        TiltControl();
+    }
 
     void TiltControl() {
         Vector2 tilt = new Vector2(Input.GetAxis("Horizontal") * tiltAngle, Input.GetAxis("Vertical") * tiltAngle);
