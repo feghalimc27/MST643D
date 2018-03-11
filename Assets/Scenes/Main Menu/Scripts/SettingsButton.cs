@@ -19,6 +19,7 @@ public class SettingsButton : MonoBehaviour
         if (currentEventSystem.currentSelectedGameObject == transform.gameObject)
         {
             transform.SetAsLastSibling();
+            transform.GetComponent<RectTransform>().sizeDelta = new Vector2(800 * 1.25f, 600 * 1.25f);
 
             if (Input.GetButtonDown("Submit"))
             {
@@ -37,6 +38,10 @@ public class SettingsButton : MonoBehaviour
                 MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("LevelSelectButton").gameObject);
             }
+        }
+        else
+        {
+            transform.GetComponent<RectTransform>().sizeDelta = new Vector2(800, 600);
         }
     }
 

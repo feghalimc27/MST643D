@@ -19,6 +19,8 @@ public class LevelSelectButton : MonoBehaviour
         if (currentEventSystem.currentSelectedGameObject == transform.gameObject)
         {
             transform.SetAsLastSibling();
+            transform.GetComponent<RectTransform>().sizeDelta = new Vector2(800 * 1.25f, 600 * 1.25f);
+            transform.Find("LockedButton").GetComponent<RectTransform>().sizeDelta = new Vector2(800 * 1.25f, 600 * 1.25f);
 
             if (Input.GetButtonDown("Submit"))
             {
@@ -37,6 +39,11 @@ public class LevelSelectButton : MonoBehaviour
                 MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("PlayGameButton").gameObject);
             }
+        }
+        else
+        {
+            transform.GetComponent<RectTransform>().sizeDelta = new Vector2(800, 600);
+            transform.Find("LockedButton").GetComponent<RectTransform>().sizeDelta = new Vector2(800, 600);
         }
     }
 
