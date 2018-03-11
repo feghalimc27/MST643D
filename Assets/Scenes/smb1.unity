@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641234, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 642673618}
   - component: {fileID: 642673622}
   - component: {fileID: 642673623}
-  - component: {fileID: 642673624}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -230,25 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d2062ed76409ee4d88d9500f29ec2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 5
+  acceleration: 21
   friction: 0
---- !u!143 &642673624
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 642673617}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1437780824
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689cb4f25a7a56e48ad2c43975997075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiltAngle: 30
+  tiltAngle: 5
+  ball: {fileID: 642673617}
 --- !u!1 &1773098687
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,11 +436,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1773098687}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 5, z: -10}
+  m_LocalPosition: {x: 0, y: 2.74, z: -4.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1919365313}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &1773098692
 MonoBehaviour:
@@ -471,6 +454,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 6
+  character: {fileID: 642673617}
+--- !u!1 &1919365312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1919365313}
+  - component: {fileID: 1919365314}
+  - component: {fileID: 1919365315}
+  m_Layer: 0
+  m_Name: CameraController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1919365313
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1919365312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1773098691}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1919365314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1919365312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f1cabcf096e4496b536bcc5d609595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiltAngle: 20
+--- !u!114 &1919365315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1919365312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29376bf72cc254111a5195cc358db5c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   character: {fileID: 642673617}
 --- !u!1001 &2071217086
 Prefab:

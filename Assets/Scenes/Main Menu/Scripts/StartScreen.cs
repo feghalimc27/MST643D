@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class StartScreen : MonoBehaviour
 {
-    void Start ()
+    public GameObject mainMenu;
+
+    void OnEnable()
     {
         InvokeRepeating("pressStart", 0f, 1f);
         StartCoroutine(titleCenterRotate());
     }
 
+    void OnDisable()
+    {
+        CancelInvoke("pressStart");
+    }
+
     void Update()
     {
-        if (Input.GetButtonDown("Start"))
+        if (Input.GetButtonDown("Start") || Input.GetButtonDown("Submit"))
         {
-            transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy);
+            mainMenu.SetActive(true);
+            transform.gameObject.SetActive(false);
         }
     }
 

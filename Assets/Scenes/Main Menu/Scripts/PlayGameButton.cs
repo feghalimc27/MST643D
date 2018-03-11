@@ -14,7 +14,7 @@ public class PlayGameButton : MonoBehaviour
         currentEventSystem = EventSystem.current;
     }
 
-	void Update ()
+	void FixedUpdate ()
     {
         if (currentEventSystem.currentSelectedGameObject == transform.gameObject)
         {
@@ -22,15 +22,17 @@ public class PlayGameButton : MonoBehaviour
 
             if (Input.GetButtonDown("Submit"))
             {
-                //LoadScene();
+                SceneManager.LoadScene("smb1");
             }
 
-            if (Input.GetAxis("Horizontal") > 0)
+            if (Input.GetAxisRaw("Horizontal") > 0.1 && Time.time > MainMenu.lastInput + 0.25f)
             {
+                MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("LevelSelectButton").gameObject);
             }
-            else if (Input.GetAxis("Horizontal") < 0)
+            else if (Input.GetAxisRaw("Horizontal") < -0.1 && Time.time > MainMenu.lastInput + 0.25f)
             {
+                MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("SettingsButton").gameObject);
             }
         }
