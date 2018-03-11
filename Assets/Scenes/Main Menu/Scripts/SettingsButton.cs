@@ -27,18 +27,16 @@ public class SettingsButton : MonoBehaviour
 
             if (Input.GetAxisRaw("Horizontal") > 0.1 && Time.time > MainMenu.lastInput + 0.25f)
             {
+                transform.SetAsFirstSibling();
                 MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("PlayGameButton").gameObject);
             }
             else if (Input.GetAxisRaw("Horizontal") < -0.1 && Time.time > MainMenu.lastInput + 0.25f)
             {
+                transform.SetAsFirstSibling();
                 MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("LevelSelectButton").gameObject);
             }
-        }
-        else
-        {
-            transform.SetAsFirstSibling();
         }
     }
 

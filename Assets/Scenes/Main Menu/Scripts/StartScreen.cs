@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StartScreen : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class StartScreen : MonoBehaviour
 
     void OnEnable()
     {
+        StartCoroutine(fadeIn());
         InvokeRepeating("pressStart", 0f, 1f);
         StartCoroutine(titleCenterRotate());
     }
@@ -21,8 +23,7 @@ public class StartScreen : MonoBehaviour
     {
         if (Input.GetButtonDown("Start") || Input.GetButtonDown("Submit"))
         {
-            mainMenu.SetActive(true);
-            transform.gameObject.SetActive(false);
+            StartCoroutine(fadeOut());
         }
     }
 
@@ -40,5 +41,25 @@ public class StartScreen : MonoBehaviour
             yield return null;
         }
         StartCoroutine(titleCenterRotate());
+    }
+
+    IEnumerator fadeOut()
+    {
+        for (float t = 0f; t < 1.0f; t += Time.deltaTime)
+        {
+            transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
+            yield return null;
+        }
+        mainMenu.SetActive(true);
+        transform.gameObject.SetActive(false);
+    }
+
+    IEnumerator fadeIn()
+    {
+        for (float t = 0f; t < 1.0f; t += Time.deltaTime)
+        {
+            transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 1 - t);
+            yield return null;
+        }
     }
 }

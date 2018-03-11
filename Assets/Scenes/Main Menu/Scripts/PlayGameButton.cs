@@ -9,12 +9,12 @@ public class PlayGameButton : MonoBehaviour
 {
     EventSystem currentEventSystem;
 
-    void Start ()
+    void Start()
     {
         currentEventSystem = EventSystem.current;
     }
 
-	void FixedUpdate ()
+	void FixedUpdate()
     {
         if (currentEventSystem.currentSelectedGameObject == transform.gameObject)
         {
@@ -27,18 +27,16 @@ public class PlayGameButton : MonoBehaviour
 
             if (Input.GetAxisRaw("Horizontal") > 0.1 && Time.time > MainMenu.lastInput + 0.25f)
             {
+                transform.SetAsFirstSibling();
                 MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("LevelSelectButton").gameObject);
             }
             else if (Input.GetAxisRaw("Horizontal") < -0.1 && Time.time > MainMenu.lastInput + 0.25f)
             {
+                transform.SetAsFirstSibling();
                 MainMenu.lastInput = Time.time;
                 currentEventSystem.SetSelectedGameObject(transform.parent.Find("SettingsButton").gameObject);
             }
-        }
-        else
-        {
-            transform.SetAsFirstSibling();
         }
 	}
     
