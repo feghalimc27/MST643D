@@ -18,11 +18,15 @@ public class CameraTilt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		TiltControl();
-	}
 
-	void TiltControl() {
-		Vector2 tilt = new Vector2(Input.GetAxis("Horizontal") * tiltAngle, Input.GetAxis("Vertical") * tiltAngle);
+    }
+
+    void FixedUpdate() {
+        TiltControl();
+    }
+
+    void TiltControl() {
+		Vector2 tilt = new Vector2(Input.GetAxisRaw("Horizontal") * tiltAngle, Input.GetAxisRaw("Vertical") * tiltAngle);
 
 		planeTilt.y = Mathf.Clamp(tilt.y, -tiltAngle, tiltAngle);
 		planeTilt.x = Mathf.Clamp(tilt.x, -tiltAngle, tiltAngle);

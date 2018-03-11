@@ -14,8 +14,10 @@ public class BallCameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //UpdatePosition();
-		transform.LookAt(character.transform);
+        UpdatePosition();
+        //transform.LookAt(character.transform);
+
+        Debug.Log("L/R: " + Input.GetAxisRaw("Horizontal") + " U/D: " + Input.GetAxisRaw("Vertical"));
     }
 
     void UpdatePosition() {
