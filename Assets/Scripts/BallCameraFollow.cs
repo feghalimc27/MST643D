@@ -9,12 +9,13 @@ public class BallCameraFollow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+		UpdatePosition();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        UpdatePosition();
+        //UpdatePosition();
+		transform.LookAt(character.transform);
     }
 
     void UpdatePosition() {
@@ -22,6 +23,6 @@ public class BallCameraFollow : MonoBehaviour {
         float y = character.transform.position.y + distance / 2;
         float z = character.transform.position.z - distance;
 
-        transform.position = new Vector3(x, y, z);
+		transform.position = new Vector3(x, transform.position.y, z);
     }
 }

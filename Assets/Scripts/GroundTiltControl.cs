@@ -7,7 +7,9 @@ public class GroundTiltControl : MonoBehaviour {
 
     public float tiltAngle;
 
-    private Vector2 planeTilt;
+	public GameObject ball;
+
+	private Vector2 planeTilt;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +22,7 @@ public class GroundTiltControl : MonoBehaviour {
 	}
 
     void FixedUpdate() {
-        TiltControl();
+        // TiltControl();
     }
 
     void TiltControl() {
@@ -34,6 +36,9 @@ public class GroundTiltControl : MonoBehaviour {
 
         Quaternion rotation = new Quaternion(xRot.x + yRot.x, xRot.y + yRot.y, xRot.z + yRot.z, xRot.w + yRot.w);
 
-        transform.rotation = rotation;
+		//transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 1);
+
+		transform.RotateAround(ball.transform.position, Vector3.right, planeTilt.y);
+		transform.RotateAround(ball.transform.position, Vector3.back, planeTilt.x);
     }
 }
