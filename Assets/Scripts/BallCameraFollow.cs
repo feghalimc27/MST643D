@@ -6,18 +6,22 @@ public class BallCameraFollow : MonoBehaviour {
 
     public float distance;
     public GameObject character;
+	[HideInInspector]
+	public bool look;
+
+	private CameraControllerFollower parent;
 
 	// Use this for initialization
 	void Start () {
-		UpdatePosition();
+		//UpdatePosition();
+		parent = GetComponentInParent<CameraControllerFollower>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        UpdatePosition();
+        //UpdatePosition();
         //transform.LookAt(character.transform);
-
-        Debug.Log("L/R: " + Input.GetAxisRaw("Horizontal") + " U/D: " + Input.GetAxisRaw("Vertical"));
+		SwitchCamera();
     }
 
     void UpdatePosition() {
@@ -27,4 +31,11 @@ public class BallCameraFollow : MonoBehaviour {
 
 		transform.position = new Vector3(x, transform.position.y, z);
     }
+
+	void SwitchCamera() {
+		if (parent.lookAtBall) {
+			transform.LookAt(character.transform);
+			look = true;
+		}
+	}
 }
