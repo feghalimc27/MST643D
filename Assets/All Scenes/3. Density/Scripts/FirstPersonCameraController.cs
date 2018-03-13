@@ -43,7 +43,7 @@ public class FirstPersonCameraController : MonoBehaviour {
     }
 
     void ControllerLook() {
-        Vector2 md = new Vector2(Input.GetAxis("HorizontalR"), Input.GetAxis("VerticalR"));
+        Vector2 md = new Vector2(Input.GetAxisRaw("HorizontalR"), Input.GetAxisRaw("VerticalR"));
 
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
@@ -53,5 +53,7 @@ public class FirstPersonCameraController : MonoBehaviour {
 
         transform.localRotation = Quaternion.AngleAxis(mouseLook.y, Vector3.right);
         character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+
+        Debug.Log("Horizontal: " + Input.GetAxis("HorizontalR") + "Veritcal: " + Input.GetAxis("VerticalR"));
     }
 }

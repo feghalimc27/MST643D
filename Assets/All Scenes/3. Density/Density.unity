@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1cc92365b0ac348962e995b2c46a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 1.2
+  sensitivity: 2
   smoothing: 1.3
   controller: 1
 --- !u!1 &1798042120
