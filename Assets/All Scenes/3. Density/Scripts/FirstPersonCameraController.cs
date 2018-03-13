@@ -43,7 +43,7 @@ public class FirstPersonCameraController : MonoBehaviour {
     }
 
     void ControllerLook() {
-        Vector2 md = new Vector2(Input.GetAxisRaw("HorizontalR"), Input.GetAxisRaw("VerticalR"));
+        Vector2 md = new Vector2(Input.GetAxis("HorizontalR"), Input.GetAxis("VerticalR"));
 
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
