@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 2
   smoothing: 1.3
-  controller: 1
+  controller: 0
 --- !u!1 &1798042120
 GameObject:
   m_ObjectHideFlags: 0
