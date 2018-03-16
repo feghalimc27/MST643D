@@ -54,6 +54,7 @@ public class PlayGameButton : MonoBehaviour
             transform.parent.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
             yield return null;
         }
-        SceneManager.LoadScene("Super Seoul Ball 3D");
+        Instantiate(Resources.Load("Global Logic") as GameObject);
+        SceneManager.LoadScene(1);
     }
 }
