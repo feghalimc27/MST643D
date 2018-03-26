@@ -7,6 +7,7 @@ public class FPSMovement: MonoBehaviour {
 
     public float speed = 10.0f;
     public float jumpStrength = 25.0f;
+	public int fireRate = 1200;
 
     private bool onGround = false;
 
@@ -24,6 +25,7 @@ public class FPSMovement: MonoBehaviour {
     void FixedUpdate() {
         MovePlayer();
         Jump();
+		FireWeapon();
     }
 
     void OnCollisionStay(Collision col) {
@@ -64,4 +66,12 @@ public class FPSMovement: MonoBehaviour {
             GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpStrength, 0));
         }
     }
+
+	void FireWeapon() {
+		if (Input.GetButton("Fire1")) {
+			if (Physics.Raycast(transform.position, transform.forward)) {
+				print("hit");
+			}
+		}
+	}
 }
