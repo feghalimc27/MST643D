@@ -69,7 +69,9 @@ public class FPSMovement: MonoBehaviour {
 
 	void FireWeapon() {
 		if (Input.GetButton("Fire1")) {
-			Debug.Log("CUCK A LOT");
+			if (Physics.Raycast(transform.position, transform.forward)) {
+				print("hit");
+			}
 		}
 	}
 }
