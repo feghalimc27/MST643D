@@ -15,9 +15,9 @@ public class GlobalMenu : MonoBehaviour
         Button retryButtonPress = retryButton.GetComponent<Button>();
         Button quitToMenuButtonPress = quitToMenuButton.GetComponent<Button>();
         Button quitToDesktopButtonPress = quitToDesktopButton.GetComponent<Button>();
-        retryButtonPress.onClick.AddListener(() => { SceneManager.LoadScene(SceneManager.GetActiveScene().name); });
-        quitToMenuButtonPress.onClick.AddListener(() => { SceneManager.LoadScene(0); });
-        quitToDesktopButtonPress.onClick.AddListener(() => { Application.Quit(); });
+        retryButtonPress.onClick.AddListener(() => { SceneManager.LoadScene(SceneManager.GetActiveScene().name); transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy); });
+        quitToMenuButtonPress.onClick.AddListener(() => { SceneManager.LoadScene(0); transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy); });
+        quitToDesktopButtonPress.onClick.AddListener(() => { Application.Quit(); transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy); });
     }
 
     void OnEnable ()
