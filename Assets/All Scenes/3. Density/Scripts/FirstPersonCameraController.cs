@@ -27,10 +27,11 @@ public class FirstPersonCameraController : MonoBehaviour {
         else {
             ControllerLook();
         }
+		FireWeapon();
     }
 
     void MouseLook() {
-        Vector2 md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+		Vector2 md = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
@@ -43,7 +44,7 @@ public class FirstPersonCameraController : MonoBehaviour {
     }
 
     void ControllerLook() {
-        Vector2 md = new Vector2(Input.GetAxisRaw("HorizontalR"), Input.GetAxisRaw("VerticalR"));
+        Vector2 md = new Vector2(Input.GetAxis("HorizontalR"), Input.GetAxis("VerticalR"));
 
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
@@ -56,4 +57,19 @@ public class FirstPersonCameraController : MonoBehaviour {
 
         Debug.Log("Horizontal: " + Input.GetAxis("HorizontalR") + "Veritcal: " + Input.GetAxis("VerticalR"));
     }
+
+	void FireWeapon() {
+		if (Input.GetButton("Fire1")) {
+			RaycastHit hit;
+
+			if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+				if (hit.transform.gameObject.tag == "Enemy") {
+					print("hit");
+				}
+				else {
+					print("miss");
+				}
+			}
+		}
+	}
 }

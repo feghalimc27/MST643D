@@ -25,7 +25,6 @@ public class FPSMovement: MonoBehaviour {
     void FixedUpdate() {
         MovePlayer();
         Jump();
-		FireWeapon();
     }
 
     void OnCollisionStay(Collision col) {
@@ -66,12 +65,4 @@ public class FPSMovement: MonoBehaviour {
             GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpStrength, 0));
         }
     }
-
-	void FireWeapon() {
-		if (Input.GetButton("Fire1")) {
-			if (Physics.Raycast(transform.position, transform.forward)) {
-				print("hit");
-			}
-		}
-	}
 }
