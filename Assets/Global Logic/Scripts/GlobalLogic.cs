@@ -52,17 +52,15 @@ public class GlobalLogic : MonoBehaviour
                 transform.Find("Global Menu").gameObject.SetActive(!transform.Find("Global Menu").gameObject.activeInHierarchy);
             }
 
-            if ((SceneManager.GetActiveScene().name == "Super Seoul Ball 3D") && (Time.timeSinceLevelLoad > 30.0f))
+            if ((SceneManager.GetActiveScene().name == "Super Seoul Ball 3D") && (Time.timeSinceLevelLoad > 15.0f))
             {
                 SceneManager.LoadScene(2);
             }
 
-            if ((SceneManager.GetActiveScene().name == "Density") && (Time.timeSinceLevelLoad > 30.0f))
+            if ((SceneManager.GetActiveScene().name == "Density") && (Time.timeSinceLevelLoad > 15.0f))
             {
                 SceneManager.LoadScene(0);
             }
-
-            Debug.Log(Time.timeSinceLevelLoad + " seconds since last level load.");
         }
         else
         {
