@@ -27,6 +27,7 @@ public class FirstPersonCameraController : MonoBehaviour {
         else {
             ControllerLook();
         }
+		FireWeapon();
     }
 
     void MouseLook() {
@@ -56,4 +57,19 @@ public class FirstPersonCameraController : MonoBehaviour {
 
         Debug.Log("Horizontal: " + Input.GetAxis("HorizontalR") + "Veritcal: " + Input.GetAxis("VerticalR"));
     }
+
+	void FireWeapon() {
+		if (Input.GetButton("Fire1")) {
+			RaycastHit hit;
+
+			if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+				if (hit.transform.gameObject.tag == "Enemy") {
+					print("hit");
+				}
+				else {
+					print("miss");
+				}
+			}
+		}
+	}
 }
