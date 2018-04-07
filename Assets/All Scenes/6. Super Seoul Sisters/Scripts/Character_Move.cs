@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Character_Move : MonoBehaviour {
 
-    public int playerSpeed = 800;
+    public float playerSpeed = 3;
     private bool facingRight = false;
-    public int playerJumpPower = 100000;
+    private int hasJumped = 0;
+    public int playerJumpPower = 850;
     private float moveX;
-    public bool onGround = false;
+    private int onGround = 1;
+    public Player_Health _player_health;
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         CharacterMove();
+        PlayerRaycast();
     }
 
     // controls character movement and physics
@@ -21,7 +24,7 @@ public class Character_Move : MonoBehaviour {
         moveX = Input.GetAxis("Horizontal");
 
         // jump
-        if (Input.GetButtonDown("Jump") && onGround == true)
+        if (Input.GetButtonDown("Jump") && (onGround == 1 || onGround == 0) && (hasJumped == 0 || hasJumped == 1))
         {
             Jump();
         }
@@ -54,14 +57,43 @@ public class Character_Move : MonoBehaviour {
     void Jump()
     {
         GetComponent<Rigidbody2D>().AddForce((Vector2.up * playerJumpPower));
-        onGround = false;
+        onGround++;
+        hasJumped = 1;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Ground")
         {
-            onGround = true;
+            hasJumped = 0;
+        }
+    }
+
+    void PlayerRaycast()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
+
+        if (hit != null && hit.collider != null && hit.distance < 0.3f && hit.collider.tag == "Enemy")
+        {
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
+
+            if(hit.collider.tag == "Enemy")
+            {
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
+                hit.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                hit.collider.gameObject.GetComponent<EdgeCollider2D>().enabled = false;
+                hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
+
+            }
+        }
+
+        if (hit.distance < 0.3f && hit.collider.tag != "Enemy")
+        {
+            onGround = 0;
         }
     }
 }
+
