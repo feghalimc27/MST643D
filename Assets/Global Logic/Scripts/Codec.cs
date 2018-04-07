@@ -5,26 +5,37 @@ using UnityEngine.UI;
 
 public class Codec : MonoBehaviour
 {
-    public RawImage bar1;
-    public RawImage bar2;
-    public RawImage bar3;
-    public RawImage bar4;
-    public RawImage bar5;
-    public RawImage bar6;
-    public RawImage bar7;
-    public RawImage bar8;
-    public RawImage bar9;
+    public Texture bar1;
+    public Texture bar2;
+    public Texture bar3;
+    public Texture bar4;
+    public Texture bar5;
+    public Texture bar6;
+    public Texture bar7;
+    public Texture bar8;
+    public Texture bar9;
 
-    RawImage[] allBars;
+    Texture[] allBars;
 
     void Start ()
     {
-        allBars = new RawImage[] { bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9 };
-
+        allBars = new Texture[] { bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9 };
     }
 
-	void Update ()
+    void OnEnable()
     {
-		
-	}
+        Invoke("mikeTalking", 0f);
+    }
+
+    void OnDisable()
+    {
+        CancelInvoke("mikeTalking");
+    }
+
+    void mikeTalking()
+    {
+        transform.Find("Mike Highlight").gameObject.SetActive(!transform.Find("Mike Highlight").gameObject.activeInHierarchy);
+        transform.Find("Bar").GetComponent<RawImage>().texture = allBars[Random.Range(0, 9)];
+        Invoke("mikeTalking", Random.Range(0.1f, 0.5f));
+    }
 }
