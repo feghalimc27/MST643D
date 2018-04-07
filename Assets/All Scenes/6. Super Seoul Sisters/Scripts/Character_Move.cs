@@ -6,10 +6,10 @@ public class Character_Move : MonoBehaviour {
 
     public float playerSpeed = 3;
     private bool facingRight = false;
-    private int hasJumped = 0;
-    public int playerJumpPower = 850;
+    public int hasJumped = 0;
+    public int playerJumpPower = 500;
     private float moveX;
-    private int onGround = 1;
+    public int onGround = 1;
     public Player_Health _player_health;
 
     // Update is called once per frame
