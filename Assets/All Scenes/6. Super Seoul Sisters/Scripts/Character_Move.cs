@@ -77,7 +77,7 @@ public class Character_Move : MonoBehaviour {
         {
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
 
-            if(hit.collider.tag == "Enemy")
+            if(hit != null && hit.collider != null && hit.collider.tag == "Enemy")
             {
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
@@ -90,7 +90,7 @@ public class Character_Move : MonoBehaviour {
             }
         }
 
-        if (hit.distance < 0.3f && hit.collider.tag != "Enemy")
+        if (hit != null && hit.collider != null && hit.distance < 0.3f && hit.collider.tag != "Enemy")
         {
             onGround = 0;
         }
