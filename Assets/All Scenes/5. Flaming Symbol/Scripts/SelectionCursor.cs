@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SelectionCursor : MonoBehaviour {
 
-	public int speed;
-	[SerializeField]
-	private int movementCooldown = 30;
-	private int currentCool = 0;
+	public int movementCooldown;
+
+	private float speed = 0.5f;
+	private int coolCounter = 0;
+	private GameObject player = null;
+	private bool unitSelected = false;
 
 	// Use this for initialization
 	void Start () {
@@ -17,27 +19,68 @@ public class SelectionCursor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		MoveCursor();
-		Countdown();
+		SelectUnit();
+		UpdateCounter();
+	}
+
+	private void OnTriggerStay2D(Collider2D collision) {
+		if (collision.gameObject.tag == "Player") {
+			Debug.Log("Why you such a weeb?");
+			player = collision.gameObject;
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D collision) {
+		if (collision.gameObject.tag == "Player") {
+			Debug.Log("This should store values");
+			player = null;
+		}
 	}
 
 	void MoveCursor() {
 		Vector3 move = new Vector3(0, 0, 0);
 
-		if (Input.GetAxis("Horizontal") > 0.2 && currentCool == 0 || Input.GetAxis("Horizontal") < -0.2 && currentCool == 0) {
-			move.x = Input.GetAxisRaw("Horizontal") * speed;
-			currentCool = movementCooldown;
+		if (Input.GetAxis("Horizontal") > 0.2 && coolCounter == 0) {
+			move.x += speed;
+
+			coolCounter = movementCooldown;
 		}
-		else if (Input.GetAxis("Vertical") > 0.2 && currentCool == 0 || Input.GetAxis("Vertical") < -0.2 && currentCool == 0) {
-			move.y = Input.GetAxisRaw("Vertical") * speed;
-			currentCool = movementCooldown;
+		else if (Input.GetAxis("Horizontal") < -0.2 && coolCounter == 0) {
+			move.x -= speed;
+
+			coolCounter = movementCooldown;
+		}
+		else if (Input.GetAxis("Vertical") > 0.2 && coolCounter == 0) {
+			move.y += speed;
+
+			coolCounter = movementCooldown;
+		}
+		else if (Input.GetAxis("Vertical") < -0.2 && coolCounter == 0) {
+			move.y -= speed;
+
+			coolCounter = movementCooldown;
 		}
 
 		transform.position += move;
+		if (unitSelected) {
+			player.transform.position += move;
+		}
 	}
 
-	void Countdown() {
-		if (currentCool > 0) {
-			currentCool--;
+	void SelectUnit() {
+		if (player != null) {
+			if (Input.GetButtonDown("Jump") && !unitSelected) {
+				unitSelected = true;
+			}
+			else if (Input.GetButtonDown("Jump") && unitSelected) {
+				unitSelected = false;
+			}
+		}
+	}
+
+	void UpdateCounter() {
+		if (coolCounter > 0) {
+			coolCounter--;
 		}
 	}
 }
