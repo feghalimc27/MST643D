@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SelectionCursor : MonoBehaviour {
 
-	public int movementCooldown;
+    public int movementCooldown;
 
-	private float speed = 0.5f;
-	private int coolCounter = 0;
+    private float speed = 0.5f;
+    private int coolCounter = 0;
 
-	private GameObject player = null;
+    private GameObject player = null;
 
 	private Vector3 startPos;
 	private float endPosPlusX;
@@ -17,15 +17,19 @@ public class SelectionCursor : MonoBehaviour {
 	private float endPosPlusY;
 	private float endPosMinusY;
 
-	private int movCountX = 0;
+    [SerializeField]
+    private float deadzone = 0.4f;
+
+    private int movCountX = 0;
 	private int movCountY = 0;
 
-	private bool unitSelected = false;
+    [HideInInspector]
+	public bool unitSelected = false;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,7 +54,7 @@ public class SelectionCursor : MonoBehaviour {
 		Vector3 move = new Vector3(0, 0, 0);
 
 		if (unitSelected) {
-			if ((transform.position + move).x < endPosPlusX && Input.GetAxis("Horizontal") > 0.2 && coolCounter == 0) {
+			if ((transform.position + move).x < endPosPlusX && Input.GetAxis("Horizontal") > deadzone && coolCounter == 0) {
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.x += speed;
 					movCountX += 1;
@@ -62,7 +66,7 @@ public class SelectionCursor : MonoBehaviour {
 
 				coolCounter = movementCooldown;
 			}
-			else if ((transform.position - move).x > endPosMinusX && Input.GetAxis("Horizontal") < -0.2 && coolCounter == 0) {
+			else if ((transform.position - move).x > endPosMinusX && Input.GetAxis("Horizontal") < -deadzone && coolCounter == 0) {
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.x -= speed;
 					movCountX -= 1;
@@ -74,7 +78,7 @@ public class SelectionCursor : MonoBehaviour {
 
 				coolCounter = movementCooldown;
 			}
-			else if ((transform.position + move).y < endPosPlusY && Input.GetAxis("Vertical") > 0.2 && coolCounter == 0) {
+			else if ((transform.position + move).y < endPosPlusY && Input.GetAxis("Vertical") > deadzone && coolCounter == 0) {
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.y += speed;
 					movCountY += 1;
@@ -86,7 +90,7 @@ public class SelectionCursor : MonoBehaviour {
 
 				coolCounter = movementCooldown;
 			}
-			else if ((transform.position - move).y > endPosMinusY && Input.GetAxis("Vertical") < -0.2 && coolCounter == 0) {
+			else if ((transform.position - move).y > endPosMinusY && Input.GetAxis("Vertical") < -deadzone && coolCounter == 0) {
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.y -= speed;
 					movCountY -= 1;
@@ -100,22 +104,22 @@ public class SelectionCursor : MonoBehaviour {
 			}
 		}
 		else {
-			if (Input.GetAxis("Horizontal") > 0.2 && coolCounter == 0) {
+			if (Input.GetAxis("Horizontal") > deadzone && coolCounter == 0) {
 				move.x += speed;
 
 				coolCounter = movementCooldown;
 			}
-			else if (Input.GetAxis("Horizontal") < -0.2 && coolCounter == 0) {
+			else if (Input.GetAxis("Horizontal") < -deadzone && coolCounter == 0) {
 				move.x -= speed;
 
 				coolCounter = movementCooldown;
 			}
-			else if (Input.GetAxis("Vertical") > 0.2 && coolCounter == 0) {
+			else if (Input.GetAxis("Vertical") > deadzone && coolCounter == 0) {
 				move.y += speed;
 
 				coolCounter = movementCooldown;
 			}
-			else if (Input.GetAxis("Vertical") < -0.2 && coolCounter == 0) {
+			else if (Input.GetAxis("Vertical") < -deadzone && coolCounter == 0) {
 				move.y -= speed;
 
 				coolCounter = movementCooldown;
@@ -150,6 +154,15 @@ public class SelectionCursor : MonoBehaviour {
 			}
 		}
 	}
+
+    public GameObject GetSelectedUnit() {
+        if (unitSelected) {
+            return player;
+        }
+        else {
+            return null;
+        }
+    }
 
 	void UpdateCounter() {
 		if (coolCounter > 0) {

@@ -11,20 +11,20 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/All Scenes/2. Super Seoul Ball 3D/Super Seoul Ball 3D.unity
     guid: 910ccb434d6ebaf41b6542388c12a36c
-  - enabled: 1
-    path: Assets/All Scenes/3. Density/Density.unity
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/fd0ca0862ead94142834ad0031bc1aec
     guid: fd0ca0862ead94142834ad0031bc1aec
   - enabled: 1
     path: Assets/All Scenes/4. Alley Combatant/Alley Combatant.unity
     guid: c2f9ab0df3e3c0446ab841b2c0f274b3
-  - enabled: 1
-    path: Assets/All Scenes/5. Flaming Symbol/Flaming Symbol.unity
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/9b04093c5a4025d44a78104ab5f578ce
     guid: 9b04093c5a4025d44a78104ab5f578ce
   - enabled: 1
     path: Assets/All Scenes/6. Super Seoul Sisters/Super Seoul Sisters.unity
     guid: 0827c2ee92c537a40b6cc1b96d39e0b8
   - enabled: 1
-    path: Assets/All Scenes/7. Twin-Stick (TEMP)/Twin-Stick (TEMP).unity
+    path: Assets/All Scenes/7. Delve/Delve.unity
     guid: fcbda5b7b5c9b6a4d8cbe9c32cceb9a8
   - enabled: 1
     path: Assets/All Scenes/8. Visual Novel (TEMP)/Visual Novel (TEMP).unity
