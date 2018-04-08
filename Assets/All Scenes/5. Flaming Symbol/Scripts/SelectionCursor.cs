@@ -36,14 +36,12 @@ public class SelectionCursor : MonoBehaviour {
 
 	private void OnTriggerStay2D(Collider2D collision) {
 		if (collision.gameObject.tag == "Player") {
-			Debug.Log("Why you such a weeb?");
 			player = collision.gameObject;
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collision) {
 		if (collision.gameObject.tag == "Player") {
-			Debug.Log("This should store values");
 			player = null;
 		}
 	}
