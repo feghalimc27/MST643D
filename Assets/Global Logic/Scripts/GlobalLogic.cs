@@ -54,11 +54,37 @@ public class GlobalLogic : MonoBehaviour
 
             if ((SceneManager.GetActiveScene().name == "Super Seoul Ball 3D") && (Time.timeSinceLevelLoad > 15.0f))
             {
+                transform.Find("Codec").gameObject.SetActive(true);
                 SceneManager.LoadScene(2);
             }
 
             if ((SceneManager.GetActiveScene().name == "Density") && (Time.timeSinceLevelLoad > 15.0f))
             {
+                transform.Find("Codec").gameObject.SetActive(true);
+                SceneManager.LoadScene(3);
+            }
+
+            if ((SceneManager.GetActiveScene().name == "Alley Combatant") && (Time.timeSinceLevelLoad > 5.0f))
+            {
+                transform.Find("Codec").gameObject.SetActive(true);
+                SceneManager.LoadScene(4);
+            }
+
+            if ((SceneManager.GetActiveScene().name == "Flaming Symbol") && (Time.timeSinceLevelLoad > 15.0f))
+            {
+                transform.Find("Codec").gameObject.SetActive(true);
+                SceneManager.LoadScene(5);
+            }
+
+            if ((SceneManager.GetActiveScene().name == "Super Seoul Sisters") && (Time.timeSinceLevelLoad > 15.0f))
+            {
+                transform.Find("Codec").gameObject.SetActive(true);
+                SceneManager.LoadScene(8);
+            }
+
+            if ((SceneManager.GetActiveScene().name == "Western Dentist") && (Time.timeSinceLevelLoad > 5.0f))
+            {
+                transform.Find("Codec").gameObject.SetActive(true);
                 SceneManager.LoadScene(0);
             }
         }

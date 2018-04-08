@@ -20,7 +20,7 @@ public class Codec : MonoBehaviour
     int currentString;
     int currentPos;
 
-    void Start ()
+    void Awake()
     {
         allBars = new Texture[] { bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9 };
         allLines = new string[] { "I used to be able to keep going with these lines, you know.\nThough whoever coded them got lazy I guess.",
@@ -37,58 +37,61 @@ public class Codec : MonoBehaviour
                                   "Are you alright?\nSnake?\nSnake!?\nSNAAAAAKE!",
                                   "Hike Maze died for this.",
                                   "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start." };
-        currentString = Random.Range(0, allLines.Length);
-        textType();
     }
 
     void OnEnable()
     {
-        Time.timeScale = 0;
-        Invoke("mikeTalking", 0f);
         transform.Find("Text Line").GetComponent<Text>().text = "";
         transform.Find("Text Line 2").GetComponent<Text>().text = "";
+        currentString = Random.Range(0, allLines.Length);
         currentPos = 0;
+        Time.timeScale = 0;
+        StartCoroutine(mikeTalking());
+        StartCoroutine(textType());
     }
 
     void OnDisable()
     {
         Time.timeScale = 1;
-        CancelInvoke("mikeTalking");
         transform.Find("Text Line").GetComponent<Text>().text = "";
         transform.Find("Text Line 2").GetComponent<Text>().text = "";
         currentPos = 0;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetButtonDown("Submit"))
         {
-            transform.gameObject.SetActive(false);
+            currentPos = allLines[currentString].Length;
         }
     }
 
-    void mikeTalking()
+    IEnumerator mikeTalking()
     {
         transform.Find("Bar").gameObject.SetActive(true);
         transform.Find("Mike Highlight").gameObject.SetActive(!transform.Find("Mike Highlight").gameObject.activeInHierarchy);
         transform.Find("Bar").GetComponent<RawImage>().texture = allBars[Random.Range(0, 9)];
-        Invoke("mikeTalking", Random.Range(0.1f, 0.5f));
+        yield return new WaitForSecondsRealtime(Random.Range(0.1f, 0.5f));
+        StartCoroutine(mikeTalking());
     }
 
-    public void textType()
+    IEnumerator textType()
     {
         if (currentPos < allLines[currentString].Length)
         {
             transform.Find("Text Line").GetComponent<Text>().text += "" + (allLines[currentString])[currentPos];
             transform.Find("Text Line 2").GetComponent<Text>().text += "" + (allLines[currentString])[currentPos];
             currentPos++;
-            Invoke("textType", 0.1f);
+            yield return new WaitForSecondsRealtime(0.1f);
+            StartCoroutine(textType());
         }
         else
         {
-            CancelInvoke("mikeTalking");
+            StopCoroutine(mikeTalking());
             transform.Find("Mike Highlight").gameObject.SetActive(false);
             transform.Find("Bar").gameObject.SetActive(false);
+            yield return new WaitForSecondsRealtime(3.0f);
+            transform.gameObject.SetActive(false);
         }
     }
 }
