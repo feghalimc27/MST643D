@@ -25,12 +25,12 @@ public class Enemy_AI : MonoBehaviour {
                 //Destroy(hit.collider.gameObject);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
-                hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 hit.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 hit.collider.gameObject.GetComponent<EdgeCollider2D>().enabled = false;
-                hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
+                //hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
 
                 _player_health.Die();
