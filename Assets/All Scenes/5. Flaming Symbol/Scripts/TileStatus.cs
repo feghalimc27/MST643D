@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileStatus : MonoBehaviour {
 
     public bool active = false;
+    public bool blocked = false;
     public int type; // 0 = mov 1 = atk
 
     private SpriteRenderer spriteRenderer;
@@ -15,10 +16,22 @@ public class TileStatus : MonoBehaviour {
 	void Start () {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (active) {
+
+    void OnTriggerStay2D (Collider2D collision) {
+        if (collision.gameObject.layer == 9) {
+            blocked = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.layer == 9) {
+            blocked = false;
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
+		if (active && !blocked) {
             spriteRenderer.enabled = true;
         }
         else {

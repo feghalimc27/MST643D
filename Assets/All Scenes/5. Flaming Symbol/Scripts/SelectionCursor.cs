@@ -63,7 +63,8 @@ public class SelectionCursor : MonoBehaviour {
 				blocked[i] = blocking[i].GetComponent<CursorBlock>().blocked;
 			}
 
-			if ((transform.position + move).x < endPosPlusX && Input.GetAxis("Horizontal") > deadzone && coolCounter == 0 && !blocked[2]) {
+            
+			if ((transform.position + move).x < endPosPlusX && Input.GetAxis("Horizontal") > deadzone && coolCounter == 0 && !blocked[2]) { // right
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.x += speed;
 					movCountX += 1;
@@ -75,7 +76,7 @@ public class SelectionCursor : MonoBehaviour {
 
 				coolCounter = movementCooldown;
 			}
-			else if ((transform.position - move).x > endPosMinusX && Input.GetAxis("Horizontal") < -deadzone && coolCounter == 0 && !blocked[3]) {
+			else if ((transform.position - move).x > endPosMinusX && Input.GetAxis("Horizontal") < -deadzone && coolCounter == 0 && !blocked[3]) { // left
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.x -= speed;
 					movCountX -= 1;
@@ -87,7 +88,7 @@ public class SelectionCursor : MonoBehaviour {
 
 				coolCounter = movementCooldown;
 			}
-			else if ((transform.position + move).y < endPosPlusY && Input.GetAxis("Vertical") > deadzone && coolCounter == 0 && !blocked[0]) {
+			else if ((transform.position + move).y < endPosPlusY && Input.GetAxis("Vertical") > deadzone && coolCounter == 0 && !blocked[0]) { // up
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.y += speed;
 					movCountY += 1;
@@ -99,7 +100,7 @@ public class SelectionCursor : MonoBehaviour {
 
 				coolCounter = movementCooldown;
 			}
-			else if ((transform.position - move).y > endPosMinusY && Input.GetAxis("Vertical") < -deadzone && coolCounter == 0 && !blocked[1]) {
+			else if ((transform.position - move).y > endPosMinusY && Input.GetAxis("Vertical") < -deadzone && coolCounter == 0 && !blocked[1]) { // down
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
 					move.y -= speed;
 					movCountY -= 1;
