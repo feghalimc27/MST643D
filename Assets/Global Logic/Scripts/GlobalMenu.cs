@@ -19,9 +19,23 @@ public class GlobalMenu : MonoBehaviour
         Button retryButtonPress = retryButton.GetComponent<Button>();
         Button quitToMenuButtonPress = quitToMenuButton.GetComponent<Button>();
         Button quitToDesktopButtonPress = quitToDesktopButton.GetComponent<Button>();
-        retryButtonPress.onClick.AddListener(() => { SceneManager.LoadScene(SceneManager.GetActiveScene().name); transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy); });
-        quitToMenuButtonPress.onClick.AddListener(() => { SceneManager.LoadScene(0); transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy); });
-        quitToDesktopButtonPress.onClick.AddListener(() => { Application.Quit(); transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy); });
+        retryButtonPress.onClick.AddListener(() => {
+                                                        transform.parent.Find("Codec").gameObject.GetComponent<Codec>().stopAll();
+                                                        transform.parent.Find("Codec").gameObject.SetActive(false);
+                                                        transform.parent.Find("Fade/Fade").gameObject.SetActive(false);
+                                                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                                                        transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy);
+                                                   });
+        quitToMenuButtonPress.onClick.AddListener(() => {
+                                                            transform.parent.Find("Codec").gameObject.GetComponent<Codec>().stopAll();
+                                                            transform.parent.Find("Codec").gameObject.SetActive(false);
+                                                            transform.parent.Find("Fade/Fade").gameObject.SetActive(false);
+                                                            SceneManager.LoadScene(0);
+                                                            transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy);
+                                                        });
+        quitToDesktopButtonPress.onClick.AddListener(() => {
+                                                                Application.Quit();
+                                                           });
         lastInput = 0.0f;
     }
 

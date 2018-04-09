@@ -19,6 +19,8 @@ public class Codec : MonoBehaviour
     string[] allLines;
     int currentString;
     int currentPos;
+    Coroutine mikeCR;
+    Coroutine typingCR;
 
     void Awake()
     {
@@ -45,14 +47,14 @@ public class Codec : MonoBehaviour
         transform.Find("Text Line 2").GetComponent<Text>().text = "";
         currentString = Random.Range(0, allLines.Length);
         currentPos = 0;
-        Time.timeScale = 0;
-        StartCoroutine(mikeTalking());
-        StartCoroutine(textType());
+        //Time.timeScale = 0;
+        mikeCR = StartCoroutine(mikeTalking());
+        typingCR = StartCoroutine(textType());
     }
 
     void OnDisable()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         transform.Find("Text Line").GetComponent<Text>().text = "";
         transform.Find("Text Line 2").GetComponent<Text>().text = "";
         currentPos = 0;
@@ -72,7 +74,7 @@ public class Codec : MonoBehaviour
         transform.Find("Mike Highlight").gameObject.SetActive(!transform.Find("Mike Highlight").gameObject.activeInHierarchy);
         transform.Find("Bar").GetComponent<RawImage>().texture = allBars[Random.Range(0, 9)];
         yield return new WaitForSecondsRealtime(Random.Range(0.1f, 0.5f));
-        StartCoroutine(mikeTalking());
+        mikeCR = StartCoroutine(mikeTalking());
     }
 
     IEnumerator textType()
@@ -83,15 +85,21 @@ public class Codec : MonoBehaviour
             transform.Find("Text Line 2").GetComponent<Text>().text += "" + (allLines[currentString])[currentPos];
             currentPos++;
             yield return new WaitForSecondsRealtime(0.1f);
-            StartCoroutine(textType());
+            typingCR = StartCoroutine(textType());
         }
         else
         {
-            StopCoroutine(mikeTalking());
+            StopCoroutine(mikeCR);
             transform.Find("Mike Highlight").gameObject.SetActive(false);
             transform.Find("Bar").gameObject.SetActive(false);
             yield return new WaitForSecondsRealtime(3.0f);
             transform.gameObject.SetActive(false);
         }
+    }
+    
+    public void stopAll()
+    {
+        StopCoroutine(mikeCR);
+        StopCoroutine(typingCR);
     }
 }

@@ -52,45 +52,51 @@ public class GlobalLogic : MonoBehaviour
                 transform.Find("Global Menu").gameObject.SetActive(!transform.Find("Global Menu").gameObject.activeInHierarchy);
             }
 
-            if ((SceneManager.GetActiveScene().name == "Super Seoul Ball 3D") && (Time.timeSinceLevelLoad > 15.0f))
+            if ((SceneManager.GetActiveScene().name == "Super Seoul Ball 3D") && (Time.timeSinceLevelLoad > 5.0f))
             {
-                transform.Find("Codec").gameObject.SetActive(true);
-                SceneManager.LoadScene(2);
-            }
-
-            if ((SceneManager.GetActiveScene().name == "Density") && (Time.timeSinceLevelLoad > 15.0f))
-            {
-                transform.Find("Codec").gameObject.SetActive(true);
-                SceneManager.LoadScene(3);
-            }
-
-            if ((SceneManager.GetActiveScene().name == "Alley Combatant") && (Time.timeSinceLevelLoad > 5.0f))
-            {
-                transform.Find("Codec").gameObject.SetActive(true);
-                SceneManager.LoadScene(4);
-            }
-
-            if ((SceneManager.GetActiveScene().name == "Flaming Symbol") && (Time.timeSinceLevelLoad > 15.0f))
-            {
-                transform.Find("Codec").gameObject.SetActive(true);
-                SceneManager.LoadScene(5);
-            }
-
-            if ((SceneManager.GetActiveScene().name == "Super Seoul Sisters") && (Time.timeSinceLevelLoad > 15.0f))
-            {
-                transform.Find("Codec").gameObject.SetActive(true);
-                SceneManager.LoadScene(8);
-            }
-
-            if ((SceneManager.GetActiveScene().name == "Western Dentist") && (Time.timeSinceLevelLoad > 5.0f))
-            {
-                transform.Find("Codec").gameObject.SetActive(true);
-                SceneManager.LoadScene(0);
+                StartCoroutine(fadeOut());
             }
         }
         else
         {
             transform.Find("Timer").gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator fadeOut()
+    {
+        transform.Find("Fade/Fade").gameObject.SetActive(true);
+        Time.timeScale = 0;
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.Find("Fade/Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
+            yield return null;
+        }
+        //transform.Find("Fade/Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 0);
+        transform.Find("Codec").gameObject.SetActive(true);
+        StartCoroutine(fadeIn());
+    }
+
+    IEnumerator fadeIn()
+    {
+        yield return new WaitWhile(() => transform.Find("Codec").gameObject.activeInHierarchy);
+        SceneManager.LoadScene(2);
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.Find("Fade/Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 1 - t);
+            yield return null;
+        }
+        transform.Find("Codec").gameObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    void pauseTimer()
+    {
+
+    }
+
+    void resumeTimer()
+    {
+
     }
 }
