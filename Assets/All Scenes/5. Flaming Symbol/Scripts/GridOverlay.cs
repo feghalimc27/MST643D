@@ -47,7 +47,7 @@ public class GridOverlay : MonoBehaviour {
                 int movStat = selectedUnit.GetComponent<FEFriendlyUnit>().mov;
                 int range = selectedUnit.GetComponent<FEFriendlyUnit>().range;
 
-                float movTileLimit = movStat / 2;
+                float movTileLimit = (float)movStat / 2;
                 float atkTileLimit = (float)(movStat + range) / 2;
 
                 if (Mathf.Abs(localX) + Mathf.Abs(localY) <= movTileLimit) {
