@@ -17,6 +17,9 @@ public class SelectionCursor : MonoBehaviour {
 	private float endPosPlusY;
 	private float endPosMinusY;
 
+	[SerializeField]
+	private GameObject[] blocking = new GameObject[4];
+
     [SerializeField]
     private float deadzone = 0.4f;
 
