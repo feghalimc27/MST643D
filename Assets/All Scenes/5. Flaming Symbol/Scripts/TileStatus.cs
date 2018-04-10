@@ -17,18 +17,6 @@ public class TileStatus : MonoBehaviour {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 	}
 
-    void OnTriggerStay2D (Collider2D collision) {
-        if (collision.gameObject.layer == 9) {
-            blocked = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision) {
-        if (collision.gameObject.layer == 9) {
-            blocked = false;
-        }
-    }
-
     // Update is called once per frame
     void Update () {
 		if (active && !blocked) {
