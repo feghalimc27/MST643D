@@ -8,6 +8,8 @@ public class TileStatus : MonoBehaviour {
     public bool blocked = false;
     public int type; // 0 = mov 1 = atk
 
+    public bool enemyTile = false;
+
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private Sprite atk, mov;
@@ -16,6 +18,18 @@ public class TileStatus : MonoBehaviour {
 	void Start () {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 	}
+
+    void OnTriggerStay2D(Collider2D collision) {
+        if (collision.gameObject.tag == "Enemy") {
+            enemyTile = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.tag == "Enemy") {
+            enemyTile = false;
+        }
+    }
 
     // Update is called once per frame
     void Update () {
@@ -33,6 +47,10 @@ public class TileStatus : MonoBehaviour {
             case 1: // atk
                 spriteRenderer.sprite = atk;
                 break;
+        }
+
+        if (enemyTile) {
+            spriteRenderer.sprite = atk;
         }
 	}
 }

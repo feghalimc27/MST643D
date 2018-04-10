@@ -68,7 +68,6 @@ public class GridOverlay : MonoBehaviour {
 
                 if (Mathf.Abs(localX) + Mathf.Abs(localY) > movTileLimit && Mathf.Abs(localX) + Mathf.Abs(localY) <= atkTileLimit && visible) {
                     tile.type = 1;
-                    if ()
                     tile.active = true;
                 }
             }

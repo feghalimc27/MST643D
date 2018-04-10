@@ -8,6 +8,9 @@ public class FEFriendlyUnit : MonoBehaviour {
 	[SerializeField]
 	private int hp, xp;
 
+    [HideInInspector]
+    public bool turnOver = false;
+
 	// Use this for initialization
 	void Start () {
 		hp = maxHp;
@@ -16,7 +19,7 @@ public class FEFriendlyUnit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        SetColor();
 	}
 
 	public void TakeDamage(int attack, int type) {
@@ -37,4 +40,15 @@ public class FEFriendlyUnit : MonoBehaviour {
 
 		hp -= damage;
 	}
+
+    void SetColor() {
+        switch(turnOver) {
+            case true:
+                GetComponent<SpriteRenderer>().color = Color.gray;
+                break;
+            case false:
+                GetComponent<SpriteRenderer>().color = Color.white;
+                break;
+        }
+    }
 }

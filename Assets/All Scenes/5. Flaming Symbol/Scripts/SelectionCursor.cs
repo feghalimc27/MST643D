@@ -145,7 +145,7 @@ public class SelectionCursor : MonoBehaviour {
 
 	void SelectUnit() {
 		if (player != null) {
-			if (Input.GetButtonDown("Jump") && !unitSelected) {
+			if (Input.GetButtonDown("Jump") && !unitSelected && !player.GetComponent<FEFriendlyUnit>().turnOver) {
 				unitSelected = true;
 
 				startPos = player.transform.position;
@@ -158,8 +158,9 @@ public class SelectionCursor : MonoBehaviour {
 			}
 			else if (Input.GetButtonDown("Jump") && unitSelected) {
 				unitSelected = false;
+                player.GetComponent<FEFriendlyUnit>().turnOver = true;
 
-				movCountX = 0;
+                movCountX = 0;
 				movCountY = 0;
 			}
 		}
