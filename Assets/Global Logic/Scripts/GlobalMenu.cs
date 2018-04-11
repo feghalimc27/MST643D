@@ -20,11 +20,14 @@ public class GlobalMenu : MonoBehaviour
         Button quitToMenuButtonPress = quitToMenuButton.GetComponent<Button>();
         Button quitToDesktopButtonPress = quitToDesktopButton.GetComponent<Button>();
         retryButtonPress.onClick.AddListener(() => {
-                                                        transform.parent.Find("Codec").gameObject.GetComponent<Codec>().stopAll();
-                                                        transform.parent.Find("Codec").gameObject.SetActive(false);
-                                                        transform.parent.Find("Fade/Fade").gameObject.SetActive(false);
-                                                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                                                        transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy);
+                                                        if (!(transform.parent.Find("Fade/Fade").gameObject.activeInHierarchy))
+                                                        {
+                                                            transform.parent.Find("Codec").gameObject.GetComponent<Codec>().stopAll();
+                                                            transform.parent.Find("Codec").gameObject.SetActive(false);
+                                                            transform.parent.Find("Fade/Fade").gameObject.SetActive(false);
+                                                            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                                                            transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy);
+                                                        }
                                                    });
         quitToMenuButtonPress.onClick.AddListener(() => {
                                                             transform.parent.Find("Codec").gameObject.GetComponent<Codec>().stopAll();
@@ -54,6 +57,15 @@ public class GlobalMenu : MonoBehaviour
 
     void Update()
     {
+        if (transform.parent.Find("Fade/Fade").gameObject.activeInHierarchy)
+        {
+            retryButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1);
+        }
+        else
+        {
+            retryButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+
         if (currentEventSystem.currentSelectedGameObject == retryButton.gameObject)
         {
             if (Input.GetAxisRaw("Vertical") > 0.1 && Time.unscaledTime > lastInput + 0.25f)
