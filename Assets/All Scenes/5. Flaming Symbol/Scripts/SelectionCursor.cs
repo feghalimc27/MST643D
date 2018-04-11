@@ -206,14 +206,16 @@ public class SelectionCursor : MonoBehaviour {
 		int enemyChance = accuracy + enemyStats.skl * 2 + enemyStats.lck / 2;
 
 		bool playerHit = (Random.Range(0, 100) <= playerChance);
+		Debug.Log("Player hit: " + playerHit);
 		bool enemyHit = (Random.Range(0, 100) <= enemyChance);
+		Debug.Log("Enemy hit:" + enemyHit);
 
 		if (playerHit) {
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
 			int damage = playerStats.atk - enemyStats.def;
 
-			if (damage <= 0) {
-				damage = 0;
+			if (damage <= 1) {
+				damage = 1;
 			}
 
 			if (crit) {
@@ -227,15 +229,15 @@ public class SelectionCursor : MonoBehaviour {
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
 			int damage = enemyStats.atk - playerStats.def;
 
-			if (damage <= 0) {
-				damage = 0;
+			if (damage <= 1) {
+				damage = 1;
 			}
 
 			if (crit) {
 				damage *= 3;
 			}
 
-			player.GetComponent<FEFriendlyUnit>().TakeDamage(damage);
+			player.GetComponent<FEFriendlyUnit>().SendMessage("TakeDamage", damage);
 		}
 	}
 }
