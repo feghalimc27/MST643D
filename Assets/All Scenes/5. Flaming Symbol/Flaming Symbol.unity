@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641234, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2308,6 +2308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocked: 0
   canAttack: 0
+  enemy: {fileID: 0}
 --- !u!1001 &99360405
 Prefab:
   m_ObjectHideFlags: 0
@@ -14548,6 +14549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocked: 0
   canAttack: 0
+  enemy: {fileID: 0}
 --- !u!4 &594334853 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4064954233302522, guid: eeac1e7c7a21ce74d9780be4f593222f,
@@ -27360,7 +27362,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4244072408203914, guid: d2b8ac1076f04824084544fc73169664, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4244072408203914, guid: d2b8ac1076f04824084544fc73169664, type: 2}
       propertyPath: m_LocalPosition.y
@@ -27389,18 +27391,6 @@ Prefab:
     - target: {fileID: 4244072408203914, guid: d2b8ac1076f04824084544fc73169664, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4244072408203914, guid: d2b8ac1076f04824084544fc73169664, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4244072408203914, guid: d2b8ac1076f04824084544fc73169664, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4244072408203914, guid: d2b8ac1076f04824084544fc73169664, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2b8ac1076f04824084544fc73169664, type: 2}
@@ -41100,6 +41090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocked: 0
   canAttack: 0
+  enemy: {fileID: 0}
 --- !u!1001 &1762752865
 Prefab:
   m_ObjectHideFlags: 0
@@ -43495,6 +43486,7 @@ MonoBehaviour:
   def: 27
   spd: 47
   res: 28
+  skl: 14
   lck: 11
   mov: 6
   range: 1
@@ -46982,6 +46974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocked: 0
   canAttack: 0
+  enemy: {fileID: 0}
 --- !u!1001 &2047442310
 Prefab:
   m_ObjectHideFlags: 0
