@@ -57,6 +57,8 @@ public class GlobalMenu : MonoBehaviour
 
     void Update()
     {
+        Time.timeScale = 0;
+
         if (transform.parent.Find("Fade/Fade").gameObject.activeInHierarchy)
         {
             retryButton.GetComponent<Image>().color = new Color(0.25f, 0.25f, 0.25f, 1);

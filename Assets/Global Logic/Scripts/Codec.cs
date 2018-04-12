@@ -25,6 +25,7 @@ public class Codec : MonoBehaviour
     Coroutine mikeCR;
     Coroutine typingCR;
     int currentLevel;
+    string selectedLine;
 
     void Awake()
     {
@@ -38,11 +39,9 @@ public class Codec : MonoBehaviour
                                   "Sure is taking you a while to beat this game, huh?\nI'm not even sure you'll finish, at this rate.",
                                   "Who named these games anyways? It's pretty obvious everything is just ripped off.\nLike, Alley Combatant? Obviously just Stree-",
                                   "Ban wobbling.",
-                                  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                                   "Merry, turn the game console off right now!\nThe mission is a failure! Cut the power right now!",
                                   "Are you alright?\nSnake?\nSnake!?\nSNAAAAAKE!",
-                                  "Hike Maze died for this.",
-                                  "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start." };
+                                  "Hike Maze died for this." };
         levelOrder = new int[] { 2, 3, 4, 5, 6, 7, 8 };
         for (int i = 0; i < levelOrder.Length; i++)
         {
@@ -57,7 +56,26 @@ public class Codec : MonoBehaviour
     void OnEnable()
     {
         levelLoader = SceneManager.LoadSceneAsync(levelOrder[currentLevel], LoadSceneMode.Single);
-        currentLevel++;
+        if (currentLevel == 0)
+        {
+            selectedLine = "Hello? Is this thing on?\nOh.\nHa Ha! I have finally caught you Merry, and now you must pay, in the form of video games!\nCan you survive? Good luck.";
+        }
+        else if (levelOrder[currentLevel] == 0)
+        {
+            selectedLine = ".   .   .\nHuh?\nOh, it's you. You haven't given up yet? The \"Quit to Desktop\" button is right there, you know?\nOh well, looks like I'll have to take matters into my own, pixelated hands!\nYou face the Haze!";
+        }
+        else
+        {
+            selectedLine = allLines[currentString];
+        }
+        if (currentLevel == (levelOrder.Length - 1))
+        {
+            levelOrder[currentLevel] = 0; //DEBUG, set to boss later
+        }
+        else
+        {
+            currentLevel++;
+        }
         transform.Find("Text Line").GetComponent<Text>().text = "";
         transform.Find("Text Line 2").GetComponent<Text>().text = "";
         currentString = Random.Range(0, allLines.Length);
@@ -77,9 +95,9 @@ public class Codec : MonoBehaviour
     {
         if (Input.GetButtonDown("Submit"))
         {
-            currentPos = allLines[currentString].Length;
-            transform.Find("Text Line").GetComponent<Text>().text = allLines[currentString];
-            transform.Find("Text Line 2").GetComponent<Text>().text = allLines[currentString];
+            currentPos = selectedLine.Length;
+            transform.Find("Text Line").GetComponent<Text>().text = selectedLine;
+            transform.Find("Text Line 2").GetComponent<Text>().text = selectedLine;
         }
     }
 
@@ -94,10 +112,10 @@ public class Codec : MonoBehaviour
 
     IEnumerator textType()
     {
-        if (currentPos < allLines[currentString].Length)
+        if (currentPos < selectedLine.Length)
         {
-            transform.Find("Text Line").GetComponent<Text>().text += "" + (allLines[currentString])[currentPos];
-            transform.Find("Text Line 2").GetComponent<Text>().text += "" + (allLines[currentString])[currentPos];
+            transform.Find("Text Line").GetComponent<Text>().text += "" + selectedLine[currentPos];
+            transform.Find("Text Line 2").GetComponent<Text>().text += "" + selectedLine[currentPos];
             currentPos++;
             yield return new WaitForSecondsRealtime(0.1f);
             typingCR = StartCoroutine(textType());
@@ -115,7 +133,11 @@ public class Codec : MonoBehaviour
     
     public void stopAll()
     {
-        StopCoroutine(mikeCR);
-        StopCoroutine(typingCR);
+        if (mikeCR != null && typingCR != null)
+        {
+            StopCoroutine(mikeCR);
+            StopCoroutine(typingCR);
+        }
+        
     }
 }

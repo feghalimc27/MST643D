@@ -13,8 +13,6 @@ public class GlobalLogic : MonoBehaviour
     
     public static bool finalBossKilled;
 
-    bool pauseTimer;
-
     void Awake ()
     {
 		if (!currentInstance)
@@ -29,7 +27,6 @@ public class GlobalLogic : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         startTime = -1;
         finalBossKilled = false;
-        pauseTimer = true;
     }
 	
 	void Update ()
@@ -38,13 +35,13 @@ public class GlobalLogic : MonoBehaviour
         {
             if ((SceneManager.GetActiveScene().name != "Super Seoul Ball 3D") && (startTime == -1) && (!(transform.Find("Codec").gameObject.activeInHierarchy)))
             {
-                startTime = Time.unscaledTime;
+                startTime = Time.time;
                 transform.Find("Timer").gameObject.SetActive(true);
             }
 
-            if ((SceneManager.GetActiveScene().name != "Super Seoul Ball 3D") && (transform.Find("Timer").gameObject.activeInHierarchy == true) && (finalBossKilled == false)  && (pauseTimer == false))
+            if ((SceneManager.GetActiveScene().name != "Super Seoul Ball 3D") && (transform.Find("Timer").gameObject.activeInHierarchy == true) && (finalBossKilled == false))
             {
-                currentTime = Time.unscaledTime - startTime;
+                currentTime = Time.time - startTime;
                 transform.Find("Timer/Timer Minutes").GetComponent<Text>().text = ((int)(currentTime / 60)).ToString("00");
                 transform.Find("Timer/Timer Seconds").GetComponent<Text>().text = ((int)(currentTime % 60)).ToString("00");
                 transform.Find("Timer/Timer Milliseconds").GetComponent<Text>().text = (((int)(currentTime * 100f) % 100)).ToString("00");
@@ -55,7 +52,7 @@ public class GlobalLogic : MonoBehaviour
                 transform.Find("Global Menu").gameObject.SetActive(!transform.Find("Global Menu").gameObject.activeInHierarchy);
             }
 
-            if ((SceneManager.GetActiveScene().name == "Super Seoul Ball 3D") && (Time.timeSinceLevelLoad > 5.0f))
+            if (Time.timeSinceLevelLoad > 15.0f)
             {
                 StartCoroutine(fadeOut());
             }
@@ -69,7 +66,6 @@ public class GlobalLogic : MonoBehaviour
     IEnumerator fadeOut()
     {
         Time.timeScale = 0;
-        pauseTimer = true;
         transform.Find("Fade/Fade").gameObject.SetActive(true);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
@@ -83,7 +79,7 @@ public class GlobalLogic : MonoBehaviour
             transform.Find("Fade/Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 1 - t);
             yield return null;
         }
-        pauseTimer = false;
+        transform.Find("Fade/Fade").gameObject.SetActive(false);
         Time.timeScale = 1;
     }
 }
