@@ -39,4 +39,8 @@ public class FEFriendlyUnit : MonoBehaviour {
                 break;
         }
     }
+
+    public int GetCurrentHP() {
+        return hp;
+    }
 }

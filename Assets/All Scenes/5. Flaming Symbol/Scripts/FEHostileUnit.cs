@@ -28,7 +28,11 @@ public class FEHostileUnit : MonoBehaviour {
 		hp -= damage;
 	}
 
-	IEnumerator FadeAway() {
+    public int GetCurrentHP() {
+        return hp;
+    }
+
+    IEnumerator FadeAway() {
 		for (float i = 1; i >= 0; i -= 0.03f) {
 			Color c = gameObject.GetComponent<SpriteRenderer>().material.color;
 

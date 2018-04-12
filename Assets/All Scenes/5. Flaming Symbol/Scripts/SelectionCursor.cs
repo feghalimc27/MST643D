@@ -9,7 +9,10 @@ public class SelectionCursor : MonoBehaviour {
     private float speed = 0.5f;
     private int coolCounter = 0;
 
-    private GameObject player = null;
+    [HideInInspector]
+    public GameObject player = null;
+    [HideInInspector]
+    public GameObject enemy = null;
 
 	private Vector3 startPos;
 	private float endPosPlusX;
@@ -184,7 +187,6 @@ public class SelectionCursor : MonoBehaviour {
 
 	void LoadAttackState() {
 		FEFriendlyUnit playerStats = player.GetComponent<FEFriendlyUnit>();
-		GameObject enemy = null;
 		FEHostileUnit enemyStats = null;
 
 		int accuracy = 69;
@@ -223,9 +225,13 @@ public class SelectionCursor : MonoBehaviour {
 			}
 
 			enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>().SendMessage("TakeDamage", damage);
-		}
+            if (damage >= enemyStats.maxHp) {
+                enemy = null;
+            }
 
-		if (enemyStats) {
+        }
+
+        if (enemyStats) {
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
 			int damage = enemyStats.atk - playerStats.def;
 
