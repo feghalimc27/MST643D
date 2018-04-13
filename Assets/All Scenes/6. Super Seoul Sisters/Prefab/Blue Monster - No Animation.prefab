@@ -25,8 +25,10 @@ GameObject:
   - component: {fileID: 61986526480523960}
   - component: {fileID: 114051532428947580}
   - component: {fileID: 68242642163608844}
+  - component: {fileID: 95981640919165836}
+  - component: {fileID: 114963735678884460}
   m_Layer: 0
-  m_Name: Monster
+  m_Name: Blue Monster - No Animation
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,8 +40,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1777350816903892}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.83, y: -3.04, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.20629787, y: 1.2793528, z: -0.32851225}
   m_LocalScale: {x: 0.07437364, y: 0.07437361, z: 0.07437361}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,6 +112,23 @@ EdgeCollider2D:
   - {x: 2.3132617, y: 1.4410722}
   - {x: 2.3153775, y: 1.3662834}
   - {x: 2.31607, y: 0.4575126}
+--- !u!95 &95981640919165836
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777350816903892}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 06181c36466368848b550b2b309c1c28, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114051532428947580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,11 +152,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpeed: 1.7
-  xMoveDirection: 1
+  xMoveDirection: -1
   xMove: 0
   thingy: 0.106
   diediedie: 0.9
   _player_health: {fileID: 0}
+--- !u!114 &114963735678884460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777350816903892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39762ae92b485d44699a0e61aac459f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MySliderValue: 0
 --- !u!212 &212249008450140344
 SpriteRenderer:
   m_ObjectHideFlags: 1

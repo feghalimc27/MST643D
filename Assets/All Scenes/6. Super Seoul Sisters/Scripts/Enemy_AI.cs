@@ -29,7 +29,6 @@ public class Enemy_AI : MonoBehaviour {
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 hit.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                hit.collider.gameObject.GetComponent<EdgeCollider2D>().enabled = false;
                 //hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
 

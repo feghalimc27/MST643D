@@ -5,12 +5,12 @@ using UnityEngine;
 public class Character_Move : MonoBehaviour {
 
     public float playerSpeed = 3;
-    private bool facingRight = false;
     public int hasJumped = 0;
     public int playerJumpPower = 500;
     private float moveX;
     public int onGround = 1;
     public Player_Health _player_health;
+    public float raycastDown = .3f;
 
     // Update is called once per frame
     void Update () {
@@ -29,29 +29,28 @@ public class Character_Move : MonoBehaviour {
             Jump();
         }
 
-        // determine what way the character is facing
-        if(facingRight == false && moveX < 0.0f)
+        //animations
+        if(moveX != 0)
         {
-            FlipCharacter();
+            GetComponent<Animator>().SetBool("isRunning", true);
         }
-        else if(facingRight == true && moveX > 0.0f)
+        else
         {
-            FlipCharacter();
+            GetComponent<Animator>().SetBool("isRunning", false);
+        }
+
+        // determine what way the character is facing
+        if(moveX < 0.0f)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if(moveX > 0.0f)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
         }
 
         // physics stuff
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, gameObject.GetComponent<Rigidbody2D>().velocity.y);
-    }
-
-    void FlipCharacter()
-    {  
-        // flip character
-        facingRight = !facingRight;
-        // create new vector
-        Vector2 localScale = gameObject.transform.localScale;
-        // flip basically
-        localScale.x *= -1;
-        transform.localScale = localScale;
     }
 
     void Jump()
@@ -73,7 +72,7 @@ public class Character_Move : MonoBehaviour {
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
 
-        if (hit != null && hit.collider != null && hit.distance < 0.3f && hit.collider.tag == "Enemy")
+        if (hit != null && hit.collider != null && hit.distance < raycastDown && hit.collider.tag == "Enemy")
         {
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
 
@@ -90,7 +89,7 @@ public class Character_Move : MonoBehaviour {
             }
         }
 
-        if (hit != null && hit.collider != null && hit.distance < 0.3f && hit.collider.tag != "Enemy")
+        if (hit != null && hit.collider != null && hit.distance < raycastDown && hit.collider.tag != "Enemy")
         {
             onGround = 0;
         }
