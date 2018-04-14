@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class FEHostileUnit : MonoBehaviour {
 
-	public int atk, mag, def, spd, res, lck, mov, range, maxHp, level, xpToLevel;
+	public int atk, mag, def, spd, res, skl, lck, mov, range, maxHp, level, xpToLevel;
 	[SerializeField]
 	private int hp, xp;
+
+	private Coroutine fade;
 
 	// Use this for initialization
 	void Start() {
@@ -17,31 +19,23 @@ public class FEHostileUnit : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (hp <= 0) {
-			StartCoroutine("FadeAway");
+			hp = 0;
+			fade = StartCoroutine("FadeAway");
 		}
 	}
 
 	// type 0 = physical 1 = magic
-	public void TakeDamage(int attack, int type) {
-		int damage = 0;
-
-		if (type == 0) {
-			damage = attack - def;
-			if (damage >= 0) {
-				damage = 0;
-			}
-		}
-		else if (type == 1) {
-			damage = attack - res;
-			if (damage >= 0) {
-				damage = 0;
-			}
-		}
+	public void TakeDamage(int damage) {
+		int type = 0;
 
 		hp -= damage;
 	}
 
-	IEnumerator FadeAway() {
+    public int GetCurrentHP() {
+        return hp;
+    }
+
+    IEnumerator FadeAway() {
 		for (float i = 1; i >= 0; i -= 0.03f) {
 			Color c = gameObject.GetComponent<SpriteRenderer>().material.color;
 
@@ -49,10 +43,13 @@ public class FEHostileUnit : MonoBehaviour {
 			gameObject.GetComponent<SpriteRenderer>().material.color = c;
 
 			if (c.a <= 0) {
-				gameObject.SetActive(false);
+				this.gameObject.transform.position = new Vector3(10000000, 10000000, 10000000);
 			}
 
 			yield return null;
 		}
+
+		StopCoroutine(fade);
+		Object.Destroy(this.gameObject);
 	}
 }

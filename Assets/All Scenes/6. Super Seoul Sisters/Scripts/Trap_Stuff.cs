@@ -9,7 +9,7 @@ public class Trap_Stuff : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//PlayerRaycast();
+		PlayerRaycast();
 	}
 
 	void PlayerRaycast()
@@ -17,7 +17,7 @@ public class Trap_Stuff : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
         if (hit.collider.tag == "Player")
             {
-                //Destroy(hit.collider.gameObject);
+                Destroy(hit.collider.gameObject);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 10;
@@ -28,7 +28,7 @@ public class Trap_Stuff : MonoBehaviour {
                 hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
 
-                //pH.Die();
+                pH.Die();
             }
 
 			
@@ -36,7 +36,7 @@ public class Trap_Stuff : MonoBehaviour {
 	
 	private void OnTriggerEnter2D(Collider2D trap)
     {
-        if (trap.name == "Weeb")
+        if (trap.name == "Merry")
         {
             pH.Die();
         }

@@ -9,7 +9,10 @@ public class SelectionCursor : MonoBehaviour {
     private float speed = 0.5f;
     private int coolCounter = 0;
 
-    private GameObject player = null;
+    [HideInInspector]
+    public GameObject player = null;
+    [HideInInspector]
+    public GameObject enemy = null;
 
 	private Vector3 startPos;
 	private float endPosPlusX;
@@ -38,6 +41,7 @@ public class SelectionCursor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		MoveCursor();
+		GetEnemy();
 		SelectUnit();
 		UpdateCounter();
 	}
@@ -157,6 +161,9 @@ public class SelectionCursor : MonoBehaviour {
 				endPosMinusY = startPos.y - movRange;
 			}
 			else if (Input.GetButtonDown("Jump") && unitSelected) {
+				if (enemy != null) {
+					LoadAttackState();
+				}
 				unitSelected = false;
                 player.GetComponent<FEFriendlyUnit>().turnOver = true;
 
@@ -178,6 +185,99 @@ public class SelectionCursor : MonoBehaviour {
 	void UpdateCounter() {
 		if (coolCounter > 0) {
 			coolCounter--;
+		}
+	}
+
+	void GetEnemy() {
+		foreach (var block in blocking) {
+			if (block.GetComponent<CursorBlock>().enemy != null) {
+				enemy = block;
+				break;
+			}
+			else {
+				enemy = null;
+			}
+		}
+	}
+
+	void LoadAttackState() {
+		FEFriendlyUnit playerStats = player.GetComponent<FEFriendlyUnit>();
+		FEHostileUnit enemyStats = null;
+
+		enemyStats = enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>();
+
+		int accuracy = 69;
+
+		if (enemyStats == null) {
+			Debug.Log("No Enemy");
+			return;
+		}
+
+		int playerChance = accuracy + playerStats.skl * 2 + playerStats.lck / 2;
+		int enemyChance = accuracy + enemyStats.skl * 2 + enemyStats.lck / 2;
+
+		bool playerHit = (Random.Range(0, 100) <= playerChance);
+		bool enemyHit = (Random.Range(0, 100) <= enemyChance);
+
+		if (playerHit) {
+			StartCoroutine("AttackAnimation");
+
+			bool crit = (Random.Range(0, 100) <= playerStats.lck);
+			int damage = playerStats.atk - enemyStats.def;
+
+			if (damage <= 1) {
+				damage = 1;
+			}
+
+			if (crit) {
+				damage *= 3;
+			}
+
+			enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>().SendMessage("TakeDamage", damage);
+            if (damage >= enemyStats.maxHp) {
+                enemy = null;
+            }
+
+        }
+
+		if (enemyStats && enemy != null) {
+			bool crit = (Random.Range(0, 100) <= playerStats.lck);
+			int damage = enemyStats.atk - playerStats.def;
+
+			if (damage <= 1) {
+				damage = 1;
+			}
+
+			if (crit) {
+				damage *= 3;
+			}
+
+			player.GetComponent<FEFriendlyUnit>().SendMessage("TakeDamage", damage);
+		}
+	}
+
+	IEnumerator AttackAnimation() {
+
+		Vector3 playerPos = player.transform.position;
+		float animScale = 0.04f;
+		Vector3 direction = (enemy.transform.position - playerPos).normalized;
+
+		int i = 0;
+
+		for (i = 0; i < 5; ++i) {
+			playerPos += direction * animScale;
+			player.transform.position = playerPos;
+
+			yield return null;
+		}
+
+		if (i >= 4) {
+			for (i = 5; i < 10; ++i) {
+				playerPos -= direction * animScale;
+				player.transform.position = playerPos;
+
+				yield return null;
+			}
 		}
 	}
 }

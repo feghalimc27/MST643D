@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FEFriendlyUnit : MonoBehaviour {
 
-	public int atk, mag, def, spd, res, lck, mov, range, maxHp, level, xpToLevel;
+	public int atk, mag, def, spd, res, skl, lck, mov, range, maxHp, level, xpToLevel;
 	[SerializeField]
 	private int hp, xp;
 
@@ -22,24 +22,12 @@ public class FEFriendlyUnit : MonoBehaviour {
         SetColor();
 	}
 
-	public void TakeDamage(int attack, int type) {
-		int damage = 0;
-
-		if (type == 0) {
-			damage = attack - def;
-			if (damage >= 0) {
-				damage = 0;
-			}
-		}
-		else if (type == 1) {
-			damage = attack - res;
-			if (damage >= 0) {
-				damage = 0;
-			}
-		}
+	public void TakeDamage(int damage) {
+		int type = 0;
 
 		hp -= damage;
 	}
+
 
     void SetColor() {
         switch(turnOver) {
@@ -50,5 +38,9 @@ public class FEFriendlyUnit : MonoBehaviour {
                 GetComponent<SpriteRenderer>().color = Color.white;
                 break;
         }
+    }
+
+    public int GetCurrentHP() {
+        return hp;
     }
 }

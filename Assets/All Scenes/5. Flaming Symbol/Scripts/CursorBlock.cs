@@ -6,6 +6,7 @@ public class CursorBlock : MonoBehaviour {
 
 	public bool blocked = false;
     public bool canAttack = false;
+	public GameObject enemy = null;
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +20,7 @@ public class CursorBlock : MonoBehaviour {
 
         if (collision.gameObject.tag == "Enemy") {
             canAttack = true;
+			enemy = collision.gameObject;
         }
 	}
 
@@ -29,6 +31,7 @@ public class CursorBlock : MonoBehaviour {
 
         if (collision.gameObject.tag == "Enemy") {
             canAttack = false;
+			enemy = null;
         }
     }
 
