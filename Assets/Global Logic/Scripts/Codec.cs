@@ -18,10 +18,9 @@ public class Codec : MonoBehaviour
     public AsyncOperation levelLoader;
 
     Texture[] allBars;
-    string[] allLines;
     int[] levelOrder;
-    int currentString;
     int currentPos;
+    Coroutine startCR;
     Coroutine mikeCR;
     Coroutine typingCR;
     int currentLevel;
@@ -30,18 +29,6 @@ public class Codec : MonoBehaviour
     void Awake()
     {
         allBars = new Texture[] { bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9 };
-        allLines = new string[] { "I used to be able to keep going with these lines, you know.\nThough whoever coded them got lazy I guess.",
-                                  "I can't let you do that, Starmerry.",
-                                  "Mo has been fired " + Random.Range(500, 50000) + " times, apparently.",
-                                  "Ha ha! This next game will be your end!\nI have no idea what game it is, though, since whoever wrote these lines got too lazy.",
-                                  "Who named this game?\nWhat does Merry Seoul Thoughts even stand for?",
-                                  "I fight for my friends.",
-                                  "Sure is taking you a while to beat this game, huh?\nI'm not even sure you'll finish, at this rate.",
-                                  "Who named these games anyways? It's pretty obvious everything is just ripped off.\nLike, Alley Combatant? Obviously just Stree-",
-                                  "Ban wobbling.",
-                                  "Merry, turn the game console off right now!\nThe mission is a failure! Cut the power right now!",
-                                  "Are you alright?\nSnake?\nSnake!?\nSNAAAAAKE!",
-                                  "Hike Maze died for this." };
         levelOrder = new int[] { 2, 3, 4, 5, 6, 7, 8 };
         for (int i = 0; i < levelOrder.Length; i++)
         {
@@ -58,16 +45,42 @@ public class Codec : MonoBehaviour
         levelLoader = SceneManager.LoadSceneAsync(levelOrder[currentLevel], LoadSceneMode.Single);
         if (currentLevel == 0)
         {
-            selectedLine = "Hello? Is this thing on?\nOh.\nHa Ha! I have finally caught you Merry, and now you must pay, in the form of video games!\nCan you survive? Good luck.";
+            selectedLine = "Start Game";
+        }
+        else if (levelOrder[currentLevel] == 2)
+        {
+            selectedLine = "Density";
+        }
+        else if (levelOrder[currentLevel] == 3)
+        {
+            selectedLine = "Alley Combatant";
+        }
+        else if (levelOrder[currentLevel] == 4)
+        {
+            selectedLine = "Flaming Symbol";
+        }
+        else if (levelOrder[currentLevel] == 5)
+        {
+            selectedLine = "Super Seoul Sisters";
+        }
+        else if (levelOrder[currentLevel] == 6)
+        {
+            selectedLine = "Delve";
+        }
+        else if (levelOrder[currentLevel] == 7)
+        {
+            selectedLine = "Visual Novel";
+        }
+        else if (levelOrder[currentLevel] == 8)
+        {
+            selectedLine = "Western Dentist";
         }
         else if (levelOrder[currentLevel] == 0)
         {
-            selectedLine = ".   .   .\nHuh?\nOh, it's you. You haven't given up yet? The \"Quit to Desktop\" button is right there, you know?\nOh well, looks like I'll have to take matters into my own, pixelated hands!\nYou face the Haze!";
+            selectedLine = "Final Boss";
         }
-        else
-        {
-            selectedLine = allLines[currentString];
-        }
+
+
         if (currentLevel == (levelOrder.Length - 1))
         {
             levelOrder[currentLevel] = 0; //DEBUG, set to boss later
@@ -77,17 +90,13 @@ public class Codec : MonoBehaviour
             currentLevel++;
         }
         transform.Find("Text Line").GetComponent<Text>().text = "";
-        transform.Find("Text Line 2").GetComponent<Text>().text = "";
-        currentString = Random.Range(0, allLines.Length);
         currentPos = 0;
-        mikeCR = StartCoroutine(mikeTalking());
-        typingCR = StartCoroutine(textType());
+        startCR = StartCoroutine(startUp());
     }
 
     void OnDisable()
     {
         transform.Find("Text Line").GetComponent<Text>().text = "";
-        transform.Find("Text Line 2").GetComponent<Text>().text = "";
         currentPos = 0;
     }
 
@@ -97,15 +106,33 @@ public class Codec : MonoBehaviour
         {
             currentPos = selectedLine.Length;
             transform.Find("Text Line").GetComponent<Text>().text = selectedLine;
-            transform.Find("Text Line 2").GetComponent<Text>().text = selectedLine;
         }
+    }
+
+    IEnumerator startUp()
+    {
+        transform.Find("Bar").gameObject.SetActive(true);
+        for (int i = 0; i < 9; i++)
+        {
+            transform.Find("Bar").GetComponent<RawImage>().texture = allBars[i];
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+        yield return new WaitForSecondsRealtime(1.0f);
+        transform.Find("Portraits Center").gameObject.SetActive(true);
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 3)
+        {
+            transform.Find("Portraits Center").localScale = new Vector3(1, Mathf.Pow(t, 2), 1);
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(1.0f);
+        mikeCR = StartCoroutine(mikeTalking());
+        typingCR = StartCoroutine(textType());
     }
 
     IEnumerator mikeTalking()
     {
-        transform.Find("Bar").gameObject.SetActive(true);
-        transform.Find("Mike Highlight").gameObject.SetActive(!transform.Find("Mike Highlight").gameObject.activeInHierarchy);
-        transform.Find("Bar").GetComponent<RawImage>().texture = allBars[Random.Range(0, 9)];
+        transform.Find("Mike Talk").gameObject.SetActive(!transform.Find("Mike Talk").gameObject.activeInHierarchy);
+        transform.Find("Bar").GetComponent<RawImage>().texture = allBars[Random.Range(5, 9)];
         yield return new WaitForSecondsRealtime(Random.Range(0.1f, 0.5f));
         mikeCR = StartCoroutine(mikeTalking());
     }
@@ -115,16 +142,29 @@ public class Codec : MonoBehaviour
         if (currentPos < selectedLine.Length)
         {
             transform.Find("Text Line").GetComponent<Text>().text += "" + selectedLine[currentPos];
-            transform.Find("Text Line 2").GetComponent<Text>().text += "" + selectedLine[currentPos];
             currentPos++;
             yield return new WaitForSecondsRealtime(0.1f);
             typingCR = StartCoroutine(textType());
         }
         else
         {
-            StopCoroutine(mikeCR);
-            transform.Find("Mike Highlight").gameObject.SetActive(false);
+            if (mikeCR != null)
+            {
+                StopCoroutine(mikeCR);
+            }
+            transform.Find("Mike Talk").gameObject.SetActive(false);
+            for (int i = 0; i < 9; i++)
+            {
+                transform.Find("Bar").GetComponent<RawImage>().texture = allBars[8-i];
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
             transform.Find("Bar").gameObject.SetActive(false);
+            for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 3)
+            {
+                transform.Find("Portraits Center").localScale = new Vector3(1, Mathf.Pow(1-t, 2), 1);
+                yield return null;
+            }
+            transform.Find("Portraits Center").gameObject.SetActive(false);
             yield return new WaitForSecondsRealtime(3.0f);
             yield return new WaitUntil(() => levelLoader.isDone);
             transform.gameObject.SetActive(false);
@@ -135,9 +175,9 @@ public class Codec : MonoBehaviour
     {
         if (mikeCR != null && typingCR != null)
         {
+            StopCoroutine(startCR);
             StopCoroutine(mikeCR);
             StopCoroutine(typingCR);
         }
-        
     }
 }
