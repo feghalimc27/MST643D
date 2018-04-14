@@ -32,15 +32,19 @@ public class SelectionCursor : MonoBehaviour {
 
     [HideInInspector]
 	public bool unitSelected = false;
+	private bool attacking = false;
+
+	private Animator playerAnimator;
 
 	// Use this for initialization
 	void Start () {
-
+		
     }
 	
 	// Update is called once per frame
 	void Update () {
 		MoveCursor();
+		HandleAnimations();
 		GetEnemy();
 		SelectUnit();
 		UpdateCounter();
@@ -203,6 +207,8 @@ public class SelectionCursor : MonoBehaviour {
 	void LoadAttackState() {
 		FEFriendlyUnit playerStats = player.GetComponent<FEFriendlyUnit>();
 		FEHostileUnit enemyStats = null;
+		attacking = true;
+		playerAnimator = player.GetComponent<Animator>();
 
 		enemyStats = enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>();
 
@@ -221,6 +227,7 @@ public class SelectionCursor : MonoBehaviour {
 
 		if (playerHit) {
 			StartCoroutine("AttackAnimation");
+			playerAnimator.SetBool("attackPhase", attacking);
 
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
 			int damage = playerStats.atk - enemyStats.def;
@@ -253,6 +260,16 @@ public class SelectionCursor : MonoBehaviour {
 			}
 
 			player.GetComponent<FEFriendlyUnit>().SendMessage("TakeDamage", damage);
+		}
+
+		attacking = false;
+	}
+
+	void HandleAnimations() {
+		if (player != null && !attacking) {
+			playerAnimator = player.GetComponent<Animator>();
+
+			playerAnimator.SetBool("unitSelected", unitSelected);
 		}
 	}
 
