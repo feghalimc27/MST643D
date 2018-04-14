@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         GetPlayerHighlight();
+		GetEnemyHighlight();
 	}
 
     void GetPlayerHighlight() {
@@ -43,27 +44,6 @@ public class UIController : MonoBehaviour {
             playerStatsText[2].text = "" + unitStats.def;
             playerStatsText[3].text = "" + unitStats.spd;
             playerStatsText[4].text = "" + unitStats.lck;
-
-            GameObject enemyUnit = playerCursor.GetComponent<SelectionCursor>().enemy;
-
-            if (enemyUnit != null) {
-                FEHostileUnit enemyStats = enemyUnit.GetComponent<FEHostileUnit>();
-
-                enemyHighlight.enabled = true;
-
-                enemyStatsText[0].text = "" + enemyStats.GetCurrentHP() + "/" + enemyStats.maxHp;
-                enemyStatsText[1].text = "" + enemyStats.atk;
-                enemyStatsText[2].text = "" + enemyStats.def;
-                enemyStatsText[3].text = "" + enemyStats.spd;
-                enemyStatsText[4].text = "" + enemyStats.lck;
-            }
-            else {
-                foreach (var text in enemyStatsText) {
-                    text.text = "";
-                }
-
-                enemyHighlight.enabled = false;
-            }
         }
         else {
             foreach (var text in playerStatsText) {
@@ -73,4 +53,34 @@ public class UIController : MonoBehaviour {
             pHighlight.enabled = false;
         }
     }
+
+	void GetEnemyHighlight() {
+		GameObject enemyUnit = playerCursor.GetComponent<SelectionCursor>().enemy;
+
+		if (playerCursor.GetComponent<SelectionCursor>().enemy != null && playerCursor.GetComponent<SelectionCursor>().player != null) {
+			enemyUnit = playerCursor.GetComponent<SelectionCursor>().enemy;
+		}
+		else {
+			enemyUnit = null;
+		}
+
+		if (enemyUnit != null) {
+			FEHostileUnit enemyStats = enemyUnit.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>();
+
+			enemyHighlight.enabled = true;
+
+			enemyStatsText[0].text = "" + enemyStats.GetCurrentHP() + "/" + enemyStats.maxHp;
+			enemyStatsText[1].text = "" + enemyStats.atk;
+			enemyStatsText[2].text = "" + enemyStats.def;
+			enemyStatsText[3].text = "" + enemyStats.spd;
+			enemyStatsText[4].text = "" + enemyStats.lck;
+		}
+		else {
+			foreach (var text in enemyStatsText) {
+				text.text = "";
+			}
+
+			enemyHighlight.enabled = false;
+		}
+	}
 }

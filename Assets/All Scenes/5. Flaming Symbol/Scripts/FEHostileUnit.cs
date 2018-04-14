@@ -8,6 +8,8 @@ public class FEHostileUnit : MonoBehaviour {
 	[SerializeField]
 	private int hp, xp;
 
+	private Coroutine fade;
+
 	// Use this for initialization
 	void Start() {
 		hp = maxHp;
@@ -17,7 +19,8 @@ public class FEHostileUnit : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (hp <= 0) {
-			StartCoroutine("FadeAway");
+			hp = 0;
+			fade = StartCoroutine("FadeAway");
 		}
 	}
 
@@ -40,10 +43,13 @@ public class FEHostileUnit : MonoBehaviour {
 			gameObject.GetComponent<SpriteRenderer>().material.color = c;
 
 			if (c.a <= 0) {
-				gameObject.SetActive(false);
+				this.gameObject.transform.position = new Vector3(10000000, 10000000, 10000000);
 			}
 
 			yield return null;
 		}
+
+		StopCoroutine(fade);
+		Object.Destroy(this.gameObject);
 	}
 }
