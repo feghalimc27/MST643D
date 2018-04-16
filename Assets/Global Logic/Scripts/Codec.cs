@@ -27,6 +27,7 @@ public class Codec : MonoBehaviour
     Coroutine shutdownCR;
     int currentLevel;
     bool startingUp;
+    float timeBetweenCharacters;
 
     void Awake()
     {
@@ -44,6 +45,7 @@ public class Codec : MonoBehaviour
 
     void OnEnable()
     {
+        timeBetweenCharacters = 0.05f;
         levelLoader = SceneManager.LoadSceneAsync(levelOrder[currentLevel], LoadSceneMode.Single);
         if (currentLevel == 0)
         {
@@ -148,19 +150,7 @@ public class Codec : MonoBehaviour
     {
         if (Input.GetButtonDown("Submit") && startingUp == false)
         {
-            if (mikeCR != null)
-            {
-                StopCoroutine(mikeCR);
-            }
-            if (typingCR != null)
-            {
-                StopCoroutine(typingCR);
-            }
-            if (currentLine < selectedLines.Length)
-            {
-                currentLine++;
-            }
-            typingCR = StartCoroutine(TextType());
+            timeBetweenCharacters = 0.0f;
         }
     }
 
@@ -201,12 +191,13 @@ public class Codec : MonoBehaviour
             for (int j = 0; j < selectedLines[currentLine].Length; j++)
             {
                 transform.Find("Text Line").GetComponent<Text>().text += "" + selectedLines[currentLine][j];
-                yield return new WaitForSecondsRealtime(0.05f);
+                yield return new WaitForSecondsRealtime(timeBetweenCharacters);
             }
             StopCoroutine(mikeCR);
             transform.Find("Bar").GetComponent<RawImage>().texture = allBars[5];
             transform.Find("Mike Talk").gameObject.SetActive(false);
             yield return new WaitForSecondsRealtime(1.0f);
+            timeBetweenCharacters = 0.05f;
             currentLine++;
             typingCR = StartCoroutine(TextType());
         }

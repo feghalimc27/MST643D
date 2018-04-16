@@ -8,20 +8,18 @@ public class MainMenu : MonoBehaviour
 {
     public static float lastInput;
     public GameObject startScreen;
-    EventSystem currentEventSystem;
-
+    public EventSystem currentEventSystem;
     public bool gameCompleted;
 
     void Start ()
     {
-        currentEventSystem = EventSystem.current;
         lastInput = 0.0f;
         gameCompleted = true;
 	}
 
     void OnEnable()
     {
-        transform.Find("Fade").SetAsLastSibling();
+        currentEventSystem.SetSelectedGameObject(null);
         StartCoroutine(fadeIn());
     }
 
@@ -53,11 +51,16 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator fadeOut()
     {
-        for (float t = 0f; t < 1.0f; t += Time.deltaTime)
+        Time.timeScale = 0;
+        transform.Find("Fade").gameObject.SetActive(true); ;
+        transform.Find("Fade").SetAsLastSibling();
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
             transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
             yield return null;
         }
+        transform.Find("Fade").gameObject.SetActive(false);
+        Time.timeScale = 1;
         transform.Find("PlayGameButton").SetAsLastSibling();
         transform.Find("LevelSelectButton").SetAsFirstSibling();
         transform.Find("SettingsButton").SetAsFirstSibling();
@@ -67,11 +70,16 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator fadeIn()
     {
-        for (float t = 0f; t < 1.0f; t += Time.deltaTime)
+        Time.timeScale = 0;
+        transform.Find("Fade").gameObject.SetActive(true); ;
+        transform.Find("Fade").SetAsLastSibling();
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
             transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 1 - t);
             yield return null;
         }
+        transform.Find("Fade").gameObject.SetActive(false);
+        Time.timeScale = 1;
         transform.Find("LevelSelectButton").SetAsFirstSibling();
         transform.Find("SettingsButton").SetAsFirstSibling();
         currentEventSystem.SetSelectedGameObject(transform.Find("PlayGameButton").gameObject);

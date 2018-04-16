@@ -14,6 +14,7 @@ public class GlobalLogic : MonoBehaviour
     
     public static bool finalBossKilled;
 
+    GameObject levelCompleted;
     GameObject levelTesting;
 
     void Awake ()
@@ -65,17 +66,23 @@ public class GlobalLogic : MonoBehaviour
                 transform.Find("Global Menu").gameObject.SetActive(!transform.Find("Global Menu").gameObject.activeInHierarchy);
             }
 
-            if (Input.GetKeyDown(KeyCode.BackQuote))
+            try
             {
-                if (levelTesting != null)
+                levelCompleted = GameObject.Find("levelCompleted").gameObject;
+                if (levelCompleted != null || Input.GetKeyDown(KeyCode.BackQuote))
                 {
-                    StartCoroutine(fadeOutSpecial());
-                }
-                else
-                {
-                    StartCoroutine(fadeOut());
+                    if (levelTesting != null)
+                    {
+                        StartCoroutine(fadeOutSpecial());
+                    }
+                    else
+                    {
+                        Destroy(levelCompleted);
+                        StartCoroutine(fadeOut());
+                    }
                 }
             }
+            catch (NullReferenceException e) { }
         }
         else
         {

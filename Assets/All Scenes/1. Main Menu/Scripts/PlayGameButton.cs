@@ -23,8 +23,6 @@ public class PlayGameButton : MonoBehaviour
 
             if (Input.GetButtonDown("Submit"))
             {
-                currentEventSystem.SetSelectedGameObject(null);
-                transform.parent.Find("Fade").SetAsLastSibling();
                 StartCoroutine(fadeOut());
             }
 
@@ -49,11 +47,17 @@ public class PlayGameButton : MonoBehaviour
 
     IEnumerator fadeOut()
     {
-        for (float t = 0f; t < 1.0f; t += Time.deltaTime)
+        Time.timeScale = 0;
+        currentEventSystem.SetSelectedGameObject(null);
+        transform.parent.Find("Fade").gameObject.SetActive(true);
+        transform.parent.Find("Fade").SetAsLastSibling();
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
             transform.parent.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
             yield return null;
         }
+        transform.parent.Find("Fade").gameObject.SetActive(false);
+        Time.timeScale = 1;
         Instantiate(Resources.Load("Global Logic") as GameObject);
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }

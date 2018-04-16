@@ -26,8 +26,7 @@ public class LevelSelectButton : MonoBehaviour
 
             if (transform.parent.gameObject.GetComponent<MainMenu>().gameCompleted == true && Input.GetButtonDown("Submit"))
             {
-                transform.parent.gameObject.SetActive(false);
-                levelSelect.SetActive(true);
+                StartCoroutine(fadeOut());
             }
 
             if (Input.GetAxisRaw("Horizontal") > 0.1 && Time.time > MainMenu.lastInput + 0.25f)
@@ -50,4 +49,19 @@ public class LevelSelectButton : MonoBehaviour
         }
     }
 
+    IEnumerator fadeOut()
+    {
+        Time.timeScale = 0;
+        transform.parent.Find("Fade").gameObject.SetActive(true);
+        transform.parent.Find("Fade").SetAsLastSibling();
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.parent.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
+            yield return null;
+        }
+        transform.parent.Find("Fade").gameObject.SetActive(false);
+        Time.timeScale = 1;
+        transform.parent.gameObject.SetActive(false);
+        levelSelect.SetActive(true);
+    }
 }
