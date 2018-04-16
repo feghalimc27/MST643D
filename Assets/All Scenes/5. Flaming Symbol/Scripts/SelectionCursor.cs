@@ -207,14 +207,14 @@ public class SelectionCursor : MonoBehaviour {
 	void LoadAttackState() {
 		FEFriendlyUnit playerStats = player.GetComponent<FEFriendlyUnit>();
 		FEHostileUnit enemyStats = null;
-		attacking = true;
 		playerAnimator = player.GetComponent<Animator>();
 
 		enemyStats = enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>();
 
 		int accuracy = 69;
 
-		if (enemyStats == null) {
+		if (enemy == null) {
+			attacking = false;
 			Debug.Log("No Enemy");
 			return;
 		}
@@ -226,33 +226,47 @@ public class SelectionCursor : MonoBehaviour {
 		bool enemyHit = (Random.Range(0, 100) <= enemyChance);
 
 		if (playerHit) {
+			attacking = true;
 			StartCoroutine("AttackAnimation");
 			playerAnimator.SetBool("attackPhase", attacking);
 
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
+			bool outSpeed = playerStats.GetCurrentSpd() > (enemyStats.GetCurrentSpd() + 5);
 			int damage = playerStats.atk - enemyStats.def;
 
 			if (damage <= 1) {
 				damage = 1;
 			}
 
+			if (outSpeed) {
+				damage *= 2;
+			}
+
 			if (crit) {
 				damage *= 3;
 			}
 
-			enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>().SendMessage("TakeDamage", damage);
-            if (damage >= enemyStats.maxHp) {
+			if (damage >= enemyStats.GetCurrentHP()) {
+				enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>().SendMessage("TakeDamage", damage);
                 enemy = null;
             }
+			else {
+				enemy.GetComponent<CursorBlock>().enemy.GetComponent<FEHostileUnit>().SendMessage("TakeDamage", damage);
+			}
 
         }
 
 		if (enemyStats && enemy != null) {
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
+			bool outSpeed = enemyStats.GetCurrentSpd() > (playerStats.GetCurrentSpd() + 5);
 			int damage = enemyStats.atk - playerStats.def;
 
 			if (damage <= 1) {
 				damage = 1;
+			}
+
+			if (outSpeed) {
+				damage *= 2;
 			}
 
 			if (crit) {
@@ -270,6 +284,7 @@ public class SelectionCursor : MonoBehaviour {
 			playerAnimator = player.GetComponent<Animator>();
 
 			playerAnimator.SetBool("unitSelected", unitSelected);
+			playerAnimator.SetBool("attackPhase", attacking);
 		}
 	}
 

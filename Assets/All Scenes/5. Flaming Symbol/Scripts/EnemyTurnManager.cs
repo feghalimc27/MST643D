@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyTurnManager : MonoBehaviour {
 
-	private GameObject[] units;
+	private FEHostileUnit[] units;
 
 	private int currentUnit;
 	private int tempCounter = 0;
@@ -13,22 +13,26 @@ public class EnemyTurnManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		units = GetComponentsInChildren<GameObject>();
+		units = GetComponentsInChildren<FEHostileUnit>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (!turnOver) {
-			Debug.Log(tempCounter);
 			tempCounter += 1;
 		}
 
-		if (tempCounter > 30) {
-			(GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled = false;
+		if (units.Length <= 0) {
+			GameObject.Find("Controller").GetComponent<GameController>().SendMessage("StartPlayerManager");
+		}
+
+		if (tempCounter > 300) {
+			GameObject.Find("Controller").GetComponent<GameController>().SendMessage("StartPlayerManager");
 		}
 	}
 
 	private void OnEnable() {
+		units = GetComponentsInChildren<FEHostileUnit>();
 		turnOver = false;
 		tempCounter = 0;
 	}
