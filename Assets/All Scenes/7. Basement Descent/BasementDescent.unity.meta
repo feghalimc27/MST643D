@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/All Scenes/7. Basement Descent/BasementDescent.unity.meta
 guid: 568a36af4a92709458407e871fbe8292
 timeCreated: 1523899105
+=======
+guid: f094c04c753d243c58e2fe4267df76be
+timeCreated: 1523897462
+>>>>>>> ae7d00f4aa8d194e95a51f3d406df8eb64a4cc52:Assets/All Scenes/7. Basement Descent/BasementDescent.unity.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}

@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/All Scenes/7. Basement Descent/BasementDescentAssets.meta
 guid: 59b82392e0e30f74891f2aab0281a385
 folderAsset: yes
 timeCreated: 1523899105
+=======
+guid: 0c7808b685ae6491d88ad1239fca0b72
+folderAsset: yes
+timeCreated: 1523897458
+>>>>>>> ae7d00f4aa8d194e95a51f3d406df8eb64a4cc52:Assets/All Scenes/7. Basement Descent/BasementDescentAssets.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}
