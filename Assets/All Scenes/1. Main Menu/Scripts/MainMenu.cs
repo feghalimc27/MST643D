@@ -10,10 +10,13 @@ public class MainMenu : MonoBehaviour
     public GameObject startScreen;
     EventSystem currentEventSystem;
 
+    public bool gameCompleted;
+
     void Start ()
     {
         currentEventSystem = EventSystem.current;
         lastInput = 0.0f;
+        gameCompleted = true;
 	}
 
     void OnEnable()
@@ -29,6 +32,22 @@ public class MainMenu : MonoBehaviour
             currentEventSystem.SetSelectedGameObject(null);
             transform.Find("Fade").SetAsLastSibling();
             StartCoroutine(fadeOut());
+        }
+
+        if (Input.GetButtonDown("Submit"))
+        {
+            lastInput = Time.time;
+        }
+
+        if (gameCompleted == true)
+        {
+            transform.Find("LevelSelectButton/LockedText").gameObject.SetActive(false);
+            transform.Find("LevelSelectButton/LockedButton").gameObject.SetActive(false);
+        }
+        else
+        {
+            transform.Find("LevelSelectButton/LockedText").gameObject.SetActive(true);
+            transform.Find("LevelSelectButton/LockedButton").gameObject.SetActive(true);
         }
     }
 

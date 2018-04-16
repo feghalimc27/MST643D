@@ -55,6 +55,6 @@ public class PlayGameButton : MonoBehaviour
             yield return null;
         }
         Instantiate(Resources.Load("Global Logic") as GameObject);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 }

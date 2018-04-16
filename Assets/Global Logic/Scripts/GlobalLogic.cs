@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class GlobalLogic : MonoBehaviour
     public static float currentTime;
     
     public static bool finalBossKilled;
+
+    GameObject levelTesting;
 
     void Awake ()
     {
@@ -28,8 +31,18 @@ public class GlobalLogic : MonoBehaviour
         startTime = -1;
         finalBossKilled = false;
     }
-	
-	void Update ()
+
+    void OnEnable()
+    {
+        StartCoroutine(fadeIn());
+        try
+        {
+            levelTesting = GameObject.Find("levelTesting").gameObject;
+        }
+        catch (NullReferenceException e) { }
+    }
+
+    void Update ()
     {
         if (SceneManager.GetActiveScene().name != "Main Menu")
         {
@@ -52,15 +65,41 @@ public class GlobalLogic : MonoBehaviour
                 transform.Find("Global Menu").gameObject.SetActive(!transform.Find("Global Menu").gameObject.activeInHierarchy);
             }
 
-            if (Time.timeSinceLevelLoad > 15.0f)
+            if (Input.GetKeyDown(KeyCode.BackQuote))
             {
-                StartCoroutine(fadeOut());
+                if (levelTesting != null)
+                {
+                    StartCoroutine(fadeOutSpecial());
+                }
+                else
+                {
+                    StartCoroutine(fadeOut());
+                }
             }
         }
         else
         {
-            transform.Find("Timer").gameObject.SetActive(false);
+            if (levelTesting != null)
+            {
+                Destroy(levelTesting);
+            }
+            transform.Find("Fade").GetComponent<Canvas>().sortingOrder = 8;
+            transform.Find("Fade/Fade").gameObject.SetActive(false);
+            Destroy(transform.gameObject);
         }
+    }
+
+    IEnumerator fadeIn()
+    {
+        Time.timeScale = 0;
+        transform.Find("Fade/Fade").gameObject.SetActive(true);
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.Find("Fade/Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 1 - t);
+            yield return null;
+        }
+        transform.Find("Fade/Fade").gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
     IEnumerator fadeOut()
@@ -81,5 +120,19 @@ public class GlobalLogic : MonoBehaviour
         }
         transform.Find("Fade/Fade").gameObject.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    IEnumerator fadeOutSpecial()
+    {
+        Time.timeScale = 0;
+        transform.Find("Fade/Fade").gameObject.SetActive(true);
+        transform.Find("Fade").GetComponent<Canvas>().sortingOrder = 12;
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.Find("Fade/Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
+            yield return null;
+        }
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }

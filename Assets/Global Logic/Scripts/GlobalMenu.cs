@@ -68,6 +68,11 @@ public class GlobalMenu : MonoBehaviour
             retryButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
 
+        if (Input.GetAxisRaw("Vertical") > 0.1f || Input.GetAxisRaw("Vertical") < -0.1f || Input.GetButtonDown("Submit"))
+        {
+            lastInput = Time.unscaledTime;
+        }
+
         if (currentEventSystem.currentSelectedGameObject == retryButton.gameObject)
         {
             if (Input.GetAxisRaw("Vertical") > 0.1 && Time.unscaledTime > lastInput + 0.25f)
