@@ -30,8 +30,6 @@ public class LevelSelect : MonoBehaviour
     public Texture westernDentistText;
     public Texture masterFootText;
 
-    GameObject levelTesting;
-
     float lastInput;
     int sceneToLoad;
 
@@ -115,6 +113,7 @@ public class LevelSelect : MonoBehaviour
     void OnEnable()
     {
         currentEventSystem.SetSelectedGameObject(level1Button.gameObject);
+        StartCoroutine(fadeIn());
     }
 
     void Update()
@@ -123,9 +122,7 @@ public class LevelSelect : MonoBehaviour
 
         if (Input.GetButtonDown("Cancel"))
         {
-            currentEventSystem.SetSelectedGameObject(mainMenu.transform.Find("PlayGameButton").gameObject);
-            transform.gameObject.SetActive(false);
-            mainMenu.SetActive(true);
+            StartCoroutine(fadeToMenu());
         }
 
         if (Input.GetAxisRaw("Horizontal") > 0.25f || Input.GetAxisRaw("Horizontal") < -0.25f || Input.GetAxisRaw("Vertical") > 0.25f || Input.GetAxisRaw("Vertical") < -0.25f || Input.GetButtonDown("Submit"))
@@ -347,6 +344,19 @@ public class LevelSelect : MonoBehaviour
         }
     }
 
+    IEnumerator fadeIn()
+    {
+        Time.timeScale = 0;
+        transform.Find("Fade").gameObject.SetActive(true);
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 1 - t);
+            yield return null;
+        }
+        transform.Find("Fade").gameObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+
     IEnumerator fadeOut()
     {
         Time.timeScale = 0;
@@ -358,9 +368,24 @@ public class LevelSelect : MonoBehaviour
         }
         Time.timeScale = 1;
         transform.Find("Fade").gameObject.SetActive(false);
-        levelTesting = new GameObject("levelTesting");
-        DontDestroyOnLoad(levelTesting);
+        DontDestroyOnLoad(new GameObject("levelTesting"));
         Instantiate(Resources.Load("Global Logic") as GameObject);
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+    }
+
+    IEnumerator fadeToMenu()
+    {
+        Time.timeScale = 0;
+        transform.Find("Fade").gameObject.SetActive(true);
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
+            yield return null;
+        }
+        transform.Find("Fade").gameObject.SetActive(false);
+        currentEventSystem.SetSelectedGameObject(mainMenu.transform.Find("PlayGameButton").gameObject);
+        Time.timeScale = 1;
+        transform.gameObject.SetActive(false);
+        mainMenu.SetActive(true);
     }
 }
