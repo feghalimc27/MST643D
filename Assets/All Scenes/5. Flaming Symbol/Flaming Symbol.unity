@@ -11508,6 +11508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486772578}
   - component: {fileID: 486772579}
+  - component: {fileID: 486772580}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -11556,6 +11557,19 @@ MonoBehaviour:
   - {fileID: 1851034804}
   - {fileID: 2009474100}
   playerCursor: {fileID: 668487053}
+--- !u!114 &486772580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 486772577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3dc52a7caaf40e080ca1c965e966e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1898700865}
+  enemyTurnManager: {fileID: 1155580441}
 --- !u!1001 &486944700
 Prefab:
   m_ObjectHideFlags: 0
@@ -28522,6 +28536,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1155580442}
+  - component: {fileID: 1155580443}
   m_Layer: 0
   m_Name: EnemyTurnManager
   m_TagString: Untagged
@@ -28543,6 +28558,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1155580443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1155580441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0f37bc3ae0f41679995e4b2c27141b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnOver: 1
 --- !u!1001 &1166940133
 Prefab:
   m_ObjectHideFlags: 0
