@@ -8,7 +8,8 @@ public class Character_Move : MonoBehaviour {
     public int hasJumped = 0;
     public int playerJumpPower = 500;
     private float moveX;
-    public int onGround = 1;
+    public bool onGround = true;
+    public bool canDoubleJump = true;
     public Player_Health _player_health;
     public float raycastDown = .3f;
 
@@ -24,7 +25,7 @@ public class Character_Move : MonoBehaviour {
         moveX = Input.GetAxis("Horizontal");
 
         // jump
-        if (Input.GetButtonDown("Jump") && (onGround == 1 || onGround == 0) && (hasJumped == 0 || hasJumped == 1))
+        if (Input.GetButtonDown("Jump") && canDoubleJump == true)
         {
             Jump();
         }
@@ -56,14 +57,20 @@ public class Character_Move : MonoBehaviour {
     void Jump()
     {
         GetComponent<Rigidbody2D>().AddForce((Vector2.up * playerJumpPower));
-        onGround++;
-        hasJumped = 1;
+        onGround = true;
+        hasJumped++;
+        if(hasJumped >= 2){
+            canDoubleJump = false;
+            hasJumped = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Ground")
         {
+            onGround = true;
+            canDoubleJump = true;
             hasJumped = 0;
         }
     }
@@ -87,11 +94,6 @@ public class Character_Move : MonoBehaviour {
                 hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
 
             }
-        }
-
-        if (hit != null && hit.collider != null && hit.distance < raycastDown && hit.collider.tag != "Enemy")
-        {
-            onGround = 0;
         }
     }
 }

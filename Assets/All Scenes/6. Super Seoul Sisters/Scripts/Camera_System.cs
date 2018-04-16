@@ -10,6 +10,12 @@ public class Camera_System : MonoBehaviour {
     public float yMin;
     public float yMax;
 
+    void Update(){
+        if(player.transform.position.y < -3.614f)
+        {
+            yMin = -3.905f;
+        }
+    }
     // Use this for initialization
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
