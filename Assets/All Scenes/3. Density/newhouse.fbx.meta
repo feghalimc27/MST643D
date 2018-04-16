@@ -1,45 +1,54 @@
 fileFormatVersion: 2
-guid: ec2fe72b38e304695b4c56cd45cc5846
-timeCreated: 1523468869
+guid: 39942a1a54af1466c841c823e84e6d08
+timeCreated: 1523899527
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Cube
-    100002: Cube_001
-    100004: Cube_002
-    100006: Cube_003
-    100008: //RootNode
-    100010: Plane
-    400000: Cube
-    400002: Cube_001
-    400004: Cube_002
-    400006: Cube_003
-    400008: //RootNode
-    400010: Plane
+    100000: Camera
+    100002: Cube
+    100004: Cube.001
+    100006: Cube.002
+    100008: Cube.003
+    100010: Lamp
+    100012: //RootNode
+    100014: Plane
+    400000: Camera
+    400002: Cube
+    400004: Cube.001
+    400006: Cube.002
+    400008: Cube.003
+    400010: Lamp
+    400012: //RootNode
+    400014: Plane
+    2000000: Camera
     2300000: Cube
-    2300002: Cube_001
-    2300004: Cube_002
-    2300006: Cube_003
+    2300002: Cube.001
+    2300004: Cube.002
+    2300006: Cube.003
     2300008: Plane
     3300000: Cube
-    3300002: Cube_001
-    3300004: Cube_002
-    3300006: Cube_003
+    3300002: Cube.001
+    3300004: Cube.002
+    3300006: Cube.003
     3300008: Plane
-    4300000: Cube_003
-    4300002: Cube_002
-    4300004: Cube_001
+    4300000: Cube.003
+    4300002: Cube.002
+    4300004: Cube.001
     4300006: Plane
     4300008: Cube
-    7400000: Default Take
-    9500000: //RootNode
+    10800000: Lamp
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: unnamed
-    second: {fileID: 2100000, guid: 5448106a595134dc4b5d27393cf147af, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: d7e34a376d87a4d40bd81694fca4e9a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 08ab3140c4e6c4d7d99f98d2ad22fd55, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -111,7 +120,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
