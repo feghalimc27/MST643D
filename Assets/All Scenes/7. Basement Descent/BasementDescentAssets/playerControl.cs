@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerControl : MonoBehaviour {
 
     private float xMove, yMove, xFacing, yFacing;
+    private Vector2 moveVector;
     public float speed = 3;
 
 	// Use this for initialization
@@ -17,13 +18,15 @@ public class playerControl : MonoBehaviour {
         
         xMove = Input.GetAxis("Horizontal");
         yMove = Input.GetAxis("Vertical");
+
+        moveVector = new Vector2(xMove * speed, yMove * speed);
         
-        GetComponent<Rigidbody2D>().velocity = new Vector2((xMove*speed), (yMove*speed));
+        GetComponent<Rigidbody2D>().velocity = moveVector;
 
-        //xFacing = Input.GetAxis("HorizontalR");
-        // yFacing = Input.GetAxis("VerticalR");
-        Vector3 faceDirection = new Vector3(Input.GetAxis("HorizontalR"), Input.GetAxis("VerticalR"), 0);
+        xFacing = Input.GetAxis("HorizontalR");
+        yFacing = Input.GetAxis("VerticalR");
 
-        transform.LookAt(transform.position + faceDirection);
+        transform.LookAt(transform.position, moveVector);
+        
     }
 }
