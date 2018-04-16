@@ -10,6 +10,8 @@ public class FEHostileUnit : MonoBehaviour {
 
 	private Coroutine fade;
 
+	public bool turnOver = false;
+
 	// Use this for initialization
 	void Start() {
 		hp = maxHp;
