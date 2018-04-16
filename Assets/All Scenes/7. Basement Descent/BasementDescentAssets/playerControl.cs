@@ -25,8 +25,8 @@ public class playerControl : MonoBehaviour {
 
         xFacing = Input.GetAxis("HorizontalR");
         yFacing = Input.GetAxis("VerticalR");
-
-        transform.LookAt(transform.position, moveVector);
+        
+        transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(yFacing, xFacing)*(180/3.14f)));
         
     }
 }
