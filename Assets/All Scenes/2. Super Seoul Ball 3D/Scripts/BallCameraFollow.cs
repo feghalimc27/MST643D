@@ -18,19 +18,19 @@ public class BallCameraFollow : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         //UpdatePosition();
         //transform.LookAt(character.transform);
 		SwitchCamera();
     }
 
-    void UpdatePosition() {
+    /*void UpdatePosition() {
         float x = character.transform.position.x;
         float y = character.transform.position.y + distance / 2;
         float z = character.transform.position.z - distance;
 
 		transform.position = new Vector3(x, transform.position.y, z);
-    }
+    }*/
 
 	void SwitchCamera() {
 		if (parent.lookAtBall) {

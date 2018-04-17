@@ -73,6 +73,7 @@ public class GlobalLogic : MonoBehaviour
                 {
                     if (levelTesting != null)
                     {
+                        Destroy(levelCompleted);
                         StartCoroutine(fadeOutSpecial());
                     }
                     else

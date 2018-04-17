@@ -18,9 +18,10 @@ public class CameraControllerFollower : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		if (transform.position.y > -fallingDistance) {
-			transform.position = character.transform.position;
+            //transform.forward = character.transform.forward;
+            transform.position = character.transform.position;
 		}
 		else {
 			transform.position = new Vector3(transform.position.x, -fallingDistance, transform.position.z);

@@ -7,7 +7,7 @@ using UnityEngine;
 public class CameraTilt : MonoBehaviour {
 
 	public float tiltAngle;
-
+    public GameObject sphereTracker;
 	private Vector2 planeTilt;
 	private float defaultTilt = 30f;
 
@@ -31,11 +31,12 @@ public class CameraTilt : MonoBehaviour {
 		planeTilt.y = Mathf.Clamp(tilt.y, -tiltAngle, tiltAngle);
 		planeTilt.x = Mathf.Clamp(tilt.x, -tiltAngle, tiltAngle);
 
-		Quaternion xRot = Quaternion.AngleAxis(-planeTilt.x, Vector3.back);
-		Quaternion yRot = Quaternion.AngleAxis(-planeTilt.y, Vector3.right);
+		Quaternion xRot = Quaternion.AngleAxis(-planeTilt.x, -sphereTracker.transform.forward);
+		Quaternion yRot = Quaternion.AngleAxis(-planeTilt.y, sphereTracker.transform.right);
+        
+        Quaternion localQuaternion = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w); ;
+        Quaternion rotation = new Quaternion(xRot.x + yRot.x, 0, xRot.z + yRot.z, xRot.w + yRot.w);
 
-		Quaternion rotation = new Quaternion(xRot.x + yRot.x, xRot.y + yRot.y, xRot.z + yRot.z, xRot.w + yRot.w);
-
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 1);
+        transform.rotation = Quaternion.RotateTowards(localQuaternion, rotation, 0.5f);
 	}
 }
