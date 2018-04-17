@@ -11,9 +11,13 @@ public class Camera_System : MonoBehaviour {
     public float yMax;
 
     void Update(){
-        if(player.transform.position.y < -3.614f)
+        if((player.transform.position.x > 38.85f && player.transform.position.x < 40.4f) && player.transform.position.y < -3.614f)
         {
             yMin = -3.905f;
+        }
+        else if(player.transform.position.y > -3.0f)
+        {
+            yMin = -1.535f;
         }
     }
     // Use this for initialization

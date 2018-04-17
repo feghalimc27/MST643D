@@ -25,7 +25,7 @@ public class Character_Move : MonoBehaviour {
         moveX = Input.GetAxis("Horizontal");
 
         // jump
-        if (Input.GetButtonDown("Jump") && canDoubleJump == true)
+        if (Input.GetButtonDown("Jump") && (canDoubleJump == true || onGround == true))
         {
             Jump();
         }
@@ -57,7 +57,7 @@ public class Character_Move : MonoBehaviour {
     void Jump()
     {
         GetComponent<Rigidbody2D>().AddForce((Vector2.up * playerJumpPower));
-        onGround = true;
+        onGround = false;
         hasJumped++;
         if(hasJumped >= 2){
             canDoubleJump = false;
@@ -81,7 +81,7 @@ public class Character_Move : MonoBehaviour {
 
         if (hit != null && hit.collider != null && hit.distance < raycastDown && hit.collider.tag == "Enemy")
         {
-            GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * 80);
 
             if(hit != null && hit.collider != null && hit.collider.tag == "Enemy")
             {
