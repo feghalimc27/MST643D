@@ -19,8 +19,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void StartEnemyManager() {
-		(enemyTurnManager.GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled = true;
 		(playerTurnManager.GetComponent<PlayerTurnManager>() as MonoBehaviour).enabled = false;
+		(enemyTurnManager.GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled = true;
 	}
 
 	public void StartPlayerManager() {

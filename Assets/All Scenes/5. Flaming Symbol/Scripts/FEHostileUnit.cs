@@ -8,7 +8,7 @@ public class FEHostileUnit : MonoBehaviour {
 	[SerializeField]
 	private int hp, xp;
 
-	private Coroutine fade;
+	public Coroutine fade;
 
 	public bool turnOver = false;
 

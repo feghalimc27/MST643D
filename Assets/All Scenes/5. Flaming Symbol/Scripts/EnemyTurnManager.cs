@@ -8,25 +8,29 @@ public class EnemyTurnManager : MonoBehaviour {
 
 	private int currentUnit;
 	private int tempCounter = 0;
+	private int unitMoves = 0;
+	private int waitStart = 300;
 
 	public bool turnOver = true;
 
+	Coroutine moveUnits;
+
 	// Use this for initialization
 	void Start () {
-		units = GetComponentsInChildren<FEHostileUnit>();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!turnOver) {
-			tempCounter += 1;
+		if (units.Length > 0) {
+			moveUnits = StartCoroutine("MoveUnits");
 		}
 
 		if (units.Length <= 0) {
 			GameObject.Find("Controller").GetComponent<GameController>().SendMessage("StartPlayerManager");
 		}
 
-		if (tempCounter > 300) {
+		if (currentUnit >= units.Length) {
 			GameObject.Find("Controller").GetComponent<GameController>().SendMessage("StartPlayerManager");
 		}
 	}
@@ -35,9 +39,43 @@ public class EnemyTurnManager : MonoBehaviour {
 		units = GetComponentsInChildren<FEHostileUnit>();
 		turnOver = false;
 		tempCounter = 0;
+		currentUnit = 0;
 	}
 
 	private void OnDisable() {
 		turnOver = true;
+	}
+
+	IEnumerator MoveUnits() {
+		while (!turnOver) {
+			FEHostileUnit stats = units[currentUnit];
+			if (units[currentUnit].fade == null && units[currentUnit] != null) {
+				Vector3 position = stats.gameObject.transform.position;
+				if (unitMoves < stats.mov && tempCounter == 0) {
+					position.x += 0.5f;
+					unitMoves++;
+					stats.gameObject.transform.position = position;
+					tempCounter = 30;
+				}
+				else if (tempCounter > 0) {
+					tempCounter--;
+				}
+				else {
+					unitMoves = 0;
+					currentUnit++;
+					if (currentUnit >= units.Length) {
+						turnOver = true;
+						break;
+					}
+				}
+			}
+			else if (units[currentUnit] == null) {
+				currentUnit++;
+			}
+
+			yield return null;
+		}
+
+		StopCoroutine(moveUnits);
 	}
 }
