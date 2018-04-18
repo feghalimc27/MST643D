@@ -23,10 +23,11 @@ public class playerControl : MonoBehaviour {
         
         GetComponent<Rigidbody2D>().velocity = moveVector;
 
-        xFacing = Input.GetAxis("HorizontalR");
-        yFacing = Input.GetAxis("VerticalR");
-        
-        transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(yFacing, xFacing)*(180/3.14f)));
+        xFacing = -Input.GetAxis("HorizontalR");
+        yFacing = -Input.GetAxis("VerticalR");
+
+        if(yFacing > 0.3 || yFacing < -0.3 || xFacing > 0.3 || xFacing < -0.3)
+                transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(xFacing, yFacing) * (180 / 3.14f)));
         
     }
 }
