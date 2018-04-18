@@ -12,8 +12,9 @@ public class Enemy_AI : MonoBehaviour {
     public float diediedie = .9f;
     public Player_Health _player_health;
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(xMoveDirection, 0));
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(xMoveDirection, 0) * enemySpeed;
 

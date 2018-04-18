@@ -24,8 +24,8 @@ EditorBuildSettings:
     path: Assets/All Scenes/6. Super Seoul Sisters/Super Seoul Sisters.unity
     guid: 0827c2ee92c537a40b6cc1b96d39e0b8
   - enabled: 1
-    path: Assets/All Scenes/7. Basement Descent/BasementDescent.unity
-    guid: 568a36af4a92709458407e871fbe8292
+    path: Assets/All Scenes/6. Super Seoul Sisters/Mike.unity
+    guid: 80dc80ac2c21f9441b6a5dd5e9b76907
   - enabled: 1
     path: Assets/All Scenes/8. Visual Novel (TEMP)/Visual Novel (TEMP).unity
     guid: 893b23cf3edddd6438e73cdddf68fe65
@@ -35,3 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/All Scenes/10. Master Foot/Master Foot.unity
     guid: e87bf20a9b8afa1449ca7885671b39af
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
