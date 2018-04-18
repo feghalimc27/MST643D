@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: d10251f06de037547b529bf5dc50083d
-timeCreated: 1523226991
+guid: 35dd28463f140574db006d12b3721aee
+timeCreated: 1524012304
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Blue Monster - Same_0
-    21300002: Blue Monster - Same_1
+    21300000: Blue Monster - Opposite_0
+    21300002: Blue Monster - Opposite_1
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -82,7 +82,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blue Monster - Same_0
+      name: Blue Monster - Opposite_0
       rect:
         serializedVersion: 2
         x: 26
@@ -96,7 +96,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Blue Monster - Same_1
+      name: Blue Monster - Opposite_1
       rect:
         serializedVersion: 2
         x: 26

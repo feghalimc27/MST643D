@@ -32,7 +32,10 @@ public class Enemy_AI : MonoBehaviour {
                 //hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
 
-                _player_health.Die();
+                if (gameObject.transform.position.y < -6.38)
+                {
+                    SceneManager.LoadScene("Super Seoul Sisters");
+                }
             }
         }
     }
