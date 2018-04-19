@@ -21,26 +21,13 @@ public class BubberDucky : MonoBehaviour {
     void JumpMikeJump()
     {
        	gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000);
-		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3000);
+		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 2000);
     }
 
 
     // Update is called once per frame
     void Update () {
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 0) * enemySpeed;
-	}
-
-	void YDirection()
-	{
-		if(yMoveDirection > 0)
-        {
-            yMoveDirection = -yMoveDirection;
-        }
-
-        else
-        {
-            yMoveDirection = +yMoveDirection;
-        }
 	}
 }
 
