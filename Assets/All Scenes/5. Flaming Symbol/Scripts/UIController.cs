@@ -99,6 +99,8 @@ public class UIController : MonoBehaviour {
 	IEnumerator EndLevel() {
 		completeText.enabled = true;
 
+		GetComponent<GameController>().SendMessage("DisableCursor");
+
 		for (float i = 0; i <= 1; i += 0.1f) {
 			Color c = completeText.color;
 
@@ -108,9 +110,9 @@ public class UIController : MonoBehaviour {
 			yield return null;
 		}
 
-		DontDestroyOnLoad(new GameObject("levelCompleted"));
-
 		yield return new WaitForSeconds(1.5f);
+
+		DontDestroyOnLoad(new GameObject("levelCompleted"));
 	}
 
     void BackgroundManager() {

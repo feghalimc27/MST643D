@@ -181,10 +181,6 @@ public class SelectionCursor : MonoBehaviour {
 				}
 				unitSelected = false;
                 player.GetComponent<FEFriendlyUnit>().turnOver = true;
-                Debug.Log(transform.position);
-                if (transform.position == new Vector3(6.92f, 4.52f, 0)) {
-					GameObject.Find("Controller").GetComponent<UIController>().SendMessage("EndLevel");
-				}
 
                 movCountX = 0;
 				movCountY = 0;
@@ -306,6 +302,7 @@ public class SelectionCursor : MonoBehaviour {
 	IEnumerator AttackAnimation() {
 
 		Vector3 playerPos = player.transform.position;
+		Vector3 enemyPos = enemy.GetComponent<CursorBlock>().enemy.transform.position;
 		float animScale = 0.04f;
 		Vector3 direction = (enemy.transform.position - playerPos).normalized;
 
@@ -313,7 +310,9 @@ public class SelectionCursor : MonoBehaviour {
 
 		for (i = 0; i < 5; ++i) {
 			playerPos += direction * animScale;
+			enemyPos -= direction * animScale;
 			player.transform.position = playerPos;
+			enemy.GetComponent<CursorBlock>().enemy.transform.position = enemyPos;
 
             yield return null;
 		}
@@ -321,7 +320,9 @@ public class SelectionCursor : MonoBehaviour {
 		if (i >= 4) {
 			for (i = 5; i < 10; ++i) {
 				playerPos -= direction * animScale;
+				enemyPos += direction * animScale;
 				player.transform.position = playerPos;
+				enemy.GetComponent<CursorBlock>().enemy.transform.position = enemyPos;
 
                 yield return null;
 			}
