@@ -44106,6 +44106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b599437b4f545058da8cf844537fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  units: []
 --- !u!1001 &1472954578
 Prefab:
   m_ObjectHideFlags: 0
