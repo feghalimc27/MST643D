@@ -11,6 +11,9 @@ public class EnemyTurnManager : MonoBehaviour {
 	private int unitMoves = 0;
 	private int waitStart = 300;
 
+    [SerializeField]
+    private float movSpeed = 0.5f;
+
 	public bool turnOver = true;
 
 	Coroutine moveUnits;
@@ -52,7 +55,7 @@ public class EnemyTurnManager : MonoBehaviour {
 			if (units[currentUnit].fade == null && units[currentUnit] != null) {
 				Vector3 position = stats.gameObject.transform.position;
 				if (unitMoves < stats.mov && tempCounter == 0) {
-					position.x += 0.5f;
+					position.x += movSpeed;
 					unitMoves++;
 					stats.gameObject.transform.position = position;
 					tempCounter = 30;

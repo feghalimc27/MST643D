@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    public GameObject playerCursor;
 	public GameObject playerTurnManager;
 	public GameObject enemyTurnManager;
 
@@ -20,11 +21,24 @@ public class GameController : MonoBehaviour {
 
 	public void StartEnemyManager() {
 		(playerTurnManager.GetComponent<PlayerTurnManager>() as MonoBehaviour).enabled = false;
-		(enemyTurnManager.GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled = true;
+        GetComponent<UIController>().SendMessage("StartEnemyPhase");
 	}
 
-	public void StartPlayerManager() {
-		(enemyTurnManager.GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled = false;
-		(playerTurnManager.GetComponent<PlayerTurnManager>() as MonoBehaviour).enabled = true;
-	}
+    private void DisableCursor() {
+        (playerCursor.GetComponent<SelectionCursor>() as MonoBehaviour).enabled = false;
+    }
+
+    private void BeginEnemyTurn() {
+        (enemyTurnManager.GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled = true;
+    }
+
+    private void BeginPlayerTurn() {
+        (playerTurnManager.GetComponent<PlayerTurnManager>() as MonoBehaviour).enabled = true;
+        (playerCursor.GetComponent<SelectionCursor>() as MonoBehaviour).enabled = true;
+    }
+
+    public void StartPlayerManager() {
+        (enemyTurnManager.GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled = false;
+        GetComponent<UIController>().SendMessage("StartPlayerPhase");
+    }
 }

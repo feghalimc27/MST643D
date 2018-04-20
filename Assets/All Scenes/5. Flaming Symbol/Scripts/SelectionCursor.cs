@@ -36,13 +36,24 @@ public class SelectionCursor : MonoBehaviour {
 
 	private Animator playerAnimator;
 
+    Coroutine attackAnimation;
+    Coroutine endTurn;
+
 	// Use this for initialization
 	void Start () {
 		
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void OnEnable() {
+        GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    void OnDisable() {
+        GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		MoveCursor();
 		HandleAnimations();
 		GetEnemy();
@@ -227,7 +238,7 @@ public class SelectionCursor : MonoBehaviour {
 
 		if (playerHit) {
 			attacking = true;
-			StartCoroutine("AttackAnimation");
+			attackAnimation = StartCoroutine("AttackAnimation");
 			playerAnimator.SetBool("attackPhase", attacking);
 
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
@@ -300,7 +311,7 @@ public class SelectionCursor : MonoBehaviour {
 			playerPos += direction * animScale;
 			player.transform.position = playerPos;
 
-			yield return null;
+            yield return null;
 		}
 
 		if (i >= 4) {
@@ -308,8 +319,15 @@ public class SelectionCursor : MonoBehaviour {
 				playerPos -= direction * animScale;
 				player.transform.position = playerPos;
 
-				yield return null;
+                yield return null;
 			}
 		}
+
+        StopCoroutine(attackAnimation);
+        attackAnimation = null;
 	}
+
+    IEnumerator WaitBeforeEnd() {
+        yield return new WaitForSeconds(0.3f);
+    }
 }
