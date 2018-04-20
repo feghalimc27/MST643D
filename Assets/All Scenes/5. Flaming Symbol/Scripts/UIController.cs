@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
 
-    public Image uBase, eBase, pHighlight, enemyHighlight, pPhaseText, ePhaseText;
+    public Image uBase, eBase, pHighlight, enemyHighlight, pPhaseText, ePhaseText, completeText;
     public Text[] playerStatsText = new Text[5]; // HP, ATK, DEF, SPD, LCK
     public Text[] enemyStatsText = new Text[5]; // HP, ATK, DEF, SPD, LCK
 
@@ -27,6 +27,7 @@ public class UIController : MonoBehaviour {
         enemyHighlight.enabled = false;
         pPhaseText.enabled = false;
         ePhaseText.enabled = false;
+		completeText.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -94,6 +95,23 @@ public class UIController : MonoBehaviour {
 
         GetComponent<GameController>().SendMessage("BeginPlayerTurn");
     }
+
+	IEnumerator EndLevel() {
+		completeText.enabled = true;
+
+		for (float i = 0; i <= 1; i += 0.1f) {
+			Color c = completeText.color;
+
+			c.a = i;
+			completeText.color = c;
+
+			yield return null;
+		}
+
+		DontDestroyOnLoad(new GameObject("levelCompleted"));
+
+		yield return new WaitForSeconds(1.5f);
+	}
 
     void BackgroundManager() {
         if ((enemyTurnManger.GetComponent<EnemyTurnManager>() as MonoBehaviour).enabled == true) {

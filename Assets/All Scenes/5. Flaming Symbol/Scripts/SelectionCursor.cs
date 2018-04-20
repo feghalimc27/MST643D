@@ -183,8 +183,8 @@ public class SelectionCursor : MonoBehaviour {
                 player.GetComponent<FEFriendlyUnit>().turnOver = true;
                 Debug.Log(transform.position);
                 if (transform.position == new Vector3(6.92f, 4.52f, 0)) {
-                    EndLevel();
-                }
+					GameObject.Find("Controller").GetComponent<UIController>().SendMessage("EndLevel");
+				}
 
                 movCountX = 0;
 				movCountY = 0;
@@ -333,9 +333,5 @@ public class SelectionCursor : MonoBehaviour {
 
     IEnumerator WaitBeforeEnd() {
         yield return new WaitForSeconds(0.3f);
-    }
-
-    void EndLevel() {
-        DontDestroyOnLoad(new GameObject("levelCompleted"));
     }
 }
