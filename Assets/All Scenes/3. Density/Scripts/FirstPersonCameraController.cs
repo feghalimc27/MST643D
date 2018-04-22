@@ -13,6 +13,8 @@ public class FirstPersonCameraController : MonoBehaviour {
     private Vector2 smoothV;
 
     private GameObject character;
+    [SerializeField]
+    private GameObject gun;
 
 	// Use this for initialization
 	void Start () {
@@ -62,12 +64,16 @@ public class FirstPersonCameraController : MonoBehaviour {
 		if (Input.GetButton("Fire1")) {
 			RaycastHit hit;
 
+            if (gun.GetComponent<MGAnimator>().activeSpin < gun.GetComponent<MGAnimator>().spinSpeed) {
+                return;
+            }
+
 			if (Physics.Raycast(transform.position, transform.forward, out hit)) {
 				if (hit.transform.gameObject.tag == "Enemy") {
-					print("hit");
+					hit.transform.gameObject.GetComponent<ZombieBehavior>().SendMessage("TakeDamage", 17);
 				}
 				else {
-					print("miss");
+					
 				}
 			}
 		}
