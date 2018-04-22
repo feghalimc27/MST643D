@@ -11,6 +11,7 @@ TagManager:
   - CursorBlock
   - Block
   - MikeRaycast
+  - EnemyBlock
   layers:
   - Default
   - TransparentFX

@@ -5,9 +5,11 @@ using UnityEngine;
 public class SelectionCursor : MonoBehaviour {
 
     public int movementCooldown;
+    public int movementCooldownSelected;
 
     private float speed = 0.5f;
     private int coolCounter = 0;
+    private int reserveCool;
 
     [HideInInspector]
     public GameObject player = null;
@@ -41,7 +43,7 @@ public class SelectionCursor : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        reserveCool = movementCooldown;
     }
 
     void OnEnable() {
@@ -77,6 +79,7 @@ public class SelectionCursor : MonoBehaviour {
 		Vector3 move = new Vector3(0, 0, 0);
 
 		if (unitSelected) {
+            movementCooldown = movementCooldownSelected;
 
 			for (int i = 0; i < 4; ++i) {
 				blocked[i] = blocking[i].GetComponent<CursorBlock>().blocked;
@@ -133,6 +136,8 @@ public class SelectionCursor : MonoBehaviour {
 			}
 		}
 		else {
+            movementCooldown = reserveCool;
+
 			if (Input.GetAxis("Horizontal") > deadzone && coolCounter == 0) {
 				move.x += speed;
 
