@@ -12,6 +12,7 @@ TagManager:
   - Block
   - MikeRaycast
   - EnemyBlock
+  - Projectile
   layers:
   - Default
   - TransparentFX
