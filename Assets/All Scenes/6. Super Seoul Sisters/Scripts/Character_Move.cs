@@ -6,7 +6,7 @@ public class Character_Move : MonoBehaviour {
 
     public float playerSpeed = 3;
     public int hasJumped = 0;
-    public int playerJumpPower = 500;
+    private int playerJumpPower;
     private float moveX;
     public bool onGround = true;
     public bool canDoubleJump = true;
@@ -27,7 +27,16 @@ public class Character_Move : MonoBehaviour {
         // jump
         if (Input.GetButtonDown("Jump") && (canDoubleJump == true || onGround == true))
         {
-            Jump();
+            if((canDoubleJump == true && onGround == true))
+            {
+                playerJumpPower = 110;
+                Jump();
+            }
+            else if (canDoubleJump == true && onGround == false)
+            {
+                playerJumpPower = 70;
+                Jump();
+            }
         }
 
         //animations

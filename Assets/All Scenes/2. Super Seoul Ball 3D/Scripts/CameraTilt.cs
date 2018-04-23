@@ -33,10 +33,11 @@ public class CameraTilt : MonoBehaviour {
 
 		Quaternion xRot = Quaternion.AngleAxis(-planeTilt.x, -sphereTracker.transform.forward);
 		Quaternion yRot = Quaternion.AngleAxis(-planeTilt.y, sphereTracker.transform.right);
-        
-        Quaternion localQuaternion = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w); ;
+
+        transform.localRotation = new Quaternion(transform.localRotation.x, 0, transform.localRotation.z, transform.localRotation.w);
+
         Quaternion rotation = new Quaternion(xRot.x + yRot.x, 0, xRot.z + yRot.z, xRot.w + yRot.w);
 
-        transform.rotation = Quaternion.RotateTowards(localQuaternion, rotation, 0.5f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 0.5f);
 	}
 }

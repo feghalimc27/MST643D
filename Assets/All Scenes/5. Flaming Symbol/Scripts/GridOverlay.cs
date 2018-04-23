@@ -55,14 +55,24 @@ public class GridOverlay : MonoBehaviour {
                 float atkTileLimit = (float)(movStat + range) / 2;
 
                 bool visible = true;
+                bool end = false;
                 foreach(var block in blockedTiles) {
-                    if (tile.transform.position == block.transform.position) {
+                    if (tile.transform.position == block.transform.position && block.gameObject.layer != 0) {
                         visible = false;
+                    }
+                    else if (tile.transform.position == block.transform.position && block.gameObject.layer == 0) {
+                        visible = true;
+                        end = true;
                     }
                 }
                                 
-                if (Mathf.Abs(localX) + Mathf.Abs(localY) <= movTileLimit && visible) {
+                if (Mathf.Abs(localX) + Mathf.Abs(localY) <= movTileLimit && visible && !end) {
                     tile.type = 0;
+                    tile.active = true;
+                }
+
+                if (Mathf.Abs(localX) + Mathf.Abs(localY) <= movTileLimit && visible && end) {
+                    tile.type = 2;
                     tile.active = true;
                 }
 

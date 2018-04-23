@@ -10,6 +10,9 @@ TagManager:
   - Cursor
   - CursorBlock
   - Block
+  - MikeRaycast
+  - EnemyBlock
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - 
   - Floor
   - Blocked
-  - 
+  - FPSMap
   - 
   - 
   - 

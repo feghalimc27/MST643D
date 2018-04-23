@@ -45,35 +45,35 @@ public class LevelSelect : MonoBehaviour
         Button level8ButtonPress = level8Button.GetComponent<Button>();
         Button level9ButtonPress = level9Button.GetComponent<Button>();
         level1ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 2.0f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 1;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level2ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 2;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level3ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 3;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level4ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 4;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level5ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 5;
                                                             StartCoroutine(fadeOut());
@@ -87,21 +87,21 @@ public class LevelSelect : MonoBehaviour
                                                         }
                                                     });
         level7ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 7;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level8ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 8;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level9ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
                                                             sceneToLoad = 9;
                                                             StartCoroutine(fadeOut());

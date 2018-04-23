@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerTurnManager : MonoBehaviour {
 
+	public Vector3 endTile = new Vector3(6.92f, 4.52f, 0);
+
+    [SerializeField]
 	private FEFriendlyUnit[] units;
+    bool endTurn = false;
 
 	private void Awake() {
 		units = GetComponentsInChildren<FEFriendlyUnit>();
@@ -24,19 +29,41 @@ public class PlayerTurnManager : MonoBehaviour {
 		foreach (var unit in units) {
 			unit.turnOver = false;
 		}
+
+        endTurn = false;
 	}
 
 	private void OnDisable() {
 		
 	}
 
-	void TestUnits() {
-		foreach (var unit in units) {
+    IEnumerator DelayStart() {
+        yield return new WaitForSeconds(0.7f);
+
+        GameObject.Find("Controller").GetComponent<GameController>().SendMessage("StartEnemyManager");
+    }
+
+    void TestUnits() {
+        units = GetComponentsInChildren<FEFriendlyUnit>();
+
+        if (units.Length == 0) {
+            SceneManager.LoadScene("Flaming Symbol");
+        }
+
+        foreach (var unit in units) {
 			if (!unit.turnOver) {
 				return;
 			}
+
+			if (unit.transform.position == endTile) {
+				endTurn = true;
+				GameObject.Find("Controller").GetComponent<UIController>().SendMessage("EndLevel");
+			}
 		}
 
-		GameObject.Find("Controller").GetComponent<GameController>().SendMessage("StartEnemyManager");
-	}
+        if (!endTurn) {
+            StartCoroutine("DelayStart");
+            endTurn = true;
+        }
+    }
 }

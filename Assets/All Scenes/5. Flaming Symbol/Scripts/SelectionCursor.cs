@@ -5,9 +5,11 @@ using UnityEngine;
 public class SelectionCursor : MonoBehaviour {
 
     public int movementCooldown;
+    public int movementCooldownSelected;
 
     private float speed = 0.5f;
     private int coolCounter = 0;
+    private int reserveCool;
 
     [HideInInspector]
     public GameObject player = null;
@@ -36,13 +38,24 @@ public class SelectionCursor : MonoBehaviour {
 
 	private Animator playerAnimator;
 
+    Coroutine attackAnimation;
+    Coroutine endTurn;
+
 	// Use this for initialization
 	void Start () {
-		
+        reserveCool = movementCooldown;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void OnEnable() {
+        GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    void OnDisable() {
+        GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		MoveCursor();
 		HandleAnimations();
 		GetEnemy();
@@ -66,6 +79,7 @@ public class SelectionCursor : MonoBehaviour {
 		Vector3 move = new Vector3(0, 0, 0);
 
 		if (unitSelected) {
+            movementCooldown = movementCooldownSelected;
 
 			for (int i = 0; i < 4; ++i) {
 				blocked[i] = blocking[i].GetComponent<CursorBlock>().blocked;
@@ -122,6 +136,8 @@ public class SelectionCursor : MonoBehaviour {
 			}
 		}
 		else {
+            movementCooldown = reserveCool;
+
 			if (Input.GetAxis("Horizontal") > deadzone && coolCounter == 0) {
 				move.x += speed;
 
@@ -227,7 +243,7 @@ public class SelectionCursor : MonoBehaviour {
 
 		if (playerHit) {
 			attacking = true;
-			StartCoroutine("AttackAnimation");
+			attackAnimation = StartCoroutine("AttackAnimation");
 			playerAnimator.SetBool("attackPhase", attacking);
 
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
@@ -291,6 +307,7 @@ public class SelectionCursor : MonoBehaviour {
 	IEnumerator AttackAnimation() {
 
 		Vector3 playerPos = player.transform.position;
+		Vector3 enemyPos = enemy.GetComponent<CursorBlock>().enemy.transform.position;
 		float animScale = 0.04f;
 		Vector3 direction = (enemy.transform.position - playerPos).normalized;
 
@@ -298,18 +315,29 @@ public class SelectionCursor : MonoBehaviour {
 
 		for (i = 0; i < 5; ++i) {
 			playerPos += direction * animScale;
+			enemyPos -= direction * animScale;
 			player.transform.position = playerPos;
+			enemy.GetComponent<CursorBlock>().enemy.transform.position = enemyPos;
 
-			yield return null;
+            yield return null;
 		}
 
 		if (i >= 4) {
 			for (i = 5; i < 10; ++i) {
 				playerPos -= direction * animScale;
+				enemyPos += direction * animScale;
 				player.transform.position = playerPos;
+				enemy.GetComponent<CursorBlock>().enemy.transform.position = enemyPos;
 
-				yield return null;
+                yield return null;
 			}
 		}
+
+        StopCoroutine(attackAnimation);
+        attackAnimation = null;
 	}
+
+    IEnumerator WaitBeforeEnd() {
+        yield return new WaitForSeconds(0.3f);
+    }
 }

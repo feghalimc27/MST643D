@@ -12,7 +12,7 @@ public class TileStatus : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     [SerializeField]
-    private Sprite atk, mov;
+    private Sprite atk, mov, obj;
 
 	// Use this for initialization
 	void Start () {
@@ -46,6 +46,9 @@ public class TileStatus : MonoBehaviour {
                 break;
             case 1: // atk
                 spriteRenderer.sprite = atk;
+                break;
+            case 2:
+                spriteRenderer.sprite = obj;
                 break;
         }
 

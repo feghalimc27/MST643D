@@ -8,9 +8,12 @@ public class FEHostileUnit : MonoBehaviour {
 	[SerializeField]
 	private int hp, xp;
 
-	private Coroutine fade;
+	public Coroutine fade;
 
 	public bool turnOver = false;
+
+    public GameObject[] blocking = new GameObject[4];
+    public bool[] blocked = new bool[4];
 
 	// Use this for initialization
 	void Start() {
@@ -24,6 +27,10 @@ public class FEHostileUnit : MonoBehaviour {
 			hp = 0;
 			fade = StartCoroutine("FadeAway");
 		}
+
+        for (int i = 0; i < blocking.Length; ++i) {
+            blocked[i] = blocking[i].GetComponent<EnemyBlock>().blocked;
+        }
 	}
 
 	// type 0 = physical 1 = magic
