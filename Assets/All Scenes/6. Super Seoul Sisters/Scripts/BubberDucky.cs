@@ -20,8 +20,8 @@ public class BubberDucky : MonoBehaviour {
 
     void JumpMikeJump()
     {
-       	gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000);
-		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 2000);
+       	gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
+		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 500);
     }
 
 
