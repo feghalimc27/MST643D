@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class playerCamera : MonoBehaviour {
 
-    
+    public GameObject target;
 
-	// Use this for initialization
-	void Start () {
+    private Vector3 offset;
 
-        
+    // Use this for initialization
+    void Start () {
+
+        offset = transform.position - target.transform.position;
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void LateUpdate () {
+
+        transform.position = target.transform.position + offset;
+
+    }
 }
