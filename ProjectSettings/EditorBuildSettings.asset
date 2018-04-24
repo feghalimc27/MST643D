@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/All Scenes/7. Basement Descent/BasementDescent.unity
     guid: ef6b6b3a4467c47ea96aafaea5d0bfcd
   - enabled: 1
-    path: Assets/All Scenes/8. Visual Novel (TEMP)/Visual Novel (TEMP).unity
+    path: Assets/All Scenes/8. Seeing Books/Seeing Books.unity
     guid: 893b23cf3edddd6438e73cdddf68fe65
   - enabled: 1
     path: Assets/All Scenes/9. Western Dentist/Western Dentist.unity
@@ -38,6 +38,3 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/All Scenes/6. Super Seoul Sisters/Mike.unity
     guid: 80dc80ac2c21f9441b6a5dd5e9b76907
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
