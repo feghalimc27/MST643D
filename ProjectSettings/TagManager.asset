@@ -13,6 +13,7 @@ TagManager:
   - MikeRaycast
   - EnemyBlock
   - Projectile
+  - PointProjectile
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - Floor
   - Blocked
   - FPSMap
-  - 
+  - Weapon
   - 
   - 
   - 

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class FPSPlayer : MonoBehaviour {
 
-    public float hp, maxHp;
+    public float hp, maxHp, damage;
 
 	// Use this for initialization
 	void Start () {

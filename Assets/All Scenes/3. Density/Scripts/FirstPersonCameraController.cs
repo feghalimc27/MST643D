@@ -64,13 +64,15 @@ public class FirstPersonCameraController : MonoBehaviour {
 		if (Input.GetButton("Fire1")) {
 			RaycastHit hit;
 
+            Debug.DrawRay(transform.position, transform.forward * 1000, Color.red);
+
             if (gun.GetComponent<MGAnimator>().activeSpin < gun.GetComponent<MGAnimator>().spinSpeed) {
                 return;
             }
 
 			if (Physics.Raycast(transform.position, transform.forward, out hit)) {
 				if (hit.transform.gameObject.tag == "Enemy") {
-					hit.transform.gameObject.GetComponent<ZombieBehavior>().SendMessage("TakeDamage", 17);
+					hit.transform.gameObject.GetComponent<ZombieBehavior>().SendMessage("TakeDamage", character.GetComponent<FPSPlayer>().damage);
 				}
 				else {
 					
