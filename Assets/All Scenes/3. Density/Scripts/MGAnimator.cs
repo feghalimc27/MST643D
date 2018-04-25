@@ -6,6 +6,7 @@ public class MGAnimator : MonoBehaviour {
 
     public float spinSpeed;
     public ParticleSystem muzzleFlare;
+	public Light flash;
 
     [SerializeField]
     private float scaleSpin = 1.75f;
@@ -41,6 +42,7 @@ public class MGAnimator : MonoBehaviour {
             if (activeSpin >= spinSpeed) {
                 activeSpin = spinSpeed;
                 muzzleFlare.Play();
+				flash.enabled = !flash.enabled;
             }
         }
         else if (!Input.GetButton("Fire1") && !Input.GetButton("Fire2")) {
@@ -52,6 +54,7 @@ public class MGAnimator : MonoBehaviour {
             }
         }
 
+		flash.enabled = false;
         transform.Rotate(new Vector3(0, 0, activeSpin));
     }
 }
