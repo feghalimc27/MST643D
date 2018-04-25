@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardPink : MonoBehaviour
 {
     bool ready;
+    bool track;
 
     void Awake()
     {
@@ -14,6 +15,11 @@ public class CardPink : MonoBehaviour
 
     void Update()
     {
+        if (track == true)
+        {
+            transform.up = LogicController.merryObject.transform.position - transform.position;
+        }
+
         if (BossController.phaseOver == true)
         {
             StartCoroutine(WaitAnim());
@@ -32,9 +38,9 @@ public class CardPink : MonoBehaviour
 
     IEnumerator Fire()
     {
-        transform.up = LogicController.merryObject.transform.position - transform.position;
+        track = true;
         yield return new WaitForSeconds(1.5f);
-        transform.up = LogicController.merryObject.transform.position - transform.position;
+        track = false;
         transform.GetComponent<Rigidbody2D>().velocity = transform.up * 1000;
     }
 
