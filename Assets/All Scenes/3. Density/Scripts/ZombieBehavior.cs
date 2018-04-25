@@ -8,6 +8,8 @@ public class ZombieBehavior : MonoBehaviour {
     public float damage;
     public GameObject player;
 
+    private int damageWait;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -16,6 +18,24 @@ public class ZombieBehavior : MonoBehaviour {
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.tag == "Player") {
             col.gameObject.SendMessage("TakeDamage", damage);
+            damageWait = 60;
+        }
+    }
+
+    void OnCollisionStay(Collision col) {
+        if (col.gameObject.tag == "Player") {
+            if (damageWait == 0) {
+                col.gameObject.SendMessage("TakeDamage", damage);
+            }
+            else {
+                damageWait--;
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision col) {
+        if (col.gameObject.tag == "Player") {
+            damageWait = 0;
         }
     }
 	

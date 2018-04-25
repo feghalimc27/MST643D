@@ -5,6 +5,7 @@ using UnityEngine;
 public class MGAnimator : MonoBehaviour {
 
     public float spinSpeed;
+    public ParticleSystem muzzleFlare;
 
     [SerializeField]
     private float scaleSpin = 1.75f;
@@ -36,8 +37,13 @@ public class MGAnimator : MonoBehaviour {
 
                 activeSpin *= scaleSpin;
             }
+
+            if (activeSpin >= spinSpeed) {
+                activeSpin = spinSpeed;
+                muzzleFlare.Play();
+            }
         }
-        else if (!Input.GetButton("Fire1")) {
+        else if (!Input.GetButton("Fire1") && !Input.GetButton("Fire2")) {
             if (activeSpin > 2) {
                 activeSpin /= 1.05f;
             }
