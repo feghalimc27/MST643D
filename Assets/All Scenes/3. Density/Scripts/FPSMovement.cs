@@ -27,6 +27,12 @@ public class FPSMovement: MonoBehaviour {
         Jump();
     }
 
+    void OnCollisionEnter(Collision col) {
+        if (col.gameObject.layer == 8) {
+            onGround = true;
+        }
+    }
+
     void OnCollisionStay(Collision col) {
         // Layer 8 = Ground
         if (col.gameObject.layer == 8) {
