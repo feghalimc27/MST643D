@@ -18,6 +18,16 @@ public class MGAnimator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if (Input.GetButton("Fire2")) {
+			if (activeSpin < spinSpeed) {
+				if (activeSpin == 0) {
+					activeSpin = 2;
+				}
+
+				activeSpin *= scaleSpin;
+			}
+		}
+
 		if (Input.GetButton("Fire1")) {
             if (activeSpin < spinSpeed) {
                 if (activeSpin == 0) {
