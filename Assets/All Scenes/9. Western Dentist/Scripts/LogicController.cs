@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class LogicController : MonoBehaviour
 {
+    public static GameObject merryObject;
+    public static Sprite pointBallSprite;
+
     public static int playerScore;
     public RawImage backgroundScroll;
     public Text scoreText;
@@ -26,6 +29,8 @@ public class LogicController : MonoBehaviour
 
     void Start ()
     {
+        merryObject = GameObject.Find("Merry").gameObject;
+        pointBallSprite = Resources.Load<Sprite>("WesternDentist_PointBall");
         playerScore = 0;
         lifeStars = new Texture[] { life1, life2, life3, life4, life5 };
         spellStars = new Texture[] { spell1, spell2, spell3, spell4, spell5 };
@@ -39,13 +44,11 @@ public class LogicController : MonoBehaviour
         {
             lifeStatus.texture = lifeStars[MerryController.merryHealth - 1];
         }
-
-        Debug.Log(1 / Time.unscaledDeltaTime + " FPS");
     }
 
     IEnumerator BackgroundScroll()
     {
-        for (float t = 2486; t >= -2486; t--)
+        for (float t = 2486; t >= -2486; t -= Time.deltaTime * 60)
         {
             backgroundScroll.rectTransform.localPosition = new Vector3(0, t, 0);
             yield return null;
