@@ -28,14 +28,14 @@ public class MerryController : MonoBehaviour
     {
         if (merryHealth == 0)
         {
-            SceneManager.LoadScene(8);
+            SceneManager.LoadScene(9);
         }
     }
 
     void FixedUpdate ()
     {
-        Vector2 x = new Vector2(1, 0) * Input.GetAxis("Horizontal") * Time.fixedDeltaTime * 150f;
-        Vector2 y = new Vector2(0, 1) * Input.GetAxis("Vertical") * Time.fixedDeltaTime * 150f;
+        Vector2 x = new Vector2(1, 0) * Input.GetAxis("Horizontal") * Time.fixedDeltaTime * 200f;
+        Vector2 y = new Vector2(0, 1) * Input.GetAxis("Vertical") * Time.fixedDeltaTime * 200f;
         transform.GetComponent<Rigidbody2D>().MovePosition(transform.GetComponent<Rigidbody2D>().position + x + y);
     }
 
