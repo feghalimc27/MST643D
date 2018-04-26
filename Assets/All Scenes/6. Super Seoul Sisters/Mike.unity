@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94241709aac211b4bad3454cf74c64d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 4
+  playerSpeed: 3
   hasJumped: 0
   onGround: 1
   canDoubleJump: 1
@@ -1366,7 +1366,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 629834629}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Obstacles
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2150,11 +2150,11 @@ GameObject:
   m_Component:
   - component: {fileID: 948093210}
   - component: {fileID: 948093209}
-  - component: {fileID: 948093212}
   - component: {fileID: 948093213}
   - component: {fileID: 948093211}
   - component: {fileID: 948093214}
-  m_Layer: 0
+  - component: {fileID: 948093212}
+  m_Layer: 12
   m_Name: bubber_ducky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2194,7 +2194,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 906315937301244c584dd64485c79719, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2229,25 +2229,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067ce3fbafd374b92b3ef66c660a6b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rB: {fileID: 0}
-  enemySpeed: 4.5
-  xMoveDirection: 1
-  yMoveDirection: 1
-  mikeRaycast: 1.2
-  projectile: {fileID: 0}
---- !u!60 &948093212
-PolygonCollider2D:
+  merry: {fileID: 488642281}
+--- !u!61 &948093212
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 948093208}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.036269426, y: -0.022641063}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2257,38 +2252,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.7, y: -0.62}
-      - {x: 0.59999996, y: -0.52}
-      - {x: 0.82, y: -0.53999996}
-      - {x: 0.91999996, y: -0.44}
-      - {x: 0.91999996, y: -0.28}
-      - {x: 0.85999995, y: -0.22}
-      - {x: 0.5, y: 0.06}
-      - {x: 0.16, y: 0.04}
-      - {x: -0.04, y: -0.16}
-      - {x: -0.04, y: 0.08}
-      - {x: -0.08, y: 0.12}
-      - {x: -0.04, y: 0.32}
-      - {x: -0.04, y: 0.79999995}
-      - {x: -0.06, y: 0.85999995}
-      - {x: -0.29999998, y: 1.0799999}
-      - {x: -0.74, y: 1.0799999}
-      - {x: -0.78, y: 0.94}
-      - {x: -0.7, y: 0.85999995}
-      - {x: -0.62, y: 0.82}
-      - {x: -0.62, y: 0.17999999}
-      - {x: -0.71999997, y: -0.35999998}
-      - {x: -0.79999995, y: -0.35999998}
-      - {x: -0.84, y: -0.39999998}
-      - {x: -0.84, y: -0.88}
-      - {x: -0.78, y: -0.97999996}
-      - {x: -0.58, y: -1.16}
-      - {x: 0.48, y: -1.16}
-      - {x: 0.53999996, y: -1.14}
-      - {x: 0.78, y: -0.9}
-      - {x: 0.76, y: -0.71999997}
+  serializedVersion: 2
+  m_Size: {x: 1.762074, y: 2.200384}
+  m_EdgeRadius: 0
 --- !u!50 &948093213
 Rigidbody2D:
   serializedVersion: 4
@@ -3855,6 +3821,34 @@ Prefab:
     - target: {fileID: 1801212120976950, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
       propertyPath: m_Name
       value: 4 x 1 Pillar - Tagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801212120976950, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801212120976950, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321651627571510, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739531625743090, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061231174534084, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246105567948522, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1778799214305514, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 415d9f6efb6cc4f33a42386fd0359a6c, type: 2}

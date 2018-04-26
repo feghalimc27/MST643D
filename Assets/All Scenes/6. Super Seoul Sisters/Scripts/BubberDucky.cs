@@ -5,39 +5,37 @@ using UnityEngine.SceneManagement;
 
 
 public class BubberDucky : MonoBehaviour {
-
-	private GameObject mikeMan;
-    public Rigidbody2D rB;
-	public float enemySpeed = 1.7f;
-    public int xMoveDirection;
-	public int yMoveDirection = 1;
-	public float mikeRaycast = .2f;
-	public Rigidbody projectile;
+    public GameObject merry;
 
     void Start()
     {
-        rB = gameObject.GetComponent<Rigidbody2D>();
-        InvokeRepeating("JumpMikeJump", 1.0f, 1.3f);
+        Physics2D.IgnoreLayerCollision(12, 13);
+        InvokeRepeating("JumpMikeJump", 2.0f, 1.0f);
     }
 
     void JumpMikeJump()
     {
-       	gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
-		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 500);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
+		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 250);
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.name == "Merry")
+        {
+            merry.GetComponent<Rigidbody2D>().gravityScale = 5;
+            merry.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
+            merry.GetComponent<Rigidbody2D>().gravityScale = 2;
+            merry.GetComponent<Rigidbody2D>().freezeRotation = false;
+            merry.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
+            merry.GetComponent<BoxCollider2D>().enabled = false;
+            merry.GetComponent<Rigidbody2D>().gravityScale = 5;
 
-    // Update is called once per frame
-    void Update () {
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 0) * enemySpeed;
-	}
-
-    void OnCollisionEnter(Collision collision)
-  {
-      if (collision.gameObject.tag == "Obstacle")
-      {
-          
-      }
-  }
+            if (merry.transform.position.y < -6.38)
+            {
+                SceneManager.LoadScene("Super Seoul Sisters");
+            }
+        }
+    }
 }
 
