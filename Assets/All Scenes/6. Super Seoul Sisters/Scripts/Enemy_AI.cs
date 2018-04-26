@@ -12,6 +12,15 @@ public class Enemy_AI : MonoBehaviour {
     public float diediedie = .9f;
     public Player_Health _player_health;
 
+    public AudioClip playDeath;
+    public AudioSource deathSound;
+
+
+    void Start()
+    {
+        deathSound = GetComponent<AudioSource>();   // assign AudioSource
+    }
+
     // Update is called once per frame
     void Update () {
 
@@ -23,15 +32,16 @@ public class Enemy_AI : MonoBehaviour {
             FlipEnemy();
             if (hit != null && hit.collider != null && hit.collider.tag == "Player")
             {
-                //Destroy(hit.collider.gameObject);
+                deathSound.PlayOneShot(playDeath); // play sound
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 hit.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                //hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+                hit.collider.gameObject.GetComponent<Character_Move>().enabled = false;
+                Camera.main.GetComponent<Camera_System>().enabled = false;
 
                 if (gameObject.transform.position.y < -6.38)
                 {

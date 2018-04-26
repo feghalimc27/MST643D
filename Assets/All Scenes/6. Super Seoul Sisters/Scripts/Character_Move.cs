@@ -13,6 +13,20 @@ public class Character_Move : MonoBehaviour {
     public Player_Health _player_health;
     public float raycastDown = .3f;
 
+    public AudioClip playJump;
+    private AudioSource jumpSound;
+    public AudioClip playLanding;
+    private AudioSource landingSound;
+    public AudioClip playerMonsterDie;
+    private AudioSource monsterDieSound;
+
+
+    void Start()
+    {
+        jumpSound = GetComponent<AudioSource>();    // assign AudioSource
+        monsterDieSound = GetComponent<AudioSource>();    // assign AudioSource
+        landingSound = GetComponent<AudioSource>();    // assign AudioSource
+    }
     // Update is called once per frame
     void Update () {
         CharacterMove();
@@ -72,12 +86,14 @@ public class Character_Move : MonoBehaviour {
             canDoubleJump = false;
             hasJumped = 0;
         }
+        jumpSound.PlayOneShot(playJump); // play sound
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Ground")
         {
+            //landingSound.PlayOneShot(playLanding); // play sound
             onGround = true;
             canDoubleJump = true;
             hasJumped = 0;
@@ -94,6 +110,7 @@ public class Character_Move : MonoBehaviour {
 
             if(hit != null && hit.collider != null && hit.collider.tag == "Enemy")
             {
+                monsterDieSound.PlayOneShot(playerMonsterDie); // play sound
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
