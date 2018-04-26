@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class BubberDucky : MonoBehaviour {
 
 	private GameObject mikeMan;
+    public Rigidbody2D rB;
 	public float enemySpeed = 1.7f;
     public int xMoveDirection;
 	public int yMoveDirection = 1;
@@ -15,6 +16,7 @@ public class BubberDucky : MonoBehaviour {
 
     void Start()
     {
+        rB = gameObject.GetComponent<Rigidbody2D>();
         InvokeRepeating("JumpMikeJump", 1.0f, 1.3f);
     }
 
@@ -29,5 +31,13 @@ public class BubberDucky : MonoBehaviour {
     void Update () {
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 0) * enemySpeed;
 	}
+
+    void OnCollisionEnter(Collision collision)
+  {
+      if (collision.gameObject.tag == "Obstacle")
+      {
+          
+      }
+  }
 }
 
