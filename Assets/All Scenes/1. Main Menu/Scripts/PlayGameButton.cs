@@ -59,6 +59,6 @@ public class PlayGameButton : MonoBehaviour
         transform.parent.Find("Fade").gameObject.SetActive(false);
         Time.timeScale = 1;
         Instantiate(Resources.Load("Global Logic") as GameObject);
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 }

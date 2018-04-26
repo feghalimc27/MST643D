@@ -32,7 +32,7 @@ public class Codec : MonoBehaviour
     void Awake()
     {
         allBars = new Texture[] { bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9 };
-        levelOrder = new int[] { 2, 3, 4, 5, 6, 7, 8 };
+        levelOrder = new int[] { 3, 4, 5, 6, 7, 8, 9 };
         for (int i = 0; i < levelOrder.Length; i++)
         {
             int temp = levelOrder[i];
@@ -56,7 +56,7 @@ public class Codec : MonoBehaviour
                                            "See if you can survive. But don't worry, you can always just 'Quit to Desktop'! Hahaha!",
                                            "Now, how do I turn this thing off? That nerd with the glasses didn't help me out much. Oh, there it is, the red but-" };
         }
-        else if (levelOrder[currentLevel] == 2)
+        else if (levelOrder[currentLevel] == 3)
         {
             selectedLines = new string[] { "Snake, your mission is to infiltrate the enemy base and retrieve the intelligence briefcase.",
                                            "Remember, stealth is of utmost importance. If you are caught, it's game over.",
@@ -65,7 +65,7 @@ public class Codec : MonoBehaviour
                                            "If you ask me, it's not a very original idea, but I'm not the one who programmed this mess.",
                                            "Oh, you get a gun at least. Have fun. Or not, I'm just the bad guy." };
         }
-        else if (levelOrder[currentLevel] == 3)
+        else if (levelOrder[currentLevel] == 4)
         {
             selectedLines = new string[] { "Wait a second, is that building familiar at all to you? Oh, I guess you can't see it yet.",
                                            "Well, whatever. Anyways, uh, this next one's easy. Just one of those arcade fighting games.",
@@ -73,7 +73,7 @@ public class Codec : MonoBehaviour
                                            "This bald guy looks a little funny, is all. You'll see in a moment.",
                                            "And what's with the title of this game? Alley Combatant? That's just Stree-" };
         }
-        else if (levelOrder[currentLevel] == 4)
+        else if (levelOrder[currentLevel] == 5)
         {
             selectedLines = new string[] { "This next one is different, that's for sure.",
                                            "Looks like whoever made this one wants you to, uh, siege the castle?",
@@ -81,19 +81,19 @@ public class Codec : MonoBehaviour
                                            "No idea who PM Lyn is.",
                                            "Well, go for it, I guess. Or lose horribly, that's probably better for me." };
         }
-        else if (levelOrder[currentLevel] == 5)
+        else if (levelOrder[currentLevel] == 6)
         {
             selectedLines = new string[] { "This next game is called Super Seoul Sisters?",
                                            "Isn't that like, indirect copyright infringement?",
                                            "I've been told by my lawyers I make a special cameo in this level, but I have no idea what that is.",
                                            "If I were you, I would be very worried. Since I'm the best and all." };
         }
-        else if (levelOrder[currentLevel] == 6)
+        else if (levelOrder[currentLevel] == 7)
         {
             selectedLines = new string[] { "No idea what to say about this next one.",
                                            "I'll just leave it to you, I guess." };
         }
-        else if (levelOrder[currentLevel] == 7)
+        else if (levelOrder[currentLevel] == 8)
         {
             selectedLines = new string[] { "A visual novel? Really?",
                                            "I'm just letting you know now, I didn't approve this. I wanted cool action games!",
@@ -104,13 +104,13 @@ public class Codec : MonoBehaviour
                                            "I've just been informed that Hike Mize died for this. No idea what that's suppose to mean.",
                                            "Whatever. I hope you lose." };
         }
-        else if (levelOrder[currentLevel] == 8)
+        else if (levelOrder[currentLevel] == 9)
         {
             selectedLines = new string[] { "Is this some kind of reference? I can tell it's a reference to something, but I'm lost to it.",
                                            "It's called Western Dentist, and it looks like the title is in, Japanese, I think?",
                                            "A bullet hell? That's what it is apparently. Have fun with that one, yeesh." };
         }
-        else if (levelOrder[currentLevel] == 9)
+        else if (levelOrder[currentLevel] == 10)
         {
             selectedLines = new string[] { "\t.\t.\t.\t.\t.\t.\t.\t.\t.\t",
                                            "Huh? Wait, you're still here? I thought you'd quit by now.",
@@ -126,7 +126,7 @@ public class Codec : MonoBehaviour
 
         if (currentLevel == (levelOrder.Length - 1))
         {
-            levelOrder[currentLevel] = 9;
+            levelOrder[currentLevel] = 10;
         }
         else
         {

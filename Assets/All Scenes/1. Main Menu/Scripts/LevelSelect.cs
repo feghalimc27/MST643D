@@ -47,63 +47,63 @@ public class LevelSelect : MonoBehaviour
         level1ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 1;
+                                                            sceneToLoad = 2;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level2ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 2;
+                                                            sceneToLoad = 3;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level3ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 3;
+                                                            sceneToLoad = 4;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level4ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 4;
+                                                            sceneToLoad = 5;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level5ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 5;
+                                                            sceneToLoad = 6;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level6ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.25f)
                                                         {
-                                                            sceneToLoad = 6;
+                                                            sceneToLoad = 7;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level7ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 7;
+                                                            sceneToLoad = 8;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level8ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 8;
+                                                            sceneToLoad = 9;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level9ButtonPress.onClick.AddListener(() => {
                                                         if (Time.time > MainMenu.lastInput + 1.0f)
                                                         {
-                                                            sceneToLoad = 9;
+                                                            sceneToLoad = 10;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });

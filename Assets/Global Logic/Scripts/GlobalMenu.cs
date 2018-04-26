@@ -33,7 +33,7 @@ public class GlobalMenu : MonoBehaviour
                                                             transform.parent.Find("Codec").gameObject.GetComponent<Codec>().stopAll();
                                                             transform.parent.Find("Codec").gameObject.SetActive(false);
                                                             transform.parent.Find("Fade/Fade").gameObject.SetActive(false);
-                                                            SceneManager.LoadScene(0);
+                                                            SceneManager.LoadScene(1);
                                                             transform.gameObject.SetActive(!transform.gameObject.activeInHierarchy);
                                                         });
         quitToDesktopButtonPress.onClick.AddListener(() => {
