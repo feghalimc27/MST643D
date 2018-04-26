@@ -15,7 +15,10 @@ public class BootScreen : MonoBehaviour
 
     IEnumerator Boot()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(2f);
+        transform.Find("Background").gameObject.SetActive(true);
+        transform.Find("JEGA").gameObject.SetActive(true);
+        transform.Find("Swipe Effect").gameObject.SetActive(true);
         for (float t = -218f; t < 206.5f; t += Time.deltaTime * 550)
         {
             transform.Find("Swipe Effect").gameObject.GetComponent<RawImage>().rectTransform.localPosition = new Vector3(t, 0, 0);
@@ -47,6 +50,7 @@ public class BootScreen : MonoBehaviour
             transform.Find("Background").gameObject.transform.GetComponent<RawImage>().color = new Color(0, 0, 1, 1 - t);
             yield return null;
         }
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(1);
     }
 }
