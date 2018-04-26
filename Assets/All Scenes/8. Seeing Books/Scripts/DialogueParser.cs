@@ -37,7 +37,7 @@ public class DialogueParser : MonoBehaviour {
 
         lines = new List<DialogueLine>();
 
-        LoadDialogue(file);
+        //LoadDialogue(file);
     }
 
 }
