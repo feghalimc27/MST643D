@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class StartScreen : MonoBehaviour
 {
+    public GameObject eventSystem;
     public GameObject mainMenu;
+
+    bool fading;
 
     void OnEnable()
     {
@@ -21,7 +24,7 @@ public class StartScreen : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Start") || Input.GetButtonDown("Submit"))
+        if ((Input.GetButtonDown("Start") || Input.GetButtonDown("Submit")) && fading == false)
         {
             StartCoroutine(fadeOut());
         }
@@ -45,21 +48,26 @@ public class StartScreen : MonoBehaviour
 
     IEnumerator fadeOut()
     {
+        fading = true;
+        eventSystem.GetComponent<MainMenuSoundController>().playSelect();
         for (float t = 0f; t < 1.0f; t += Time.deltaTime)
         {
             transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
             yield return null;
         }
         mainMenu.SetActive(true);
+        fading = false;
         transform.gameObject.SetActive(false);
     }
 
     IEnumerator fadeIn()
     {
+        fading = true;
         for (float t = 0f; t < 1.0f; t += Time.deltaTime)
         {
             transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, 1 - t);
             yield return null;
         }
+        fading = false;
     }
 }
