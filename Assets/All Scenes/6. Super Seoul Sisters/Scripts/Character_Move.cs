@@ -111,7 +111,7 @@ public class Character_Move : MonoBehaviour {
             if(hit != null && hit.collider != null && hit.collider.tag == "Enemy")
             {
                 monsterDieSound.PlayOneShot(playerMonsterDie); // play sound
-                hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 400);
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
