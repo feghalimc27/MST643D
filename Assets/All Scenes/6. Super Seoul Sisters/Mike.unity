@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641234, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -917,9 +917,8 @@ MonoBehaviour:
   _player_health: {fileID: 324306676}
   raycastDown: 0.4
   playJump: {fileID: 8300000, guid: 82474aab6ec632a478bccaa364a1fc0a, type: 3}
-  jumpSound: {fileID: 0}
+  playLanding: {fileID: 0}
   playerMonsterDie: {fileID: 8300000, guid: cec8782e3609cb34783ceb77a2c38c71, type: 3}
-  monsterDieSound: {fileID: 0}
 --- !u!50 &324306678
 Rigidbody2D:
   serializedVersion: 4
@@ -3210,6 +3209,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105197ad399ca4c63b9b464828e17863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1296278782
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2064936153}
+    m_Modifications:
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.3148355
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.915213
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.024664402
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114463739278340280, guid: 10cbba646d75a4e9bac13d176565c493,
+        type: 2}
+      propertyPath: merry
+      value: 
+      objectReference: {fileID: 324306671}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 10cbba646d75a4e9bac13d176565c493, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1327698406
 GameObject:
   m_ObjectHideFlags: 0
@@ -4275,6 +4321,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105197ad399ca4c63b9b464828e17863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1600847062 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4689579881378986, guid: 10cbba646d75a4e9bac13d176565c493,
+    type: 2}
+  m_PrefabInternal: {fileID: 1296278782}
 --- !u!1 &1684613344
 GameObject:
   m_ObjectHideFlags: 0
@@ -5442,6 +5493,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.601323, y: 0.7209368}
   m_EdgeRadius: 0
+--- !u!1 &2064936152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2064936153}
+  m_Layer: 0
+  m_Name: Minions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2064936153
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2064936152}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2748357, y: -0.10478684, z: -0.024664402}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1600847062}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129679250
 GameObject:
   m_ObjectHideFlags: 0
