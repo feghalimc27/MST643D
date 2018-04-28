@@ -7,8 +7,9 @@ public class LogicController : MonoBehaviour
 {
     public static GameObject merryObject;
     public static Sprite pointBallSprite;
-
     public static int playerScore;
+    public GameObject bossObject;
+    public RawImage bossMarker;
     public RawImage backgroundScroll;
     public Text hiScoreText;
     public Text scoreText;
@@ -44,6 +45,10 @@ public class LogicController : MonoBehaviour
 
     void Update()
     {
+        if (bossMarker != null)
+        {
+            bossMarker.rectTransform.localPosition = new Vector3(((bossObject.transform.position.x / 900f) * 800f) - 400f, 0, 0);
+        }
         phase1HealthBar.fillAmount = (float)BossController.phase1Health / 500;
         phase2HealthBar.fillAmount = (float)BossController.phase2Health / 1000;
         phase3HealthBar.fillAmount = (float)BossController.phase3Health / 1500;
