@@ -11,6 +11,8 @@ public class MainMenu : MonoBehaviour
     public EventSystem currentEventSystem;
     public bool gameCompleted;
 
+    bool fading;
+
     void Start ()
     {
         lastInput = 0.0f;
@@ -25,7 +27,7 @@ public class MainMenu : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && fading == false)
         {
             currentEventSystem.SetSelectedGameObject(null);
             transform.Find("Fade").SetAsLastSibling();
@@ -51,7 +53,9 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator fadeOut()
     {
+        fading = true;
         Time.timeScale = 0;
+        currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().playSelect();
         transform.Find("Fade").gameObject.SetActive(true); ;
         transform.Find("Fade").SetAsLastSibling();
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
@@ -65,11 +69,13 @@ public class MainMenu : MonoBehaviour
         transform.Find("LevelSelectButton").SetAsFirstSibling();
         transform.Find("SettingsButton").SetAsFirstSibling();
         startScreen.SetActive(true);
+        fading = false;
         transform.gameObject.SetActive(false);
     }
 
     IEnumerator fadeIn()
     {
+        fading = true;
         Time.timeScale = 0;
         transform.Find("Fade").gameObject.SetActive(true); ;
         transform.Find("Fade").SetAsLastSibling();
@@ -83,5 +89,6 @@ public class MainMenu : MonoBehaviour
         transform.Find("LevelSelectButton").SetAsFirstSibling();
         transform.Find("SettingsButton").SetAsFirstSibling();
         currentEventSystem.SetSelectedGameObject(transform.Find("PlayGameButton").gameObject);
+        fading = false;
     }
 }

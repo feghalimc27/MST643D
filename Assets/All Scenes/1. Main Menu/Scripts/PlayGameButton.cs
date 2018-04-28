@@ -48,11 +48,13 @@ public class PlayGameButton : MonoBehaviour
     IEnumerator fadeOut()
     {
         Time.timeScale = 0;
+        currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().playSelect();
         currentEventSystem.SetSelectedGameObject(null);
         transform.parent.Find("Fade").gameObject.SetActive(true);
         transform.parent.Find("Fade").SetAsLastSibling();
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
+            currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().audioSource.volume = 1 - t;
             transform.parent.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
             yield return null;
         }

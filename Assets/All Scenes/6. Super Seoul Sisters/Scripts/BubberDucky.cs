@@ -5,39 +5,63 @@ using UnityEngine.SceneManagement;
 
 
 public class BubberDucky : MonoBehaviour {
+    public GameObject merry;
 
-	private GameObject mikeMan;
-    public Rigidbody2D rB;
-	public float enemySpeed = 1.7f;
-    public int xMoveDirection;
-	public int yMoveDirection = 1;
-	public float mikeRaycast = .2f;
-	public Rigidbody projectile;
+    public AudioClip soundToPlay;
+    public AudioSource landSound;
+    public AudioClip playDeath;
+    public AudioSource deathSound;
+
 
     void Start()
     {
-        rB = gameObject.GetComponent<Rigidbody2D>();
-        InvokeRepeating("JumpMikeJump", 1.0f, 1.3f);
+        merry.GetComponent<Character_Move>().enabled = false;
+
+        landSound = GetComponent<AudioSource>();    // assign AudioSource
+        deathSound = GetComponent<AudioSource>();    // assign AudioSource
+
+        Physics2D.IgnoreLayerCollision(12, 13);
+        StartCoroutine(EnableMovementAfterDelay(1.5f));
+        InvokeRepeating("JumpMikeJump", 2.0f, 1.0f);
     }
 
     void JumpMikeJump()
     {
-       	gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
-		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 500);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
+		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 250);
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.name == "Merry")
+        {
+            deathSound.PlayOneShot(playDeath); // play sound
+            merry.GetComponent<Rigidbody2D>().gravityScale = 5;
+            merry.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
+            merry.GetComponent<Rigidbody2D>().gravityScale = 2;
+            merry.GetComponent<Rigidbody2D>().freezeRotation = false;
+            merry.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
+            merry.GetComponent<BoxCollider2D>().enabled = false;
+            merry.GetComponent<Rigidbody2D>().gravityScale = 5;
+            merry.GetComponent<Character_Move>().enabled = false;
+            //Camera.main.GetComponent<Camera_System>().enabled = false;    // causes error for some reason
 
-    // Update is called once per frame
-    void Update () {
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 0) * enemySpeed;
-	}
+            if (merry.transform.position.y < -6.38)
+            {
+                SceneManager.LoadScene("Super Seoul Sisters");
+            }
+        }
+        else if(collision.name != "Merry")
+        {
+            landSound.PlayOneShot(soundToPlay); // play sound
+        }
+    }
 
-    void OnCollisionEnter(Collision collision)
-  {
-      if (collision.gameObject.tag == "Obstacle")
-      {
-          
-      }
-  }
+    IEnumerator EnableMovementAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        merry.GetComponent<Character_Move>().enabled = true;
+    }
+
 }
 

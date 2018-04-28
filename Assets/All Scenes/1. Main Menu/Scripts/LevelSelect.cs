@@ -32,6 +32,7 @@ public class LevelSelect : MonoBehaviour
 
     float lastInput;
     int sceneToLoad;
+    bool fading;
 
     void Start()
     {
@@ -45,63 +46,63 @@ public class LevelSelect : MonoBehaviour
         Button level8ButtonPress = level8Button.GetComponent<Button>();
         Button level9ButtonPress = level9Button.GetComponent<Button>();
         level1ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 2;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level2ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 3;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level3ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 4;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level4ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 5;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level5ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 6;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level6ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.25f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 7;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level7ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 8;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level8ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 9;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
         level9ButtonPress.onClick.AddListener(() => {
-                                                        if (Time.time > MainMenu.lastInput + 1.0f)
+                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 10;
                                                             StartCoroutine(fadeOut());
@@ -120,7 +121,7 @@ public class LevelSelect : MonoBehaviour
     {
         selectionCursor.transform.position = currentEventSystem.currentSelectedGameObject.transform.position;
 
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && fading == false)
         {
             StartCoroutine(fadeToMenu());
         }
@@ -346,6 +347,7 @@ public class LevelSelect : MonoBehaviour
 
     IEnumerator fadeIn()
     {
+        fading = true;
         Time.timeScale = 0;
         transform.Find("Fade").gameObject.SetActive(true);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
@@ -355,14 +357,18 @@ public class LevelSelect : MonoBehaviour
         }
         transform.Find("Fade").gameObject.SetActive(false);
         Time.timeScale = 1;
+        fading = false;
     }
 
     IEnumerator fadeOut()
     {
+        fading = true;
         Time.timeScale = 0;
+        currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().playSelect();
         transform.Find("Fade").gameObject.SetActive(true);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
+            currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().audioSource.volume = 1 - t;
             transform.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
             yield return null;
         }
@@ -370,12 +376,15 @@ public class LevelSelect : MonoBehaviour
         transform.Find("Fade").gameObject.SetActive(false);
         DontDestroyOnLoad(new GameObject("levelTesting"));
         Instantiate(Resources.Load("Global Logic") as GameObject);
+        fading = false;
         SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 
     IEnumerator fadeToMenu()
     {
+        fading = true;
         Time.timeScale = 0;
+        currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().playSelect();
         transform.Find("Fade").gameObject.SetActive(true);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
@@ -385,6 +394,7 @@ public class LevelSelect : MonoBehaviour
         transform.Find("Fade").gameObject.SetActive(false);
         currentEventSystem.SetSelectedGameObject(mainMenu.transform.Find("PlayGameButton").gameObject);
         Time.timeScale = 1;
+        fading = false;
         transform.gameObject.SetActive(false);
         mainMenu.SetActive(true);
     }

@@ -52,6 +52,7 @@ public class LevelSelectButton : MonoBehaviour
     IEnumerator fadeOut()
     {
         Time.timeScale = 0;
+        currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().playSelect();
         transform.parent.Find("Fade").gameObject.SetActive(true);
         transform.parent.Find("Fade").SetAsLastSibling();
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
