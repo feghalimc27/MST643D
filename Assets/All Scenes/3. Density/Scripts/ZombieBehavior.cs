@@ -5,6 +5,7 @@ using UnityEngine;
 public class ZombieBehavior : MonoBehaviour {
 
     public float health, speed;
+	public float randomSpeed;
     public float damage;
     public GameObject player;
 
@@ -15,6 +16,7 @@ public class ZombieBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		randomSpeed = Random.Range ((speed - 3.0f), (speed + 7.0f));
 	}
 
     void OnCollisionEnter(Collision col) {
@@ -40,10 +42,10 @@ public class ZombieBehavior : MonoBehaviour {
             damageWait = 0;
         }
     }
-	
+
 	// Update is called once per frame
 	void Update () {
-        float step = speed * Time.deltaTime;
+		float step = randomSpeed * Time.deltaTime;
 
         transform.LookAt(player.transform);
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
@@ -66,7 +68,7 @@ public class ZombieBehavior : MonoBehaviour {
     }
 
 	public bool isObjectiveAccomplished() {
-		if (zombieKillCount >= zombieKillsRequired)
+		if (zombieKillCount >= zombieKillsRequired - 1)
 			return true;
 		else
 			return false;
