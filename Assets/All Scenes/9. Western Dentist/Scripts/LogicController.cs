@@ -10,7 +10,12 @@ public class LogicController : MonoBehaviour
 
     public static int playerScore;
     public RawImage backgroundScroll;
+    public Text hiScoreText;
     public Text scoreText;
+    public Image phase1HealthBar;
+    public Image phase2HealthBar;
+    public Image phase3HealthBar;
+    public Image phase4HealthBar;
     public RawImage lifeStatus;
     public RawImage spellStatus;
     public Texture life1;
@@ -39,10 +44,34 @@ public class LogicController : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "" + playerScore;
+        phase1HealthBar.fillAmount = (float)BossController.phase1Health / 500;
+        phase2HealthBar.fillAmount = (float)BossController.phase2Health / 1000;
+        phase3HealthBar.fillAmount = (float)BossController.phase3Health / 1500;
+        phase4HealthBar.fillAmount = (float)BossController.phase4Health / 2000;
+        scoreText.text = "" + playerScore.ToString("0000000000");
+        hiScoreText.text = "" + playerScore.ToString("0000000000");
         if (MerryController.merryHealth != 0)
         {
             lifeStatus.texture = lifeStars[MerryController.merryHealth - 1];
+        }
+        if (Time.timeScale == 1)
+        {
+            if (BossController.phase1Health > 0)
+            {
+                playerScore += (int)Time.timeSinceLevelLoad;
+            }
+            else if (BossController.phase2Health > 0)
+            {
+                playerScore += (int)Time.timeSinceLevelLoad * 2;
+            }
+            else if (BossController.phase3Health > 0)
+            {
+                playerScore += (int)Time.timeSinceLevelLoad * 3;
+            }
+            else if (BossController.phase4Health > 0)
+            {
+                playerScore += (int)Time.timeSinceLevelLoad * 4;
+            }
         }
     }
 

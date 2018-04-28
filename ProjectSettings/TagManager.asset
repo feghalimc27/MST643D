@@ -15,6 +15,7 @@ TagManager:
   - Projectile
   - PointProjectile
   - Obstacle
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX

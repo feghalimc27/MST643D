@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    public static int phase1Health;
+    public static int phase2Health;
+    public static int phase3Health;
+    public static int phase4Health;
+
     public GameObject instantiatorsGroup1;
     public GameObject instantiator1;
     public GameObject instantiator2;
@@ -24,27 +29,93 @@ public class BossController : MonoBehaviour
     public GameObject instantiator15;
     public GameObject instantiator16;
 
+    public GameObject instantiatorsGroup3;
+    public GameObject instantiator17;
+    public GameObject instantiator18;
+    public GameObject instantiator19;
+    public GameObject instantiator20;
+    public GameObject instantiator21;
+    public GameObject instantiator22;
+    public GameObject instantiator23;
+    public GameObject instantiator24;
+
+    public GameObject instantiatorsGroup4;
+    public GameObject instantiator25;
+    public GameObject instantiator26;
+    public GameObject instantiator27;
+    public GameObject instantiator28;
+    public GameObject instantiator29;
+    public GameObject instantiator30;
+    public GameObject instantiator31;
+    public GameObject instantiator32;
+
     Vector2 newPosition;
     float newSpeed;
+
     float newRotationSpeed1;
     float newRotationSpeed2;
+    float newRotationSpeed3;
+    float newRotationSpeed4;
 
     Coroutine movementCR;
+    Coroutine phaseCR;
+
     Coroutine instantiation1CR;
     Coroutine instantiation2CR;
+    Coroutine instantiation3CR;
+    Coroutine instantiation4CR;
+
     int choice;
 
-    string[] projectileTypes;
+    string[] phase1ProjectileTypes;
+    string[] phase2ProjectileTypes;
+    string[] phase3ProjectileTypes;
+    string[] phase4ProjectileTypes;
 
     public static bool phaseOver;
 
     float fireRate1;
     float fireRate2;
+    float fireRate3;
+    float fireRate4;
 
     void Start()
     {
-        projectileTypes = new string[] { "BallRed", "BallBlue", "BallGreen", "OvalYellow", "CardPink" };
+        phase1Health = 500;
+        phase2Health = 1000;
+        phase3Health = 1500;
+        phase4Health = 2000;
+        phase1ProjectileTypes = new string[] { "BallRed", "BallBlue" };
+        phase2ProjectileTypes = new string[] { "BallRed", "BallBlue", "BallGreen" };
+        phase3ProjectileTypes = new string[] { "BallRed", "BallBlue", "BallGreen", "OvalYellow" };
+        phase4ProjectileTypes = new string[] { "BallRed", "BallBlue", "BallGreen", "OvalYellow", "BallRed", "BallBlue", "BallGreen", "OvalYellow", "CardPink" };
         movementCR = StartCoroutine(Movement());
+        phaseCR = StartCoroutine(StartPhase());
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerProjectile")
+        {
+            Destroy(collision.gameObject);
+            LogicController.playerScore += 100;
+            if (phase1Health > 0)
+            {
+                phase1Health -= 1;
+            }
+            else if (phase2Health > 0)
+            {
+                phase2Health -= 1;
+            }
+            else if (phase3Health > 0)
+            {
+                phase3Health -= 1;
+            }
+            else if (phase4Health > 0)
+            {
+                phase4Health -= 1;
+            }
+        }
     }
 
     void Update()
@@ -52,12 +123,64 @@ public class BossController : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, newPosition, newSpeed * Time.deltaTime);
         instantiatorsGroup1.transform.Rotate(Vector3.forward * newRotationSpeed1 * Time.deltaTime);
         instantiatorsGroup2.transform.Rotate(Vector3.forward * newRotationSpeed2 * Time.deltaTime);
+        instantiatorsGroup3.transform.Rotate(Vector3.forward * newRotationSpeed3 * Time.deltaTime);
+        instantiatorsGroup4.transform.Rotate(Vector3.forward * newRotationSpeed4 * Time.deltaTime);
+
+        if (phase1Health == 0)
+        {
+            phase1Health--;
+            MerryController.merryHealth += 1;
+            if (MerryController.merryHealth > 5)
+            {
+                MerryController.merryHealth = 5;
+            }
+            StopCoroutine(movementCR);
+            movementCR = StartCoroutine(Movement());
+            StopCoroutine(phaseCR);
+            phaseCR = StartCoroutine(StartPhase());
+        }
+        else if (phase2Health == 0)
+        {
+            phase2Health--;
+            MerryController.merryHealth += 2;
+            if (MerryController.merryHealth > 5)
+            {
+                MerryController.merryHealth = 5;
+            }
+            StopCoroutine(movementCR);
+            movementCR = StartCoroutine(Movement());
+            StopCoroutine(phaseCR);
+            phaseCR = StartCoroutine(StartPhase());
+        }
+        else if (phase3Health == 0)
+        {
+            phase3Health--;
+            MerryController.merryHealth += 3;
+            if (MerryController.merryHealth > 5)
+            {
+                MerryController.merryHealth = 5;
+            }
+            StopCoroutine(movementCR);
+            movementCR = StartCoroutine(Movement());
+            StopCoroutine(phaseCR);
+            phaseCR = StartCoroutine(StartPhase());
+        }
+        else if (phase4Health == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator Movement()
     {
         newPosition = new Vector2(Random.Range(73f, 560f), Random.Range(372f, 627.7f));
         newSpeed = Random.Range(50f, 125f);
+        yield return new WaitForSeconds(Random.Range(5f, 10f));
+        movementCR = StartCoroutine(Movement());
+    }
+
+    IEnumerator StartPhase()
+    {
         if (instantiation1CR != null)
         {
             StopCoroutine(instantiation1CR);
@@ -66,11 +189,46 @@ public class BossController : MonoBehaviour
         {
             StopCoroutine(instantiation2CR);
         }
+        if (instantiation3CR != null)
+        {
+            StopCoroutine(instantiation3CR);
+        }
+        if (instantiation4CR != null)
+        {
+            StopCoroutine(instantiation4CR);
+        }
         phaseOver = true;
         yield return new WaitForSeconds(3);
         phaseOver = false;
-        Instantiator1.selectedProjectile = projectileTypes[Random.Range(0, 5)];
-        Instantiator2.selectedProjectile = projectileTypes[Random.Range(0, 5)];
+        if (phase1Health > 0)
+        {
+            Instantiator1.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
+            Instantiator2.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
+            Instantiator3.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
+            Instantiator4.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
+        }
+        else if (phase2Health > 0)
+        {
+            Instantiator1.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
+            Instantiator2.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
+            Instantiator3.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
+            Instantiator4.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
+        }
+        else if (phase3Health > 0)
+        {
+            Instantiator1.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
+            Instantiator2.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
+            Instantiator3.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
+            Instantiator4.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
+        }
+        else if (phase4Health > 0)
+        {
+            Instantiator1.selectedProjectile = phase4ProjectileTypes[Random.Range(0, phase4ProjectileTypes.Length)];
+            Instantiator2.selectedProjectile = phase4ProjectileTypes[Random.Range(0, phase4ProjectileTypes.Length)];
+            Instantiator3.selectedProjectile = phase4ProjectileTypes[Random.Range(0, phase4ProjectileTypes.Length)];
+            Instantiator4.selectedProjectile = phase4ProjectileTypes[phase4ProjectileTypes.Length - 1];
+        }
+
         if (Instantiator1.selectedProjectile == "BallBlue")
         {
             fireRate1 = Random.Range(0.25f, 0.3f);
@@ -78,18 +236,6 @@ public class BossController : MonoBehaviour
         else if (Instantiator1.selectedProjectile == "BallRed")
         {
             fireRate1 = Random.Range(0.5f, 0.75f);
-        }
-        else if (Instantiator1.selectedProjectile == "BallGreen")
-        {
-            fireRate1 = Random.Range(1f, 1.25f);
-        }
-        else if (Instantiator1.selectedProjectile == "OvalYellow")
-        {
-            fireRate1 = Random.Range(0.25f, 0.5f);
-        }
-        else if (Instantiator1.selectedProjectile == "CardPink")
-        {
-            fireRate1 = 1.5f;
         }
 
         if (Instantiator2.selectedProjectile == "BallBlue")
@@ -104,13 +250,43 @@ public class BossController : MonoBehaviour
         {
             fireRate2 = Random.Range(1f, 1.25f);
         }
-        else if (Instantiator2.selectedProjectile == "OvalYellow")
+
+        if (Instantiator3.selectedProjectile == "BallBlue")
         {
-            fireRate2 = Random.Range(0.25f, 0.5f);
+            fireRate3 = Random.Range(0.25f, 0.3f);
         }
-        else if (Instantiator2.selectedProjectile == "CardPink")
+        else if (Instantiator3.selectedProjectile == "BallRed")
         {
-            fireRate2 = 1.5f;
+            fireRate3 = Random.Range(0.5f, 0.75f);
+        }
+        else if (Instantiator3.selectedProjectile == "BallGreen")
+        {
+            fireRate3 = Random.Range(1f, 1.25f);
+        }
+        else if (Instantiator3.selectedProjectile == "OvalYellow")
+        {
+            fireRate3 = Random.Range(0.25f, 0.5f);
+        }
+
+        if (Instantiator4.selectedProjectile == "BallBlue")
+        {
+            fireRate4 = Random.Range(0.25f, 0.3f);
+        }
+        else if (Instantiator4.selectedProjectile == "BallRed")
+        {
+            fireRate4 = Random.Range(0.5f, 0.75f);
+        }
+        else if (Instantiator4.selectedProjectile == "BallGreen")
+        {
+            fireRate4 = Random.Range(1f, 1.25f);
+        }
+        else if (Instantiator4.selectedProjectile == "OvalYellow")
+        {
+            fireRate4 = Random.Range(0.25f, 0.5f);
+        }
+        else if (Instantiator4.selectedProjectile == "CardPink")
+        {
+            fireRate4 = 3f;
         }
 
         choice = Random.Range(0, 3);
@@ -119,24 +295,34 @@ public class BossController : MonoBehaviour
             case 0:
                 newRotationSpeed1 = Random.Range(-50f, 50f);
                 newRotationSpeed2 = Random.Range(-50f, 50f);
+                newRotationSpeed3 = Random.Range(-50f, 50f);
+                newRotationSpeed4 = Random.Range(-50f, 50f);
                 instantiation1CR = StartCoroutine(Instantiation1());
                 instantiation2CR = StartCoroutine(Instantiation2());
+                instantiation3CR = StartCoroutine(Instantiation3());
+                instantiation4CR = StartCoroutine(Instantiation4());
                 break;
             case 1:
                 newRotationSpeed1 = Random.Range(0f, 50f);
                 newRotationSpeed2 = -newRotationSpeed1;
+                newRotationSpeed3 = newRotationSpeed1;
+                newRotationSpeed4 = -newRotationSpeed1;
                 instantiation1CR = StartCoroutine(Instantiation1());
                 instantiation2CR = StartCoroutine(Instantiation2());
+                instantiation3CR = StartCoroutine(Instantiation3());
+                instantiation4CR = StartCoroutine(Instantiation4());
                 break;
             case 2:
                 newRotationSpeed1 = Random.Range(0f, 25f);
                 newRotationSpeed2 = newRotationSpeed1;
+                newRotationSpeed3 = newRotationSpeed1;
+                newRotationSpeed4 = newRotationSpeed1;
                 instantiation1CR = StartCoroutine(Instantiation1());
                 instantiation2CR = StartCoroutine(Instantiation2());
+                instantiation3CR = StartCoroutine(Instantiation3());
+                instantiation4CR = StartCoroutine(Instantiation4());
                 break;
         }
-        yield return new WaitForSeconds(Random.Range(10f, 15f));
-        movementCR = StartCoroutine(Movement());
     }
 
     IEnumerator Instantiation1()
@@ -165,5 +351,41 @@ public class BossController : MonoBehaviour
         instantiator16.SetActive(true);
         yield return new WaitForSeconds(fireRate2);
         instantiation2CR = StartCoroutine(Instantiation2());
+    }
+
+    IEnumerator Instantiation3()
+    {
+        instantiator17.SetActive(true);
+        instantiator18.SetActive(true);
+        instantiator19.SetActive(true);
+        instantiator20.SetActive(true);
+        instantiator21.SetActive(true);
+        instantiator22.SetActive(true);
+        instantiator23.SetActive(true);
+        instantiator24.SetActive(true);
+        yield return new WaitForSeconds(fireRate3);
+        instantiation3CR = StartCoroutine(Instantiation3());
+    }
+
+    IEnumerator Instantiation4()
+    {
+        instantiator25.SetActive(true);
+        instantiator26.SetActive(true);
+        instantiator27.SetActive(true);
+        instantiator28.SetActive(true);
+        instantiator29.SetActive(true);
+        instantiator30.SetActive(true);
+        instantiator31.SetActive(true);
+        instantiator32.SetActive(true);
+        yield return new WaitForSeconds(fireRate4);
+        instantiation4CR = StartCoroutine(Instantiation4());
+    }
+
+    public void restartPhase()
+    {
+        StopCoroutine(movementCR);
+        movementCR = StartCoroutine(Movement());
+        StopCoroutine(phaseCR);
+        phaseCR = StartCoroutine(StartPhase());
     }
 }
