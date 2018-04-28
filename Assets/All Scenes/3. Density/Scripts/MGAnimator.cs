@@ -7,6 +7,7 @@ public class MGAnimator : MonoBehaviour {
     public float spinSpeed;
     public ParticleSystem muzzleFlare;
 	public Light flash;
+	public AudioClip gunshot;
 
     [SerializeField]
     private float scaleSpin = 1.75f;
@@ -42,6 +43,7 @@ public class MGAnimator : MonoBehaviour {
             if (activeSpin >= spinSpeed) {
                 activeSpin = spinSpeed;
                 muzzleFlare.Play();
+				GetComponent<AudioSource>().PlayOneShot(gunshot);
 				flash.enabled = !flash.enabled;
             }
         }
