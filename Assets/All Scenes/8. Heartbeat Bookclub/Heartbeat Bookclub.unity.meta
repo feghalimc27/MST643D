@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/All Scenes/8. Heartbeat Bookclub/Heartbeat Bookclub.unity.meta
 guid: 9c49da36ea873401d8e33bb0873e9780
 timeCreated: 1524945960
+=======
+guid: 14d5807dabb4242b3870cb8eaadf3742
+timeCreated: 1524947174
+>>>>>>> 61178cf4c4195b9dba542257c987738b674623b2:Assets/All Scenes/8. Heartbeat Bookclub/Heartbeat Bookclub.unity.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}

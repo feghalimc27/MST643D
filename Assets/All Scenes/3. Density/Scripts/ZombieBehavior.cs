@@ -5,14 +5,18 @@ using UnityEngine;
 public class ZombieBehavior : MonoBehaviour {
 
     public float health, speed;
+	public float randomSpeed;
     public float damage;
     public GameObject player;
 
     private int damageWait;
+	public static int zombieKillCount = 0;
+	public static int zombieKillsRequired = 30;
+	public static bool objectiveAccomplished = false;
 
 	// Use this for initialization
 	void Start () {
-		
+		randomSpeed = Random.Range ((speed - 3.0f), (speed + 7.0f));
 	}
 
     void OnCollisionEnter(Collision col) {
@@ -38,20 +42,36 @@ public class ZombieBehavior : MonoBehaviour {
             damageWait = 0;
         }
     }
-	
+
 	// Update is called once per frame
 	void Update () {
-        float step = speed * Time.deltaTime;
+		float step = randomSpeed * Time.deltaTime;
 
         transform.LookAt(player.transform);
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
 
         if (health <= 0) {
             Object.Destroy(gameObject);
+
+			objectiveAccomplished = isObjectiveAccomplished ();
+			if (objectiveAccomplished) {
+				print ("*** OBJECTIVE ACCOMPLISEHED!***");
+			} else {
+				++zombieKillCount;
+				print (zombieKillCount);
+			}
         }
 	}
 
     public void TakeDamage(float damage) {
         health -= damage;
     }
+
+	public bool isObjectiveAccomplished() {
+		if (zombieKillCount >= zombieKillsRequired - 1)
+			return true;
+		else
+			return false;
+	}
+
 }

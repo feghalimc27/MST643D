@@ -21,6 +21,8 @@ public class FPSPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (hp <= 0) {
+			ZombieBehavior.zombieKillCount = 0;
+			ZombieBehavior.objectiveAccomplished = false;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 	}

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/All Scenes/8. Heartbeat Bookclub/Dialogue/HHS.rtf.meta
 guid: f112a90e891054d53a52e74d5eeefa11
 timeCreated: 1524945961
+=======
+guid: 3feeadcc7c75f418883dc712bd976cbf
+timeCreated: 1524947175
+>>>>>>> 61178cf4c4195b9dba542257c987738b674623b2:Assets/All Scenes/8. Heartbeat Bookclub/Dialogue/HHS.rtf.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}

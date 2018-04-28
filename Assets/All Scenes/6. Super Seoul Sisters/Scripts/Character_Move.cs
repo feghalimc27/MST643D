@@ -48,7 +48,7 @@ public class Character_Move : MonoBehaviour {
             }
             else if (canDoubleJump == true && onGround == false)
             {
-                playerJumpPower = 70;
+                playerJumpPower = 110;
                 Jump();
             }
         }
@@ -85,6 +85,7 @@ public class Character_Move : MonoBehaviour {
         if(hasJumped >= 2){
             canDoubleJump = false;
             hasJumped = 0;
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, 0);
         }
         jumpSound.PlayOneShot(playJump); // play sound
     }
