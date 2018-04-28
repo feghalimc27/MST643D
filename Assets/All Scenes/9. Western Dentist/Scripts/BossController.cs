@@ -67,11 +67,6 @@ public class BossController : MonoBehaviour
 
     int choice;
 
-    string[] phase1ProjectileTypes;
-    string[] phase2ProjectileTypes;
-    string[] phase3ProjectileTypes;
-    string[] phase4ProjectileTypes;
-
     public static bool phaseOver;
 
     float fireRate1;
@@ -85,10 +80,6 @@ public class BossController : MonoBehaviour
         phase2Health = 1000;
         phase3Health = 1500;
         phase4Health = 2000;
-        phase1ProjectileTypes = new string[] { "BallRed", "BallBlue" };
-        phase2ProjectileTypes = new string[] { "BallRed", "BallBlue", "BallGreen" };
-        phase3ProjectileTypes = new string[] { "BallRed", "BallBlue", "BallGreen", "OvalYellow" };
-        phase4ProjectileTypes = new string[] { "BallRed", "BallBlue", "BallGreen", "OvalYellow", "BallRed", "BallBlue", "BallGreen", "OvalYellow", "CardPink" };
         movementCR = StartCoroutine(Movement());
         phaseCR = StartCoroutine(StartPhase());
     }
@@ -202,31 +193,31 @@ public class BossController : MonoBehaviour
         phaseOver = false;
         if (phase1Health > 0)
         {
-            Instantiator1.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
-            Instantiator2.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
-            Instantiator3.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
-            Instantiator4.selectedProjectile = phase1ProjectileTypes[Random.Range(0, phase1ProjectileTypes.Length)];
+            Instantiator1.selectedProjectile = "BallBlue";
+            Instantiator2.selectedProjectile = "BallRed";
+            Instantiator3.selectedProjectile = "BallBlue";
+            Instantiator4.selectedProjectile = "BallRed";
         }
         else if (phase2Health > 0)
         {
-            Instantiator1.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
-            Instantiator2.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
-            Instantiator3.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
-            Instantiator4.selectedProjectile = phase2ProjectileTypes[Random.Range(0, phase2ProjectileTypes.Length)];
+            Instantiator1.selectedProjectile = "BallBlue";
+            Instantiator2.selectedProjectile = "BallRed";
+            Instantiator3.selectedProjectile = "BallGreen";
+            Instantiator4.selectedProjectile = "BallRed";
         }
         else if (phase3Health > 0)
         {
-            Instantiator1.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
-            Instantiator2.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
-            Instantiator3.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
-            Instantiator4.selectedProjectile = phase3ProjectileTypes[Random.Range(0, phase3ProjectileTypes.Length)];
+            Instantiator1.selectedProjectile = "BallBlue";
+            Instantiator2.selectedProjectile = "BallRed";
+            Instantiator3.selectedProjectile = "BallGreen";
+            Instantiator4.selectedProjectile = "OvalYellow";
         }
         else if (phase4Health > 0)
         {
-            Instantiator1.selectedProjectile = phase4ProjectileTypes[Random.Range(0, phase4ProjectileTypes.Length)];
-            Instantiator2.selectedProjectile = phase4ProjectileTypes[Random.Range(0, phase4ProjectileTypes.Length)];
-            Instantiator3.selectedProjectile = phase4ProjectileTypes[Random.Range(0, phase4ProjectileTypes.Length)];
-            Instantiator4.selectedProjectile = phase4ProjectileTypes[phase4ProjectileTypes.Length - 1];
+            Instantiator1.selectedProjectile = "BallRed";
+            Instantiator2.selectedProjectile = "BallGreen";
+            Instantiator3.selectedProjectile = "OvalYellow";
+            Instantiator4.selectedProjectile = "CardPink";
         }
 
         if (Instantiator1.selectedProjectile == "BallBlue")
