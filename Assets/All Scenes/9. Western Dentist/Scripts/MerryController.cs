@@ -7,6 +7,7 @@ public class MerryController : MonoBehaviour
 {
     public static int merryHealth;
     public GameObject soul;
+    public GameObject aura;
     public GameObject instantiator1;
     public GameObject instantiator2;
     public GameObject instantiator3;
@@ -46,11 +47,11 @@ public class MerryController : MonoBehaviour
 
     void Update()
     {
-        soul.transform.position = transform.position;
+        aura.transform.Rotate(Vector3.forward * Time.deltaTime * -60);
         merryAnim.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
         merryAnim.SetInteger("TimeScale", (int)Time.timeScale);
 
-        if (merryHealth == 0)
+        if (merryHealth == -1)
         {
             SceneManager.LoadScene(9);
         }

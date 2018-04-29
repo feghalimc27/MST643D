@@ -8,11 +8,15 @@ public class Rings : MonoBehaviour
     private float speed = 80;
     public AudioClip soundToPlay;
     public AudioSource ringSound;
+    public int ringPoints;
+
+    private ScoreManager sM;
 
     // Use this for initialization
     void Start()
     {
         ringSound = GetComponent<AudioSource>();    // assign AudioSource
+        sM = FindObjectOfType<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -30,6 +34,7 @@ public class Rings : MonoBehaviour
             gameObject.GetComponent<BoxCollider2D>().enabled = false;   // disable collider so it only plays once
 
             Destroy(gameObject, 1f);    // destroy after one second
+            sM.AddScore(ringPoints);
         }
     }
 }

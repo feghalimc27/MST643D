@@ -31,6 +31,7 @@ public class Character_Move : MonoBehaviour {
     void Update () {
         CharacterMove();
         PlayerRaycast();
+        PlayerRaycast_duck();
     }
 
     // controls character movement and physics
@@ -48,7 +49,7 @@ public class Character_Move : MonoBehaviour {
             }
             else if (canDoubleJump == true && onGround == false)
             {
-                playerJumpPower = 110;
+                playerJumpPower = 100;
                 Jump();
             }
         }
@@ -107,6 +108,7 @@ public class Character_Move : MonoBehaviour {
 
         if (hit != null && hit.collider != null && hit.distance < raycastDown && hit.collider.tag == "Enemy")
         {
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, 0);
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * 80);
 
             if(hit != null && hit.collider != null && hit.collider.tag == "Enemy")
@@ -120,6 +122,27 @@ public class Character_Move : MonoBehaviour {
                 hit.collider.gameObject.GetComponent<EdgeCollider2D>().enabled = false;
                 hit.collider.gameObject.GetComponent<Enemy_AI>().enabled = false;
 
+            }
+        }
+    }
+    void PlayerRaycast_duck()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down);
+
+        if (hit != null && hit.collider != null && hit.distance < raycastDown && hit.collider.tag == "Duck")
+        {
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveX * playerSpeed, 0);
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * 80);
+
+            if(hit != null && hit.collider != null && hit.collider.tag == "Duck")
+            {
+                hit.collider.gameObject.GetComponent<Minions>().enabled = false;
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200);
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
+                hit.collider.gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
+                hit.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                hit.collider.gameObject.GetComponent<EdgeCollider2D>().enabled = false;
             }
         }
     }

@@ -7,8 +7,9 @@ public class LogicController : MonoBehaviour
 {
     public static GameObject merryObject;
     public static Sprite pointBallSprite;
-
     public static int playerScore;
+    public GameObject bossObject;
+    public RawImage bossMarker;
     public RawImage backgroundScroll;
     public Text hiScoreText;
     public Text scoreText;
@@ -18,11 +19,13 @@ public class LogicController : MonoBehaviour
     public Image phase4HealthBar;
     public RawImage lifeStatus;
     public RawImage spellStatus;
+    public Texture life0;
     public Texture life1;
     public Texture life2;
     public Texture life3;
     public Texture life4;
     public Texture life5;
+    public Texture spell0;
     public Texture spell1;
     public Texture spell2;
     public Texture spell3;
@@ -37,22 +40,26 @@ public class LogicController : MonoBehaviour
         merryObject = GameObject.Find("Merry").gameObject;
         pointBallSprite = Resources.Load<Sprite>("WesternDentist_PointBall");
         playerScore = 0;
-        lifeStars = new Texture[] { life1, life2, life3, life4, life5 };
-        spellStars = new Texture[] { spell1, spell2, spell3, spell4, spell5 };
+        lifeStars = new Texture[] { life0, life1, life2, life3, life4, life5 };
+        spellStars = new Texture[] { spell0, spell1, spell2, spell3, spell4, spell5 };
         StartCoroutine(BackgroundScroll());
     }
 
     void Update()
     {
+        if (bossMarker != null)
+        {
+            bossMarker.rectTransform.localPosition = new Vector3(((bossObject.transform.position.x / 900f) * 800f) - 400f, 0, 0);
+        }
         phase1HealthBar.fillAmount = (float)BossController.phase1Health / 500;
         phase2HealthBar.fillAmount = (float)BossController.phase2Health / 1000;
         phase3HealthBar.fillAmount = (float)BossController.phase3Health / 1500;
         phase4HealthBar.fillAmount = (float)BossController.phase4Health / 2000;
         scoreText.text = "" + playerScore.ToString("0000000000");
         hiScoreText.text = "" + playerScore.ToString("0000000000");
-        if (MerryController.merryHealth != 0)
+        if (MerryController.merryHealth != -1)
         {
-            lifeStatus.texture = lifeStars[MerryController.merryHealth - 1];
+            lifeStatus.texture = lifeStars[MerryController.merryHealth];
         }
         if (Time.timeScale == 1)
         {
