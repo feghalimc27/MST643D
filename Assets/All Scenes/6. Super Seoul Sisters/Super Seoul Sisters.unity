@@ -2757,7 +2757,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2781,7 +2781,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!4 &934863991 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4683480839027264, guid: ec4b82aa804feb3469b6c7a692a444c7,
@@ -4975,6 +4975,66 @@ Prefab:
       propertyPath: playDeath
       value: 
       objectReference: {fileID: 8300000, guid: e8e877ac01fe0e645b37ba8a2fa63448, type: 3}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[0].x
+      value: -0.42842683
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[0].y
+      value: 0.39721945
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[1].x
+      value: -0.29698122
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[1].y
+      value: 0.4021261
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[4].x
+      value: 0.3723065
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[4].y
+      value: 0.4009197
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[5].x
+      value: 0.44473282
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[5].y
+      value: 0.37101245
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[3].x
+      value: 0.23342888
+      objectReference: {fileID: 0}
+    - target: {fileID: 68242642163608844, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Points.Array.data[3].y
+      value: 0.4068842
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082326730726366, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114082326730726366, guid: c53a17d214491437bbf85fe4e30f8349,
+        type: 2}
+      propertyPath: enemySpeed
+      value: 1.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c53a17d214491437bbf85fe4e30f8349, type: 2}
   m_IsPrefabParent: 0

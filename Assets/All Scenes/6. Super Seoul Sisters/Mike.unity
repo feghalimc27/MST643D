@@ -1980,7 +1980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &948093209
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067ce3fbafd374b92b3ef66c660a6b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  merry: {fileID: 0}
+  merry: {fileID: 1374659548}
   soundToPlay: {fileID: 8300000, guid: fa00bfa42a34df444ac5dcf78571a1d0, type: 3}
   landSound: {fileID: 0}
   playDeath: {fileID: 8300000, guid: e8e877ac01fe0e645b37ba8a2fa63448, type: 3}
@@ -3292,7 +3292,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1374659548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7, y: -2.7, z: 0}
+  m_LocalPosition: {x: -4.66, y: 0, z: 0}
   m_LocalScale: {x: 0.095, y: 0.095, z: 0.095}
   m_Children: []
   m_Father: {fileID: 0}
