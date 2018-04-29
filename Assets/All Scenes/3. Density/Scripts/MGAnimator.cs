@@ -21,7 +21,7 @@ public class MGAnimator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (Input.GetButton("Fire2")) {
+		if (Input.GetAxis("ADS") > 0.1) {
 			if (activeSpin < spinSpeed) {
 				if (activeSpin == 0) {
 					activeSpin = 2;
@@ -31,7 +31,7 @@ public class MGAnimator : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetButton("Fire1")) {
+		if (Input.GetAxis("FPSFire") > 0.1) {
             if (activeSpin < spinSpeed) {
                 if (activeSpin == 0) {
                     activeSpin = 2;
@@ -47,7 +47,7 @@ public class MGAnimator : MonoBehaviour {
 				flash.enabled = !flash.enabled;
             }
         }
-        else if (!Input.GetButton("Fire1") && !Input.GetButton("Fire2")) {
+        else if (Input.GetAxis("FPSFire") < 0.1 && Input.GetAxis("ADS") < 0.1) {
             if (activeSpin > 2) {
                 activeSpin /= 1.05f;
             }

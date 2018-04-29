@@ -23,6 +23,7 @@ public class FirstPersonCameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         if (!controller) {
             MouseLook();
         }
@@ -57,11 +58,10 @@ public class FirstPersonCameraController : MonoBehaviour {
         transform.localRotation = Quaternion.AngleAxis(mouseLook.y, Vector3.right);
         character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
 
-        Debug.Log("Horizontal: " + Input.GetAxis("HorizontalR") + "Veritcal: " + Input.GetAxis("VerticalR"));
     }
 
 	void FireWeapon() {
-		if (Input.GetButton("Fire1")) {
+		if (!controller && Input.GetButton("Fire1")) {
 			RaycastHit hit;
 
             Debug.DrawRay(transform.position, transform.forward * 1000, Color.red);
@@ -79,5 +79,23 @@ public class FirstPersonCameraController : MonoBehaviour {
 				}
 			}
 		}
+        else if (controller && Input.GetAxis("FPSFire") > 0.1) {
+            RaycastHit hit;
+
+            Debug.DrawRay(transform.position, transform.forward * 1000, Color.red);
+
+            if (gun.GetComponent<MGAnimator>().activeSpin < gun.GetComponent<MGAnimator>().spinSpeed) {
+                return;
+            }
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+                if (hit.transform.gameObject.tag == "Enemy") {
+                    hit.transform.gameObject.GetComponent<ZombieBehavior>().SendMessage("TakeDamage", character.GetComponent<FPSPlayer>().damage);
+                }
+                else {
+
+                }
+            }
+        }
 	}
 }
