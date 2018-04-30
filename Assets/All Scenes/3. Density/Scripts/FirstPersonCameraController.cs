@@ -67,14 +67,15 @@ public class FirstPersonCameraController : MonoBehaviour {
             Debug.DrawRay(transform.position, transform.forward * 1000, Color.red);
 
             if (gun.GetComponent<MGAnimator>().activeSpin < gun.GetComponent<MGAnimator>().spinSpeed) {
-                return;
+              //  return;
             }
 
 			if (Physics.Raycast(transform.position, transform.forward, out hit)) {
 				if (hit.transform.gameObject.tag == "Enemy") {
 					hit.transform.gameObject.GetComponent<ZombieBehavior>().SendMessage("TakeDamage", character.GetComponent<FPSPlayer>().damage);
-				}
-				else {
+                    GameObject.Find("Controller").GetComponent<FPSUIController>().SendMessage("Hit");
+                }
+                else {
 					
 				}
 			}
@@ -91,6 +92,7 @@ public class FirstPersonCameraController : MonoBehaviour {
             if (Physics.Raycast(transform.position, transform.forward, out hit)) {
                 if (hit.transform.gameObject.tag == "Enemy") {
                     hit.transform.gameObject.GetComponent<ZombieBehavior>().SendMessage("TakeDamage", character.GetComponent<FPSPlayer>().damage);
+                    GameObject.Find("Controller").GetComponent<FPSUIController>().SendMessage("Hit");
                 }
                 else {
 

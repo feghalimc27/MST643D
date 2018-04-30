@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class FPSUIController : MonoBehaviour {
 
-    public Image healthBar;
+    public Image healthBar, hitmarker;
     public GameObject player;
     public Text loading, playing;
 
@@ -13,6 +13,7 @@ public class FPSUIController : MonoBehaviour {
 	void Start () {
         playing.text = " ";
         playing.enabled = false;
+        hitmarker.enabled = false;
         StartCoroutine("FlashObjectiveText");
 	}
 	
@@ -71,6 +72,19 @@ public class FPSUIController : MonoBehaviour {
                 playing.enabled = true;
                 break;
             }
+        }
+    }
+
+    void Hit() {
+        StartCoroutine("Hitmarker");
+    }
+
+    IEnumerator Hitmarker() {
+        while (true) {
+            hitmarker.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+            hitmarker.enabled = false;
+            break;
         }
     }
 }
