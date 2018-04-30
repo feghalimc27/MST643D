@@ -46,7 +46,7 @@ public class CardPink : MonoBehaviour
 
     IEnumerator WaitAnim()
     {
-        transform.GetComponent<BoxCollider2D>().enabled = false;
+        //transform.GetComponent<BoxCollider2D>().enabled = false;
         transform.up = Vector2.up;
         gameObject.GetComponent<SpriteRenderer>().sprite = LogicController.pointBallSprite;
         gameObject.tag = "PointProjectile";

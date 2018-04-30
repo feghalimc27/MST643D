@@ -33,7 +33,7 @@ public class BallGreen : MonoBehaviour
 
     IEnumerator WaitAnim()
     {
-        transform.GetComponent<CircleCollider2D>().enabled = false;
+        //transform.GetComponent<CircleCollider2D>().enabled = false;
         transform.up = Vector2.up;
         gameObject.GetComponent<SpriteRenderer>().sprite = LogicController.pointBallSprite;
         gameObject.tag = "PointProjectile";

@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LogicController : MonoBehaviour
 {
+    public AudioSource audioSource;
     public static GameObject merryObject;
     public static Sprite pointBallSprite;
     public static int playerScore;
@@ -20,7 +22,6 @@ public class LogicController : MonoBehaviour
     public Image phase4HealthBar;
     public RawImage lifeStatus;
     public RawImage spellStatus;
-    public Texture life0;
     public Texture life1;
     public Texture life2;
     public Texture life3;
@@ -38,18 +39,36 @@ public class LogicController : MonoBehaviour
 
     Coroutine cameraShakeCR;
 
+    GameObject codecScreen;
+    GameObject pauseMenu;
+
     void Start ()
     {
         merryObject = GameObject.Find("Merry").gameObject;
         pointBallSprite = Resources.Load<Sprite>("WesternDentist_PointBall");
         playerScore = 0;
-        lifeStars = new Texture[] { life0, life1, life2, life3, life4, life5 };
+        lifeStars = new Texture[] { life1, life2, life3, life4, life5 };
         spellStars = new Texture[] { spell0, spell1, spell2, spell3, spell4, spell5 };
         StartCoroutine(BackgroundScroll());
     }
 
     void Update()
     {
+        try
+        {
+            codecScreen = GameObject.Find("Codec").gameObject;
+            pauseMenu = GameObject.Find("Global Menu").gameObject;
+            if (codecScreen != null || pauseMenu != null)
+            {
+                audioSource.Pause();
+            }
+            else if (audioSource.isPlaying == false)
+            {
+                audioSource.UnPause();
+            }
+        }
+        catch (NullReferenceException e) { }
+
         if (bossObject != null)
         {
             bossMarker.rectTransform.localPosition = new Vector3(((bossObject.transform.position.x / 900f) * 800f) - 400f, 0, 0);
@@ -64,15 +83,15 @@ public class LogicController : MonoBehaviour
         phase4HealthBar.fillAmount = (float)BossController.phase4Health / 2000;
         scoreText.text = "" + playerScore.ToString("0000000000");
         hiScoreText.text = "" + playerScore.ToString("0000000000");
-        if (MerryController.merryHealth != -1)
+        if (MerryController.merryHealth != 0)
         {
-            lifeStatus.texture = lifeStars[MerryController.merryHealth];
+            lifeStatus.texture = lifeStars[MerryController.merryHealth - 1];
         }
         if (MerryController.merrySpell != -1)
         {
             spellStatus.texture = spellStars[MerryController.merrySpell];
         }
-        if (Time.timeScale == 1)
+        if (Time.timeScale == 1 && bossObject != null)
         {
             if (BossController.phase1Health > 0)
             {
@@ -84,11 +103,28 @@ public class LogicController : MonoBehaviour
             }
             else if (BossController.phase3Health > 0)
             {
-                playerScore += (int)Time.timeSinceLevelLoad * 3;
+                playerScore += (int)Time.timeSinceLevelLoad * 4;
             }
             else if (BossController.phase4Health > 0)
             {
-                playerScore += (int)Time.timeSinceLevelLoad * 4;
+                playerScore += (int)Time.timeSinceLevelLoad * 8;
+            }
+
+            if (BossController.phase1Health == 0)
+            {
+                StartCoroutine(PointBurst1Mil());
+            }
+            else if (BossController.phase2Health == 0)
+            {
+                StartCoroutine(PointBurst10Mil());
+            }
+            else if (BossController.phase3Health == 0)
+            {
+                StartCoroutine(PointBurst100Mil());
+            }
+            else if (BossController.phase4Health == 0)
+            {
+                StartCoroutine(PointBurst1000Mil());
             }
         }
     }
@@ -104,8 +140,8 @@ public class LogicController : MonoBehaviour
 
     IEnumerator CameraShake()
     {
-        float randomShakeX = Random.Range(-10, 10);
-        float randomShakeY = Random.Range(-10, 10);
+        float randomShakeX = UnityEngine.Random.Range(-10, 10);
+        float randomShakeY = UnityEngine.Random.Range(-10, 10);
         mainCamera.transform.position = new Vector3(mainCamera.transform.position.x + randomShakeX, mainCamera.transform.position.y + randomShakeY, -10);
         yield return null;
         mainCamera.transform.position = new Vector3(mainCamera.transform.position.x - randomShakeX, mainCamera.transform.position.y - randomShakeY, -10);
@@ -124,6 +160,41 @@ public class LogicController : MonoBehaviour
         {
             mainCamera.transform.position = new Vector3(452, 339, -10);
             StopCoroutine(cameraShakeCR);
+        }
+    }
+
+    IEnumerator PointBurst1Mil()
+    {
+        for (int i = 0; i < 120; i++)
+        {
+            playerScore += 8334 * UnityEngine.Random.Range(1, 10);
+            yield return null;
+        }
+    }
+    IEnumerator PointBurst10Mil()
+    {
+        for (int i = 0; i < 180; i++)
+        {
+            playerScore += 55556 * UnityEngine.Random.Range(1, 10);
+            yield return null;
+        }
+    }
+
+    IEnumerator PointBurst100Mil()
+    {
+        for (int i = 0; i < 240; i++)
+        {
+            playerScore += 416667 * UnityEngine.Random.Range(1, 10);
+            yield return null;
+        }
+    }
+
+    IEnumerator PointBurst1000Mil()
+    {
+        for (int i = 0; i < 300; i++)
+        {
+            playerScore += 3333334 * UnityEngine.Random.Range(1, 8);
+            yield return null;
         }
     }
 }

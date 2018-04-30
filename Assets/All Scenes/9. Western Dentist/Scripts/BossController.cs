@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip bossHitClip;
+    public AudioClip projectileSpawnClip;
+    public AudioClip phaseEndClip;
+
     public static int phase1Health;
     public static int phase2Health;
     public static int phase3Health;
@@ -65,6 +70,8 @@ public class BossController : MonoBehaviour
     Coroutine instantiation3CR;
     Coroutine instantiation4CR;
 
+    Coroutine flashDamageCR;
+
     int choice;
 
     public static bool phaseOver;
@@ -74,6 +81,8 @@ public class BossController : MonoBehaviour
     float fireRate3;
     float fireRate4;
 
+    float lastHit;
+
     void Start()
     {
         phase1Health = 500;
@@ -82,12 +91,23 @@ public class BossController : MonoBehaviour
         phase4Health = 2000;
         movementCR = StartCoroutine(Movement());
         phaseCR = StartCoroutine(StartPhase());
+        lastHit = 0;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "PlayerProjectile")
         {
+            if (Time.time > lastHit + 0.07f)
+            {
+                lastHit = Time.time;
+                audioSource.PlayOneShot(bossHitClip);
+            }
+            if (flashDamageCR != null)
+            {
+                StopCoroutine(flashDamageCR);
+            }
+            flashDamageCR = StartCoroutine(FlashDamage());
             Destroy(collision.gameObject);
             LogicController.playerScore += 100;
             if (phase1Health > 0)
@@ -109,6 +129,16 @@ public class BossController : MonoBehaviour
         }
         if (collision.gameObject.tag == "SpecialAttack")
         {
+            if (Time.time > lastHit + 0.07f)
+            {
+                lastHit = Time.time;
+                audioSource.PlayOneShot(bossHitClip);
+            }
+            if (flashDamageCR != null)
+            {
+                StopCoroutine(flashDamageCR);
+            }
+            flashDamageCR = StartCoroutine(FlashDamage());
             LogicController.playerScore += 1000;
             if (phase1Health > 0)
             {
@@ -133,6 +163,16 @@ public class BossController : MonoBehaviour
     {
         if (collision.gameObject.tag == "SpecialAttack")
         {
+            if (Time.time > lastHit + 0.07f)
+            {
+                lastHit = Time.time;
+                audioSource.PlayOneShot(bossHitClip);
+            }
+            if (flashDamageCR != null)
+            {
+                StopCoroutine(flashDamageCR);
+            }
+            flashDamageCR = StartCoroutine(FlashDamage());
             LogicController.playerScore += 1000;
             if (phase1Health > 0)
             {
@@ -163,6 +203,7 @@ public class BossController : MonoBehaviour
 
         if (phase1Health == 0)
         {
+            audioSource.PlayOneShot(phaseEndClip);
             phase1Health--;
             MerryController.merryHealth += 1;
             if (MerryController.merryHealth > 5)
@@ -176,6 +217,7 @@ public class BossController : MonoBehaviour
         }
         else if (phase2Health == 0)
         {
+            audioSource.PlayOneShot(phaseEndClip);
             phase2Health--;
             MerryController.merryHealth += 2;
             if (MerryController.merryHealth > 5)
@@ -189,6 +231,7 @@ public class BossController : MonoBehaviour
         }
         else if (phase3Health == 0)
         {
+            audioSource.PlayOneShot(phaseEndClip);
             phase3Health--;
             MerryController.merryHealth += 3;
             if (MerryController.merryHealth > 5)
@@ -202,6 +245,7 @@ public class BossController : MonoBehaviour
         }
         else if (phase4Health == 0)
         {
+            DontDestroyOnLoad(new GameObject("levelCompleted"));
             Destroy(gameObject);
         }
     }
@@ -362,6 +406,7 @@ public class BossController : MonoBehaviour
 
     IEnumerator Instantiation1()
     {
+        audioSource.PlayOneShot(projectileSpawnClip);
         instantiator1.SetActive(true);
         instantiator2.SetActive(true);
         instantiator3.SetActive(true);
@@ -376,6 +421,7 @@ public class BossController : MonoBehaviour
 
     IEnumerator Instantiation2()
     {
+        audioSource.PlayOneShot(projectileSpawnClip);
         instantiator9.SetActive(true);
         instantiator10.SetActive(true);
         instantiator11.SetActive(true);
@@ -390,6 +436,7 @@ public class BossController : MonoBehaviour
 
     IEnumerator Instantiation3()
     {
+        audioSource.PlayOneShot(projectileSpawnClip);
         instantiator17.SetActive(true);
         instantiator18.SetActive(true);
         instantiator19.SetActive(true);
@@ -404,6 +451,7 @@ public class BossController : MonoBehaviour
 
     IEnumerator Instantiation4()
     {
+        audioSource.PlayOneShot(projectileSpawnClip);
         instantiator25.SetActive(true);
         instantiator26.SetActive(true);
         instantiator27.SetActive(true);
@@ -422,5 +470,13 @@ public class BossController : MonoBehaviour
         movementCR = StartCoroutine(Movement());
         StopCoroutine(phaseCR);
         phaseCR = StartCoroutine(StartPhase());
+    }
+
+    IEnumerator FlashDamage()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
+        yield return null;
+        yield return null;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 }

@@ -22,12 +22,16 @@ public class MerryController : MonoBehaviour
     public GameObject instantiator10;
     public GameObject instantiator11;
     public GameObject instantiator12;
+    public GameObject spellCooldownUI;
     public Animator merryAnim;
 
     public Material spriteMaterial;
 
     public GameObject bossGameObject;
     public GameObject logicGameObject;
+
+    public AudioSource audioSource;
+    public AudioClip playerFire1Clip;
     
     float lastFire;
     float lastSpell;
@@ -57,19 +61,30 @@ public class MerryController : MonoBehaviour
         merryAnim.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
         merryAnim.SetInteger("TimeScale", (int)Time.timeScale);
 
-        if (merryHealth == -1)
+        if (merryHealth == 0)
         {
             SceneManager.LoadScene(9);
         }
 
-        if (Input.GetButton("Fire1") && Time.time > lastFire + 0.15f && Time.timeScale == 1 && beam.activeInHierarchy == false)
+        if (Input.GetButton("Fire1") && Time.time > lastFire + 0.09f && Time.timeScale == 1 && beam.activeInHierarchy == false)
         {
             fire();
         }
 
-        if (Input.GetButton("Fire2") && merrySpell > -1 && Time.time > lastSpell + 15f && Time.timeScale == 1)
+        if (Input.GetButton("Fire2") && merrySpell > 0 && Time.time > lastSpell + 15f && Time.timeScale == 1)
         {
+            lastSpell = Time.time;
+            merrySpell--;
             StartCoroutine(FireSpecial());
+        }
+
+        if (Time.time < lastSpell + 15f)
+        {
+            spellCooldownUI.SetActive(true);
+        }
+        else
+        {
+            spellCooldownUI.SetActive(false);
         }
     }
 
@@ -94,19 +109,19 @@ public class MerryController : MonoBehaviour
         {
             if (BossController.phase1Health > 0 && BossController.phase1Health != 500)
             {
-                BossController.phase1Health++;
+                BossController.phase1Health += 2;
             }
             else if (BossController.phase2Health > 0 && BossController.phase2Health != 1000)
             {
-                BossController.phase2Health++;
+                BossController.phase2Health += 2;
             }
             else if (BossController.phase3Health > 0 && BossController.phase3Health != 1500)
             {
-                BossController.phase3Health++;
+                BossController.phase3Health += 2;
             }
             else if (BossController.phase4Health > 0 && BossController.phase4Health != 2000)
             {
-                BossController.phase4Health++;
+                BossController.phase4Health += 2;
             }
             yield return null;
         }
@@ -126,6 +141,7 @@ public class MerryController : MonoBehaviour
     void fire()
     {
         lastFire = Time.time;
+        audioSource.PlayOneShot(playerFire1Clip);
         GameObject projectile1 = Instantiate(Resources.Load("PlayerProjectile"), instantiator1.transform.position, instantiator1.transform.rotation) as GameObject;
         GameObject projectile2 = Instantiate(Resources.Load("PlayerProjectile"), instantiator2.transform.position, instantiator2.transform.rotation) as GameObject;
         GameObject projectile3 = Instantiate(Resources.Load("PlayerProjectile"), instantiator3.transform.position, instantiator3.transform.rotation) as GameObject;
@@ -154,7 +170,6 @@ public class MerryController : MonoBehaviour
 
     IEnumerator FireSpecial()
     {
-        lastSpell = Time.time;
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
             soul.transform.localScale = new Vector3(0.4f + t, 0.4f + t, 0.4f + t);
@@ -166,6 +181,7 @@ public class MerryController : MonoBehaviour
         yield return new WaitForSeconds(2);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
+            soul.transform.localScale = new Vector3(1.4f - t, 1.4f - t, 1.4f - t);
             if (((180f / 255f) - t) >= 0)
             {
                 beam.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, (180f / 255f) - t);
@@ -176,12 +192,6 @@ public class MerryController : MonoBehaviour
                 beam.SetActive(false);
                 logicGameObject.GetComponent<LogicController>().stopCameraShake();
             }
-            yield return null;
-        }
-        merrySpell--;
-        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
-        {
-            soul.transform.localScale = new Vector3(1.4f - t, 1.4f - t, 1.4f - t);
             yield return null;
         }
     }

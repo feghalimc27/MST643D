@@ -33,7 +33,7 @@ public class OvalYellow : MonoBehaviour
 
     IEnumerator WaitAnim()
     {
-        transform.GetComponent<CapsuleCollider2D>().enabled = false;
+        //transform.GetComponent<CapsuleCollider2D>().enabled = false;
         transform.up = Vector2.up;
         gameObject.GetComponent<SpriteRenderer>().sprite = LogicController.pointBallSprite;
         gameObject.tag = "PointProjectile";
