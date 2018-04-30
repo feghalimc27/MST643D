@@ -13,11 +13,6 @@ public class MainMenuCameraRotate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButton("Submit")) {
-            transform.Rotate(Vector3.up * speed * 3 * Time.deltaTime);
-        }
-        else {
             transform.Rotate(Vector3.up * speed * Time.deltaTime);
-        }
-    }
+    	}
 }
