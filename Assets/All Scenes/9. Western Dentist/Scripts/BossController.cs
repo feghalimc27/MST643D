@@ -107,6 +107,50 @@ public class BossController : MonoBehaviour
                 phase4Health -= 1;
             }
         }
+        if (collision.gameObject.tag == "SpecialAttack")
+        {
+            LogicController.playerScore += 1000;
+            if (phase1Health > 0)
+            {
+                phase1Health -= 1;
+            }
+            else if (phase2Health > 0)
+            {
+                phase2Health -= 1;
+            }
+            else if (phase3Health > 0)
+            {
+                phase3Health -= 1;
+            }
+            else if (phase4Health > 0)
+            {
+                phase4Health -= 1;
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "SpecialAttack")
+        {
+            LogicController.playerScore += 1000;
+            if (phase1Health > 0)
+            {
+                phase1Health -= 1;
+            }
+            else if (phase2Health > 0)
+            {
+                phase2Health -= 1;
+            }
+            else if (phase3Health > 0)
+            {
+                phase3Health -= 1;
+            }
+            else if (phase4Health > 0)
+            {
+                phase4Health -= 1;
+            }
+        }
     }
 
     void Update()

@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class MerryController : MonoBehaviour
 {
     public static int merryHealth;
+    public static int merrySpell;
     public GameObject soul;
+    public GameObject beam;
     public GameObject aura;
     public GameObject instantiator1;
     public GameObject instantiator2;
@@ -25,15 +27,19 @@ public class MerryController : MonoBehaviour
     public Material spriteMaterial;
 
     public GameObject bossGameObject;
+    public GameObject logicGameObject;
     
     float lastFire;
+    float lastSpell;
     bool hit;
 
     void Start()
     {
         hit = false;
         merryHealth = 5;
+        merrySpell = 5;
         lastFire = 0;
+        lastSpell = Time.time - 15f;
     }
 
     void OnTriggerEnter2D (Collider2D collision)
@@ -56,9 +62,14 @@ public class MerryController : MonoBehaviour
             SceneManager.LoadScene(9);
         }
 
-        if (Input.GetButton("Fire1") && Time.time > lastFire + 0.15f && Time.timeScale == 1)
+        if (Input.GetButton("Fire1") && Time.time > lastFire + 0.15f && Time.timeScale == 1 && beam.activeInHierarchy == false)
         {
             fire();
+        }
+
+        if (Input.GetButton("Fire2") && merrySpell > -1 && Time.time > lastSpell + 15f && Time.timeScale == 1)
+        {
+            StartCoroutine(FireSpecial());
         }
     }
 
@@ -139,5 +150,39 @@ public class MerryController : MonoBehaviour
         projectile10.GetComponent<Rigidbody2D>().velocity = projectile10.transform.up * 1000;
         projectile11.GetComponent<Rigidbody2D>().velocity = projectile11.transform.up * 1000;
         projectile12.GetComponent<Rigidbody2D>().velocity = projectile12.transform.up * 1000;
+    }
+
+    IEnumerator FireSpecial()
+    {
+        lastSpell = Time.time;
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            soul.transform.localScale = new Vector3(0.4f + t, 0.4f + t, 0.4f + t);
+            yield return null;
+        }
+        beam.SetActive(true);
+        logicGameObject.GetComponent<LogicController>().startCameraShake();
+        beam.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 180f/255f);
+        yield return new WaitForSeconds(2);
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            if (((180f / 255f) - t) >= 0)
+            {
+                beam.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, (180f / 255f) - t);
+            }
+            else
+            {
+                beam.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                beam.SetActive(false);
+                logicGameObject.GetComponent<LogicController>().stopCameraShake();
+            }
+            yield return null;
+        }
+        merrySpell--;
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            soul.transform.localScale = new Vector3(1.4f - t, 1.4f - t, 1.4f - t);
+            yield return null;
+        }
     }
 }

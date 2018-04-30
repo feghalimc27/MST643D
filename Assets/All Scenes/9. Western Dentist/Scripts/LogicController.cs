@@ -8,6 +8,7 @@ public class LogicController : MonoBehaviour
     public static GameObject merryObject;
     public static Sprite pointBallSprite;
     public static int playerScore;
+    public GameObject mainCamera;
     public GameObject bossObject;
     public RawImage bossMarker;
     public RawImage backgroundScroll;
@@ -35,6 +36,8 @@ public class LogicController : MonoBehaviour
     Texture []lifeStars;
     Texture []spellStars;
 
+    Coroutine cameraShakeCR;
+
     void Start ()
     {
         merryObject = GameObject.Find("Merry").gameObject;
@@ -47,9 +50,13 @@ public class LogicController : MonoBehaviour
 
     void Update()
     {
-        if (bossMarker != null)
+        if (bossObject != null)
         {
             bossMarker.rectTransform.localPosition = new Vector3(((bossObject.transform.position.x / 900f) * 800f) - 400f, 0, 0);
+        }
+        else
+        {
+            bossMarker.gameObject.SetActive(false);
         }
         phase1HealthBar.fillAmount = (float)BossController.phase1Health / 500;
         phase2HealthBar.fillAmount = (float)BossController.phase2Health / 1000;
@@ -60,6 +67,10 @@ public class LogicController : MonoBehaviour
         if (MerryController.merryHealth != -1)
         {
             lifeStatus.texture = lifeStars[MerryController.merryHealth];
+        }
+        if (MerryController.merrySpell != -1)
+        {
+            spellStatus.texture = spellStars[MerryController.merrySpell];
         }
         if (Time.timeScale == 1)
         {
@@ -88,6 +99,31 @@ public class LogicController : MonoBehaviour
         {
             backgroundScroll.rectTransform.localPosition = new Vector3(0, t, 0);
             yield return null;
+        }
+    }
+
+    IEnumerator CameraShake()
+    {
+        float randomShakeX = Random.Range(-10, 10);
+        float randomShakeY = Random.Range(-10, 10);
+        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x + randomShakeX, mainCamera.transform.position.y + randomShakeY, -10);
+        yield return null;
+        mainCamera.transform.position = new Vector3(mainCamera.transform.position.x - randomShakeX, mainCamera.transform.position.y - randomShakeY, -10);
+        yield return null;
+        cameraShakeCR = StartCoroutine(CameraShake());
+    }
+
+    public void startCameraShake()
+    {
+        cameraShakeCR = StartCoroutine(CameraShake());
+    }
+
+    public void stopCameraShake()
+    {
+        if (cameraShakeCR != null)
+        {
+            mainCamera.transform.position = new Vector3(452, 339, -10);
+            StopCoroutine(cameraShakeCR);
         }
     }
 }

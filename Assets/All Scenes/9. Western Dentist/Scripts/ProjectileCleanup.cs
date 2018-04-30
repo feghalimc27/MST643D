@@ -6,6 +6,9 @@ public class ProjectileCleanup : MonoBehaviour
 {
     void OnTriggerEnter2D (Collider2D collision)
     {
-        Destroy(collision.gameObject);
+        if (collision.gameObject.tag != "SpecialAttack")
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

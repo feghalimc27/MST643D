@@ -16,6 +16,7 @@ TagManager:
   - PointProjectile
   - Obstacle
   - PlayerProjectile
+  - SpecialAttack
   layers:
   - Default
   - TransparentFX
