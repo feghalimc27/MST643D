@@ -5,6 +5,7 @@ using UnityEngine;
 public class bulletScript : MonoBehaviour {
 
     private float xFacing, yFacing;
+    private Vector2 lastFacing;
     public float speed = 5;
 	// Use this for initialization
 	void Start () {
@@ -12,7 +13,9 @@ public class bulletScript : MonoBehaviour {
         xFacing = Input.GetAxis("HorizontalR");
         yFacing = -Input.GetAxis("VerticalR");
 
-        GetComponent<Rigidbody2D>().velocity = new Vector2(speed*xFacing, speed*yFacing);
+        lastFacing = new Vector2(speed * xFacing, speed * yFacing);
+
+        GetComponent<Rigidbody2D>().velocity = lastFacing;
 	}
 	
 	// Update is called once per frame
