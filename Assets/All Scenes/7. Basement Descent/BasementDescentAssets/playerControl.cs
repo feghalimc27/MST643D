@@ -12,7 +12,6 @@ public class playerControl : MonoBehaviour {
     public float speed = 3;
     public float projDelay = 0.5f;
     public Transform bulletObj;
-    public Collider2D collision;
 
 	// Use this for initialization
 	void Start () {
@@ -51,11 +50,6 @@ public class playerControl : MonoBehaviour {
             shotCooldown = 1;
             PlayerAttack();
             StartCoroutine(shotDelayReset());
-        }
-        if (collision.gameObject.name == "endPortal" && levelComplete == 0)
-        {
-            levelComplete = 1;
-            DontDestroyOnLoad(new GameObject("levelCompleted"));
         }
     }
 

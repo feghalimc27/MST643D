@@ -146,7 +146,6 @@ MonoBehaviour:
   speed: 5
   projDelay: 0.3
   bulletObj: {fileID: 4513762151845032, guid: 92c6caa97291f834b8af974e76163e93, type: 2}
-  collision: {fileID: 1311197693}
 --- !u!58 &65668664
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6871,6 +6870,7 @@ GameObject:
   - component: {fileID: 1311197692}
   - component: {fileID: 1311197691}
   - component: {fileID: 1311197693}
+  - component: {fileID: 1311197694}
   m_Layer: 0
   m_Name: endPortal
   m_TagString: Untagged
@@ -6950,6 +6950,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &1311197694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1311197690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0df79b5b6df5248806c3433fbafaff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1321911173
 GameObject:
   m_ObjectHideFlags: 0
