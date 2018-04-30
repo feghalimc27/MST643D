@@ -11,7 +11,7 @@ public class Camera_System : MonoBehaviour {
     public float yMax;
 
     void Update(){
-        if((player.transform.position.x > 54.408f && player.transform.position.x < 61.619f) && player.transform.position.y < 0.86f)
+        if((player.transform.position.x > 68.94f && player.transform.position.x < 76.32f) && player.transform.position.y < 0.86f)
         {
             yMin = .1f;
         }

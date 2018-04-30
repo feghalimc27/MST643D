@@ -12,6 +12,9 @@ public class BubberDucky : MonoBehaviour {
     public AudioClip playDeath;
     public AudioSource deathSound;
 
+    public GameObject CameraRight;
+    public GameObject CameraLeft;
+
 
     void Start()
     {
@@ -21,14 +24,22 @@ public class BubberDucky : MonoBehaviour {
         deathSound = GetComponent<AudioSource>();    // assign AudioSource
 
         Physics2D.IgnoreLayerCollision(12, 13);
-        StartCoroutine(EnableMovementAfterDelay(1.5f));
+        StartCoroutine(EnableMovementAfterDelay(1f));
         InvokeRepeating("JumpMikeJump", 2.0f, 1.0f);
+    }
+
+    void Update()
+    {
+        if(gameObject.transform.position.x > CameraRight.transform.position.x)
+        {
+            gameObject.transform.position = CameraLeft.transform.position;
+        }
     }
 
     void JumpMikeJump()
     {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
-		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 250);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 400);
+		gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 270);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
