@@ -55,7 +55,7 @@ public class BubberDucky : MonoBehaviour {
             merry.GetComponent<BoxCollider2D>().enabled = false;
             merry.GetComponent<Rigidbody2D>().gravityScale = 5;
             merry.GetComponent<Character_Move>().enabled = false;
-            //Camera.main.GetComponent<Camera_System>().enabled = false;    // causes error for some reason
+            Camera.main.GetComponent<Camera_System>().enabled = false;
 
             if (merry.transform.position.y < -6.38)
             {
