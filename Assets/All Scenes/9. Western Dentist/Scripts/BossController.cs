@@ -249,7 +249,6 @@ public class BossController : MonoBehaviour
         }
         else if (phase4Health == 0)
         {
-            audioSource.PlayOneShot(phaseEndClip);
             phase4Health--;
             StopAllCoroutines();
             StartCoroutine(DeathAnimation());
@@ -504,15 +503,16 @@ public class BossController : MonoBehaviour
         audioSource.PlayOneShot(deathClip);
         deathBurst.SetActive(true);
         transform.GetComponent<SpriteRenderer>().enabled = false;
+        audioSource.PlayOneShot(phaseEndClip);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 4)
         {
             deathBurst.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - t);
             deathBurst.transform.localScale = new Vector3(850 * t, 850 * t, 0);
             yield return null;
         }
-        yield return new WaitForSeconds(2);
         deathBurst.transform.localScale = new Vector3(0, 0, 0);
         deathBurst.SetActive(false);
+        yield return new WaitForSeconds(5);
         DontDestroyOnLoad(new GameObject("levelCompleted"));
     }
 }

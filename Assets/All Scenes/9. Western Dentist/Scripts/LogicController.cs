@@ -116,28 +116,28 @@ public class LogicController : MonoBehaviour
             if (BossController.phase1Health == 0)
             {
                 phaseScoreMultiplier = UnityEngine.Random.Range(1f, 8f);
-                phaseCompleteText.text = "Phase 1 Complete\n+" + (120 * (int)(8334 * phaseScoreMultiplier)) + " Score";
+                phaseCompleteText.text = "Phase 1 Complete\n+" + (120 * (uint)(8334 * phaseScoreMultiplier)) + " Score";
                 StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst1Mil());
             }
             else if (BossController.phase2Health == 0)
             {
                 phaseScoreMultiplier = UnityEngine.Random.Range(1f, 8f);
-                phaseCompleteText.text = "Phase 2 Complete\n+" + (180 * (int)(55556 * phaseScoreMultiplier)) + " Score";
+                phaseCompleteText.text = "Phase 2 Complete\n+" + (180 * (uint)(55556 * phaseScoreMultiplier)) + " Score";
                 StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst10Mil());
             }
             else if (BossController.phase3Health == 0)
             {
                 phaseScoreMultiplier = UnityEngine.Random.Range(1f, 8f);
-                phaseCompleteText.text = "Phase 3 Complete\n+" + (240 * (int)(416667 * phaseScoreMultiplier)) + " Score";
+                phaseCompleteText.text = "Phase 3 Complete\n+" + (240 * (uint)(416667 * phaseScoreMultiplier)) + " Score";
                 StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst100Mil());
             }
             else if (BossController.phase4Health == 0)
             {
-                phaseScoreMultiplier = UnityEngine.Random.Range(1f, 5f);
-                phaseCompleteText.text = "Boss Defeated\n+" + (300 * (int)(3333334 * phaseScoreMultiplier)) + " Score";
+                phaseScoreMultiplier = UnityEngine.Random.Range(1f, 3f);
+                phaseCompleteText.text = "Boss Defeated\n+" + (300 * (uint)(3333334 * phaseScoreMultiplier)) + " Score";
                 StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst1000Mil());
             }
