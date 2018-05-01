@@ -10,6 +10,7 @@ public class MerryController : MonoBehaviour
     public GameObject soul;
     public GameObject beam;
     public GameObject aura;
+    public GameObject hitBurst;
     public GameObject instantiator1;
     public GameObject instantiator2;
     public GameObject instantiator3;
@@ -32,7 +33,10 @@ public class MerryController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip playerFire1Clip;
-    
+    public AudioClip playerHitClip;
+    public AudioClip playerHitBurstClip;
+    public AudioClip deathClip;
+
     float lastFire;
     float lastSpell;
     bool hit;
@@ -98,6 +102,7 @@ public class MerryController : MonoBehaviour
     IEnumerator Hit()
     {
         hit = true;
+        audioSource.PlayOneShot(playerHitClip);
         Time.timeScale = 0;
         soul.transform.localScale = new Vector3(1, 1, 1);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 4)
@@ -127,14 +132,38 @@ public class MerryController : MonoBehaviour
         }
         spriteMaterial.color = new Color(1, 1, 1, 1);
         soul.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-        GameObject[] allProjectiles = GameObject.FindGameObjectsWithTag("Projectile");
-        for (int i = 0; i < allProjectiles.Length; i++)
-        {
-            Destroy(allProjectiles[i]);
-        }
-        bossGameObject.GetComponent<BossController>().restartPhase();
-        merryHealth--;
         Time.timeScale = 1;
+        audioSource.PlayOneShot(playerHitBurstClip);
+        hitBurst.SetActive(true);
+        if (merryHealth - 1 == 0)
+        {
+            audioSource.PlayOneShot(deathClip);
+            bossGameObject.GetComponent<BossController>().stopPhase();
+            transform.GetComponent<SpriteRenderer>().enabled = false;
+            soul.GetComponent<SpriteRenderer>().enabled = false;
+            aura.GetComponent<SpriteRenderer>().enabled = false;
+            for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 4)
+            {
+                hitBurst.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - t);
+                hitBurst.transform.localScale = new Vector3(750 * t, 750 * t, 0);
+                yield return null;
+            }
+            yield return new WaitForSeconds(2);
+            merryHealth--;
+        }
+        else
+        {
+            merryHealth--;
+            for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 4)
+            {
+                hitBurst.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - t);
+                hitBurst.transform.localScale = new Vector3(850 * t, 850 * t, 0);
+                yield return null;
+            }
+        }
+        hitBurst.transform.localScale = new Vector3(0, 0, 0);
+        hitBurst.SetActive(false);
+        bossGameObject.GetComponent<BossController>().restartPhase();
         hit = false;
     }
 
