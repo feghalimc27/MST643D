@@ -11,7 +11,7 @@ public class ZombieBehavior : MonoBehaviour {
 
     private int damageWait;
 	public static int zombieKillCount = 0;
-	public static int zombieKillsRequired = 30;
+	public static int zombieKillsRequired = 70;
 	public static bool objectiveAccomplished = false;
 
 	// Use this for initialization
@@ -30,6 +30,7 @@ public class ZombieBehavior : MonoBehaviour {
         if (col.gameObject.tag == "Player") {
             if (damageWait == 0) {
                 col.gameObject.SendMessage("TakeDamage", damage);
+                damageWait = 60;
             }
             else {
                 damageWait--;
