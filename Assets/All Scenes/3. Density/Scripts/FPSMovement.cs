@@ -10,11 +10,16 @@ public class FPSMovement: MonoBehaviour {
 	public int fireRate = 1200;
     public float liftForce = 700;
     public float liftCooldown = 15.0f;
+    public float dodgeCooldown = 300.0f;
+    public float dodgeForce = 7000f;
     public float friction = 0.34f;
+    public AudioClip liftSound;
+    public AudioClip dodgeSound;
 
     private bool onGround = false;
     private bool lifting = false;
     private float _liftCooldown;
+    private float _dodgeCooldown;
     [SerializeField]
     private int initialLiftMultiplier = 3;
 
@@ -24,12 +29,14 @@ public class FPSMovement: MonoBehaviour {
 	void Start () {
         Cursor.lockState = CursorLockMode.Locked;
         _liftCooldown = liftCooldown;
+        _dodgeCooldown = dodgeCooldown;
+        dodgeCooldown = 0;
         liftCooldown *= 3;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("Forward Velcity: " + GetComponent<Rigidbody>().velocity.z);
+
     }
 
     // Called at a consistent point per frame
@@ -37,6 +44,7 @@ public class FPSMovement: MonoBehaviour {
         MovePlayer();
         Jump();
         Lift();
+        Dodge();
     }
 
     void OnCollisionEnter(Collision col) {
@@ -91,6 +99,20 @@ public class FPSMovement: MonoBehaviour {
         }
     }
 
+    void Dodge() {
+        if (!onGround) {
+            if (Input.GetButtonDown("Dodge") && dodgeCooldown == 0) {
+                GetComponent<AudioSource>().PlayOneShot(dodgeSound);
+                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(dodgeForce * Input.GetAxis("Horizontal"), 0, dodgeForce * Input.GetAxis("Vertical")));
+                dodgeCooldown = _dodgeCooldown;
+            }
+        }
+
+        if (dodgeCooldown > 0) {
+            dodgeCooldown--;
+        }
+    }
+
     void Lift() {
         if (!onGround) {
             if (Input.GetButton("Lift") && liftCooldown > 0) {
@@ -126,6 +148,7 @@ public class FPSMovement: MonoBehaviour {
                     boostRate.x *= liftForce * initialLiftMultiplier * liftCooldown / _liftCooldown * (Input.GetAxis("Horizontal"));
                 }
                 GetComponent<Rigidbody>().AddRelativeForce(boostRate);
+                GetComponent<AudioSource>().PlayOneShot(liftSound);
                 liftCooldown -= 15f * Time.deltaTime;
             }
             else {
@@ -141,5 +164,13 @@ public class FPSMovement: MonoBehaviour {
                 liftCooldown = _liftCooldown * 3;
             }
         }
+    }
+
+    public float GetLiftFill() {
+        return liftCooldown / (_liftCooldown * 3);
+    }
+
+    public float GetDodgeFill() {
+        return 1 - (dodgeCooldown / _dodgeCooldown);
     }
 }

@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661185556473580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 5, z: 230}
+  m_LocalPosition: {x: 151.74591, y: -0.02, z: 275.2273}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 4754263919222226}
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1127472331125056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0.25, z: 0}
   m_LocalScale: {x: 0.5, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 4172465200204860}
@@ -171,8 +171,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.0072632, y: 1.6296985, z: 1}
+  m_Center: {x: -0.09889221, y: 0.31484926, z: 0}
 --- !u!95 &95122393432618250
 Animator:
   serializedVersion: 3
@@ -202,9 +202,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 500
-  speed: 8
+  speed: 15
+  randomSpeed: 3
   damage: 4
   player: {fileID: 0}
+  pickups:
+  - {fileID: 1981870745747878, guid: 2945489d0f170e74d9acdb03f707cb6e, type: 2}
 --- !u!212 &212098132417027266
 SpriteRenderer:
   m_ObjectHideFlags: 1

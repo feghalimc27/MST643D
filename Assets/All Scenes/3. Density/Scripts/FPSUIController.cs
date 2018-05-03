@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class FPSUIController : MonoBehaviour {
 
-    public Image healthBar, hitmarker;
+    public Image healthBar, hitmarker, lift, liftBar, dodge, dodgeBar;
     public GameObject player;
     public Text loading, playing;
 
@@ -29,6 +29,23 @@ public class FPSUIController : MonoBehaviour {
         Vector3 width = healthBar.transform.localScale;
         width.x = (player.GetComponent<FPSPlayer>().hp / player.GetComponent<FPSPlayer>().maxHp);
         healthBar.transform.localScale = width;
+
+        liftBar.fillAmount = player.GetComponent<FPSMovement>().GetLiftFill();
+        dodgeBar.fillAmount = player.GetComponent<FPSMovement>().GetDodgeFill();
+
+        if (dodgeBar.fillAmount != 1) {
+            dodge.color = Color.gray;
+        }
+        else {
+            dodge.color = Color.white;
+        }
+
+        if (liftBar.fillAmount == 0) {
+            lift.color = Color.gray;
+        }
+        else {
+            lift.color = Color.white;
+        }
 
         if (player.GetComponent<FPSPlayer>().hp <= 25) {
             healthBar.color = Color.red;

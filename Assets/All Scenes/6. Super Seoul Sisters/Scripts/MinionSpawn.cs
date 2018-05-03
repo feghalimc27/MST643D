@@ -8,6 +8,7 @@ public class MinionSpawn : MonoBehaviour {
 	private GameObject player;
     public GameObject duck;
 	public int duckCount;
+    public GameObject leftCamera;
 
 
 
@@ -15,6 +16,13 @@ public class MinionSpawn : MonoBehaviour {
     {	
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
         InvokeRepeating ("Spawn", 2, 10);
+    }
+
+    void Update(){
+        if(duck.transform.position.x < leftCamera.transform.position.x)
+        {
+            Destroy(duck);
+        }
     }
 
 

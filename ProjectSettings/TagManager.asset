@@ -17,6 +17,8 @@ TagManager:
   - Obstacle
   - PlayerProjectile
   - SpecialAttack
+  - HitBurst
+  - Pickup
   layers:
   - Default
   - TransparentFX

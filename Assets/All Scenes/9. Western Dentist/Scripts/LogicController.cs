@@ -9,13 +9,14 @@ public class LogicController : MonoBehaviour
     public AudioSource audioSource;
     public static GameObject merryObject;
     public static Sprite pointBallSprite;
-    public static int playerScore;
+    public static uint playerScore;
     public GameObject mainCamera;
     public GameObject bossObject;
     public RawImage bossMarker;
     public RawImage backgroundScroll;
     public Text hiScoreText;
     public Text scoreText;
+    public Text phaseCompleteText;
     public Image phase1HealthBar;
     public Image phase2HealthBar;
     public Image phase3HealthBar;
@@ -41,6 +42,8 @@ public class LogicController : MonoBehaviour
 
     GameObject codecScreen;
     GameObject pauseMenu;
+
+    float phaseScoreMultiplier;
 
     void Start ()
     {
@@ -95,35 +98,47 @@ public class LogicController : MonoBehaviour
         {
             if (BossController.phase1Health > 0)
             {
-                playerScore += (int)Time.timeSinceLevelLoad;
+                playerScore += (uint)Time.timeSinceLevelLoad;
             }
             else if (BossController.phase2Health > 0)
             {
-                playerScore += (int)Time.timeSinceLevelLoad * 2;
+                playerScore += (uint)Time.timeSinceLevelLoad * 2;
             }
             else if (BossController.phase3Health > 0)
             {
-                playerScore += (int)Time.timeSinceLevelLoad * 4;
+                playerScore += (uint)Time.timeSinceLevelLoad * 4;
             }
             else if (BossController.phase4Health > 0)
             {
-                playerScore += (int)Time.timeSinceLevelLoad * 8;
+                playerScore += (uint)Time.timeSinceLevelLoad * 8;
             }
 
             if (BossController.phase1Health == 0)
             {
+                phaseScoreMultiplier = UnityEngine.Random.Range(1f, 8f);
+                phaseCompleteText.text = "Phase 1 Complete\n+" + (120 * (uint)(8334 * phaseScoreMultiplier)) + " Score";
+                StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst1Mil());
             }
             else if (BossController.phase2Health == 0)
             {
+                phaseScoreMultiplier = UnityEngine.Random.Range(1f, 8f);
+                phaseCompleteText.text = "Phase 2 Complete\n+" + (180 * (uint)(55556 * phaseScoreMultiplier)) + " Score";
+                StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst10Mil());
             }
             else if (BossController.phase3Health == 0)
             {
+                phaseScoreMultiplier = UnityEngine.Random.Range(1f, 8f);
+                phaseCompleteText.text = "Phase 3 Complete\n+" + (240 * (uint)(416667 * phaseScoreMultiplier)) + " Score";
+                StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst100Mil());
             }
             else if (BossController.phase4Health == 0)
             {
+                phaseScoreMultiplier = UnityEngine.Random.Range(1f, 3f);
+                phaseCompleteText.text = "Boss Defeated\n+" + (300 * (uint)(3333334 * phaseScoreMultiplier)) + " Score";
+                StartCoroutine(PhaseCompleteTextSweep());
                 StartCoroutine(PointBurst1000Mil());
             }
         }
@@ -167,7 +182,7 @@ public class LogicController : MonoBehaviour
     {
         for (int i = 0; i < 120; i++)
         {
-            playerScore += 8334 * UnityEngine.Random.Range(1, 10);
+            playerScore += (uint)(8334 * phaseScoreMultiplier);
             yield return null;
         }
     }
@@ -175,7 +190,7 @@ public class LogicController : MonoBehaviour
     {
         for (int i = 0; i < 180; i++)
         {
-            playerScore += 55556 * UnityEngine.Random.Range(1, 10);
+            playerScore += (uint)(55556 * phaseScoreMultiplier);
             yield return null;
         }
     }
@@ -184,7 +199,7 @@ public class LogicController : MonoBehaviour
     {
         for (int i = 0; i < 240; i++)
         {
-            playerScore += 416667 * UnityEngine.Random.Range(1, 10);
+            playerScore += (uint)(416667 * phaseScoreMultiplier);
             yield return null;
         }
     }
@@ -193,8 +208,29 @@ public class LogicController : MonoBehaviour
     {
         for (int i = 0; i < 300; i++)
         {
-            playerScore += 3333334 * UnityEngine.Random.Range(1, 8);
+            playerScore += (uint)(3333334 * phaseScoreMultiplier);
             yield return null;
         }
+    }
+
+    IEnumerator PhaseCompleteTextSweep()
+    {
+        phaseCompleteText.gameObject.SetActive(true);
+        for (float t = 270; t >= -100; t -= Time.deltaTime * 1000)
+        {
+            phaseCompleteText.rectTransform.localPosition = new Vector3(t, 0, 0);
+            yield return null;
+        }
+        for (float t = -100; t >= -130; t -= Time.deltaTime * 15)
+        {
+            phaseCompleteText.rectTransform.localPosition = new Vector3(t, 0, 0);
+            yield return null;
+        }
+        for (float t = -130; t >= -455; t -= Time.deltaTime * 1000)
+        {
+            phaseCompleteText.rectTransform.localPosition = new Vector3(t, 0, 0);
+            yield return null;
+        }
+        phaseCompleteText.gameObject.SetActive(false);
     }
 }

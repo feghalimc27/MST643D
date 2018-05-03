@@ -8,6 +8,10 @@ public class BossController : MonoBehaviour
     public AudioClip bossHitClip;
     public AudioClip projectileSpawnClip;
     public AudioClip phaseEndClip;
+    public AudioClip deathClip;
+
+    public GameObject deathBurst;
+    public GameObject logicObject;
 
     public static int phase1Health;
     public static int phase2Health;
@@ -245,8 +249,9 @@ public class BossController : MonoBehaviour
         }
         else if (phase4Health == 0)
         {
-            DontDestroyOnLoad(new GameObject("levelCompleted"));
-            Destroy(gameObject);
+            phase4Health--;
+            StopAllCoroutines();
+            StartCoroutine(DeathAnimation());
         }
     }
 
@@ -472,11 +477,42 @@ public class BossController : MonoBehaviour
         phaseCR = StartCoroutine(StartPhase());
     }
 
+    public void stopPhase()
+    {
+        StopCoroutine(movementCR);
+        StopCoroutine(phaseCR);
+        StopAllCoroutines();
+    }
+
     IEnumerator FlashDamage()
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f, 1);
         yield return null;
         yield return null;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+    }
+
+    IEnumerator DeathAnimation()
+    {
+        Time.timeScale = 0;
+        logicObject.GetComponent<LogicController>().stopCameraShake();
+        logicObject.GetComponent<LogicController>().startCameraShake();
+        yield return new WaitForSecondsRealtime(2);
+        logicObject.GetComponent<LogicController>().stopCameraShake();
+        Time.timeScale = 1;
+        audioSource.PlayOneShot(deathClip);
+        deathBurst.SetActive(true);
+        transform.GetComponent<SpriteRenderer>().enabled = false;
+        audioSource.PlayOneShot(phaseEndClip);
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 4)
+        {
+            deathBurst.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - t);
+            deathBurst.transform.localScale = new Vector3(850 * t, 850 * t, 0);
+            yield return null;
+        }
+        deathBurst.transform.localScale = new Vector3(0, 0, 0);
+        deathBurst.SetActive(false);
+        yield return new WaitForSeconds(5);
+        DontDestroyOnLoad(new GameObject("levelCompleted"));
     }
 }

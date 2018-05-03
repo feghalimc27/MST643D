@@ -28,7 +28,7 @@ public class ZombieSpawner : MonoBehaviour {
 
         if (zombies.Length < zombieCount && spawnDelay == 0) {
             GameObject zombie = Instantiate(enemy);
-            int spawnPoint = Random.Range(0, spawnPoints.Length - 1);
+            int spawnPoint = Random.Range(0, spawnPoints.Length);
             zombie.GetComponent<ZombieBehavior>().player = GameObject.Find("Player");
             zombie.transform.position = spawnPoints[spawnPoint];
             zombie.transform.parent = gameObject.transform;
