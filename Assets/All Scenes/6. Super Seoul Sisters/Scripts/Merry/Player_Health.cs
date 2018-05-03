@@ -51,7 +51,3 @@ public class Player_Health : MonoBehaviour
         hasDeathSoundPlayed = true;
     }
 }
-
-//-3.905
-//-1.535
-//-1.135

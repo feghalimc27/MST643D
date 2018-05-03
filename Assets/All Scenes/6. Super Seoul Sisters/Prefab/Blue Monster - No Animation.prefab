@@ -21,9 +21,9 @@ GameObject:
   - component: {fileID: 4262454664492912}
   - component: {fileID: 212249008450140344}
   - component: {fileID: 50549824818802784}
+  - component: {fileID: 114678516459225192}
   - component: {fileID: 114082326730726366}
   - component: {fileID: 61986526480523960}
-  - component: {fileID: 114051532428947580}
   - component: {fileID: 95981640919165836}
   - component: {fileID: 114963735678884460}
   - component: {fileID: 82248410355154256}
@@ -43,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1777350816903892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.01, y: 3.566, z: -0.32851225}
+  m_LocalPosition: {x: 61.3, y: 3.601, z: -0.32851225}
   m_LocalScale: {x: 0.31778, y: 0.31779, z: 0.31779}
   m_Children: []
   m_Father: {fileID: 0}
@@ -343,7 +343,7 @@ Animator:
   m_GameObject: {fileID: 1777350816903892}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 207a6506d29c3b44dac8ab4466ddeac5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 328facf387f431144944d7ada1a4a8d2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -351,17 +351,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114051532428947580
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1777350816903892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636ee3dab23f34d9381bdf54abb275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114082326730726366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,6 +370,18 @@ MonoBehaviour:
   _player_health: {fileID: 0}
   playDeath: {fileID: 8300000, guid: e8e877ac01fe0e645b37ba8a2fa63448, type: 3}
   deathSound: {fileID: 0}
+  playerMonsterDie: {fileID: 8300000, guid: cec8782e3609cb34783ceb77a2c38c71, type: 3}
+--- !u!114 &114678516459225192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777350816903892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75636ee3dab23f34d9381bdf54abb275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114963735678884460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,7 +428,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dcc7e8ffc0293f14db1fc63f486ceb08, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35dd28463f140574db006d12b3721aee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

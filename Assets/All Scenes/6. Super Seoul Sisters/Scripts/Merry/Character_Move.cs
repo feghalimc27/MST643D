@@ -5,29 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class Character_Move : MonoBehaviour
 {
+    private int hasJumped = 0;
+    private int playerJumpPower;
+    private int monsterPoints;
+    private int duckPoints;
+    public int howIsMerry;     // 1 = alive, 2 = dead
 
     public float playerSpeed = 3;
-    public int hasJumped = 0;
-    private int playerJumpPower;
-    private float moveX;
-    public bool onGround = true;
-    public bool onObstacle = false;
-    public bool canDoubleJump = true;
+    public float moveX;
     public float raycastDown = .3f;
-    public int monsterPoints;
-    public int duckPoints;
 
-    public Player_Health _player_health;
-    public Enemy_AI enemyAI;
-    private ScoreManager _score_manager;
+    public bool onGround = true;
+    private bool onObstacle = false;
+    private bool canDoubleJump = true;
+
+    Player_Health _player_health;
+    Enemy_AI enemyAI;
+    ScoreManager _score_manager;
 
     public AudioClip playDeath;
-    public AudioSource deathSound;
     public AudioClip playJump;
-    private AudioSource jumpSound;
     public AudioClip playLanding;
-    private AudioSource landingSound;
     public AudioClip playerMonsterDie;
+
+    private AudioSource deathSound;
+    private AudioSource jumpSound;
+    private AudioSource landingSound;
     private AudioSource monsterDieSound;
 
     public GameObject monster1;
@@ -38,15 +41,22 @@ public class Character_Move : MonoBehaviour
 
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(0, 16);
+
         jumpSound = GetComponent<AudioSource>();    // assign AudioSource
         monsterDieSound = GetComponent<AudioSource>();    // assign AudioSource
         landingSound = GetComponent<AudioSource>();    // assign AudioSource
         deathSound = GetComponent<AudioSource>();   // assign AudioSource
 
+        _player_health = FindObjectOfType<Player_Health>();
         _score_manager = FindObjectOfType<ScoreManager>();
+        _score_manager = FindObjectOfType<ScoreManager>();
+        enemyAI = FindObjectOfType<Enemy_AI>();
 
         monsterPoints = 50;
         duckPoints = 100;
+        howIsMerry = 1;     // alive
+        
     }
     // Update is called once per frame
     void Update()
@@ -149,6 +159,8 @@ public class Character_Move : MonoBehaviour
                 gameObject.GetComponent<Character_Move>().enabled = false;
                 Camera.main.GetComponent<Camera_System>().enabled = false;
 
+                howIsMerry = 2;     // dead
+
                 if (gameObject.transform.position.y < -6.38)
                 {
                     SceneManager.LoadScene("Super Seoul Sisters");
@@ -184,6 +196,7 @@ public class Character_Move : MonoBehaviour
                 gameObject.GetComponent<Character_Move>().enabled = false;
                 Camera.main.GetComponent<Camera_System>().enabled = false;
 
+                howIsMerry = 2;     // dead
                 if (gameObject.transform.position.y < -6.38)
                 {
                     SceneManager.LoadScene("Super Seoul Sisters");
@@ -219,6 +232,7 @@ public class Character_Move : MonoBehaviour
                 gameObject.GetComponent<Character_Move>().enabled = false;
                 Camera.main.GetComponent<Camera_System>().enabled = false;
 
+                howIsMerry = 2;     // dead
                 if (gameObject.transform.position.y < -6.38)
                 {
                     SceneManager.LoadScene("Super Seoul Sisters");
@@ -255,6 +269,7 @@ public class Character_Move : MonoBehaviour
                 gameObject.GetComponent<Character_Move>().enabled = false;
                 Camera.main.GetComponent<Camera_System>().enabled = false;
 
+                howIsMerry = 2;     // dead
                 if (gameObject.transform.position.y < -6.38)
                 {
                     SceneManager.LoadScene("Super Seoul Sisters");
@@ -290,6 +305,7 @@ public class Character_Move : MonoBehaviour
                 gameObject.GetComponent<Character_Move>().enabled = false;
                 Camera.main.GetComponent<Camera_System>().enabled = false;
 
+                howIsMerry = 2;     // dead
                 if (gameObject.transform.position.y < -6.38)
                 {
                     SceneManager.LoadScene("Super Seoul Sisters");

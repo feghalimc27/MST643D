@@ -19,6 +19,7 @@ TagManager:
   - SpecialAttack
   - HitBurst
   - Pickup
+  - Duck
   layers:
   - Default
   - TransparentFX
@@ -36,9 +37,9 @@ TagManager:
   - Obstacles
   - Rings
   - Monster
-  - 
-  - 
-  - 
+  - Mike Collider
+  - Minion
+  - Merry
   - 
   - 
   - 

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61376626183238550}
   - component: {fileID: 114789685098439970}
   - component: {fileID: 82213228773942504}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818643454048866}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.006, y: 2.4, z: 0}
+  m_LocalPosition: {x: 26.403, y: 2.868, z: 0}
   m_LocalScale: {x: 0.14740999, y: 0.14740999, z: 0.14740999}
   m_Children: []
   m_Father: {fileID: 0}
@@ -55,7 +55,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.32873398, y: 0.099748164}
+  m_Offset: {x: -0.013048768, y: 0.015563369}
   m_SpriteTilingProperty:
     border: {x: 0.59999996, y: 1, z: 1.3, w: 0.79999995}
     pivot: {x: 0.39223337, y: 0.5297288}
@@ -66,7 +66,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2190069, y: 1.3262649}
+  m_Size: {x: 1.204977, y: 1.2982047}
   m_EdgeRadius: 0
 --- !u!82 &82213228773942504
 AudioSource:
@@ -77,7 +77,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ddb524046f1a74542a2d0e507489cb13, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2e69f0f3e4cf5994099c1318f8328dfe, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -159,9 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b4c38aec3d90b48a4dde453bca6d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundToPlay: {fileID: 8300000, guid: ddb524046f1a74542a2d0e507489cb13, type: 3}
+  soundToPlay: {fileID: 8300000, guid: 2e69f0f3e4cf5994099c1318f8328dfe, type: 3}
   ringSound: {fileID: 0}
-  waitTime: 2
+  currentScore: 0
 --- !u!212 &212504076071562032
 SpriteRenderer:
   m_ObjectHideFlags: 1
