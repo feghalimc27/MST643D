@@ -45,12 +45,13 @@ public class playerControl : MonoBehaviour {
 
         PlayerMovement();
 
-        if (Input.GetAxis("backTriggers") > 0.9 && shotCooldown == 0)
-        {
-            shotCooldown = 1;
-            PlayerAttack();
-            StartCoroutine(shotDelayReset());
-        }
+        if (yFacing > 0.5 || yFacing < -0.5 || xFacing > 0.5 || xFacing < -0.5)
+            if (Input.GetAxis("backTriggers") > 0.9 && shotCooldown == 0)
+            {
+                shotCooldown = 1;
+                PlayerAttack();
+                StartCoroutine(shotDelayReset());
+            }
     }
 
     IEnumerator shotDelayReset()
