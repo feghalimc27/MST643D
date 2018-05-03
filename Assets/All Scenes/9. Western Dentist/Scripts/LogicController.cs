@@ -39,9 +39,7 @@ public class LogicController : MonoBehaviour
     Texture []spellStars;
 
     Coroutine cameraShakeCR;
-
-    GameObject codecScreen;
-    GameObject pauseMenu;
+    Coroutine backgroundScrollCR;
 
     float phaseScoreMultiplier;
 
@@ -52,26 +50,14 @@ public class LogicController : MonoBehaviour
         playerScore = 0;
         lifeStars = new Texture[] { life1, life2, life3, life4, life5 };
         spellStars = new Texture[] { spell0, spell1, spell2, spell3, spell4, spell5 };
-        StartCoroutine(BackgroundScroll());
     }
 
     void Update()
     {
-        try
+        if (backgroundScroll.rectTransform.localPosition.y == 2846 && BossController.isStartup == false)
         {
-            codecScreen = GameObject.Find("Codec").gameObject;
-            pauseMenu = GameObject.Find("Global Menu").gameObject;
-            if (codecScreen != null || pauseMenu != null)
-            {
-                audioSource.Pause();
-            }
-            else if (audioSource.isPlaying == false)
-            {
-                audioSource.UnPause();
-            }
+            backgroundScrollCR = StartCoroutine(BackgroundScroll());
         }
-        catch (NullReferenceException e) { }
-
         if (bossObject != null)
         {
             bossMarker.rectTransform.localPosition = new Vector3(((bossObject.transform.position.x / 900f) * 800f) - 400f, 0, 0);
@@ -94,7 +80,7 @@ public class LogicController : MonoBehaviour
         {
             spellStatus.texture = spellStars[MerryController.merrySpell];
         }
-        if (Time.timeScale == 1 && bossObject != null)
+        if (Time.timeScale == 1 && bossObject != null && BossController.isStartup == false)
         {
             if (BossController.phase1Health > 0)
             {

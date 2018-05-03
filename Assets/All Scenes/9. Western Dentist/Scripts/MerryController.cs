@@ -33,6 +33,7 @@ public class MerryController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip playerFire1Clip;
+    public AudioClip playerSpecialFireClip;
     public AudioClip playerHitClip;
     public AudioClip playerHitBurstClip;
     public AudioClip deathClip;
@@ -70,12 +71,12 @@ public class MerryController : MonoBehaviour
             SceneManager.LoadScene(9);
         }
 
-        if (Input.GetButton("Fire1") && Time.time > lastFire + 0.09f && Time.timeScale == 1 && beam.activeInHierarchy == false)
+        if (Input.GetButton("Fire1") && Time.time > lastFire + 0.09f && Time.timeScale == 1 && beam.activeInHierarchy == false && BossController.isStartup == false)
         {
             fire();
         }
 
-        if (Input.GetButton("Fire2") && merrySpell > 0 && Time.time > lastSpell + 15f && Time.timeScale == 1)
+        if (Input.GetButton("Fire2") && merrySpell > 0 && Time.time > lastSpell + 15f && Time.timeScale == 1 && BossController.isStartup == false)
         {
             lastSpell = Time.time;
             merrySpell--;
@@ -199,6 +200,7 @@ public class MerryController : MonoBehaviour
 
     IEnumerator FireSpecial()
     {
+        audioSource.PlayOneShot(playerSpecialFireClip);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {
             soul.transform.localScale = new Vector3(0.4f + t, 0.4f + t, 0.4f + t);

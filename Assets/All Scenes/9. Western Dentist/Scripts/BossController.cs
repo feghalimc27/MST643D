@@ -1,9 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
+    public GameObject textBox;
+    public GameObject merryText;
+    public GameObject mikeText;
+    public GameObject mikeBoss;
+    public GameObject mikeDeathBurst;
+    public GameObject mikeProjectile;
+    public Text text;
+    public static bool isStartup;
+
+    public GameObject hp1;
+    public GameObject hp2;
+    public GameObject hp3;
+    public GameObject hp4;
+    public Text warningText;
+
+    Coroutine startUpCR;
+    Coroutine mikeHoverCR;
+
     public AudioSource audioSource;
     public AudioClip bossHitClip;
     public AudioClip projectileSpawnClip;
@@ -93,9 +112,8 @@ public class BossController : MonoBehaviour
         phase2Health = 1000;
         phase3Health = 1500;
         phase4Health = 2000;
-        movementCR = StartCoroutine(Movement());
-        phaseCR = StartCoroutine(StartPhase());
         lastHit = 0;
+        startUpCR = StartCoroutine(StartUp());
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -514,5 +532,100 @@ public class BossController : MonoBehaviour
         deathBurst.SetActive(false);
         yield return new WaitForSeconds(5);
         DontDestroyOnLoad(new GameObject("levelCompleted"));
+    }
+
+    IEnumerator MikeHover()
+    {
+        for(float t = 0f; t < (2.0f * Mathf.PI); t += Time.deltaTime)
+        {
+            mikeBoss.transform.position = new Vector2(303, 560 + (Mathf.Sin(t) * 10));
+            yield return null;
+        }
+        mikeHoverCR = StartCoroutine(MikeHover());
+    }
+
+    IEnumerator StartUp()
+    {
+        isStartup = true;
+        mikeHoverCR = StartCoroutine(MikeHover());
+        yield return new WaitForSeconds(4);
+        mikeText.GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
+        text.text = "I'm glad you could finally make it, Merry.";
+        yield return new WaitForSeconds(4);
+        text.text = "Well, not really, but still.";
+        yield return new WaitForSeconds(4);
+        mikeText.GetComponent<RawImage>().color = new Color(1, 1, 1, 0.6f);
+        merryText.GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
+        text.text = ". . .";
+        yield return new WaitForSeconds(3);
+        mikeText.GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
+        merryText.GetComponent<RawImage>().color = new Color(1, 1, 1, 0.6f);
+        text.text = "You never really were a talker, huh?";
+        yield return new WaitForSeconds(4);
+        text.text = "I'm kind of tired, so let's just do this whole boss fight thing.";
+        yield return new WaitForSeconds(4);
+        text.text = "Now, just wait a minute or two, while I do some stre-";
+        yield return new WaitForSeconds(3);
+        text.text = "Huh!?";
+        yield return new WaitForSeconds(1);
+        StopCoroutine(mikeHoverCR);
+        for (float t = 760f; t > 556f; t -= Time.deltaTime * 500)
+        {
+            mikeProjectile.transform.position = new Vector2(303, t);
+            yield return null;
+        }
+        textBox.SetActive(false);
+        merryText.SetActive(false);
+        mikeText.SetActive(false);
+        text.enabled = false;
+        Destroy(mikeProjectile);
+        audioSource.PlayOneShot(deathClip);
+        mikeDeathBurst.SetActive(true);
+        mikeBoss.GetComponent<SpriteRenderer>().enabled = false;
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 4)
+        {
+            mikeDeathBurst.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1 - t);
+            mikeDeathBurst.transform.localScale = new Vector3(850 * t, 850 * t, 0);
+            yield return null;
+        }
+        mikeDeathBurst.transform.localScale = new Vector3(0, 0, 0);
+        mikeDeathBurst.SetActive(false);
+        yield return new WaitForSeconds(1);
+        for (float t = 768f; t > 560f; t -= Time.unscaledDeltaTime * 50)
+        {
+            transform.position = new Vector2(303, t);
+            yield return null;
+        }
+        StartCoroutine(WarningTextSweep());
+        transform.GetComponent<BoxCollider2D>().enabled = true;
+        logicObject.GetComponent<AudioSource>().Play();
+        hp1.GetComponent<Image>().enabled = true;
+        hp2.GetComponent<Image>().enabled = true;
+        hp3.GetComponent<Image>().enabled = true;
+        hp4.GetComponent<Image>().enabled = true;
+        isStartup = false;
+        movementCR = StartCoroutine(Movement());
+        phaseCR = StartCoroutine(StartPhase());
+    }
+
+    IEnumerator WarningTextSweep()
+    {
+        warningText.gameObject.SetActive(true);
+        for (float t = 270; t >= -100; t -= Time.deltaTime * 1000)
+        {
+            warningText.rectTransform.localPosition = new Vector3(t, 0, 0);
+            yield return null;
+        }
+        for (float t = -100; t >= -130; t -= Time.deltaTime * 15)
+        {
+            warningText.rectTransform.localPosition = new Vector3(t, 0, 0);
+            yield return null;
+        }
+        for (float t = -130; t >= -455; t -= Time.deltaTime * 1000)
+        {
+            warningText.rectTransform.localPosition = new Vector3(t, 0, 0);
+            yield return null;
+        }
+        warningText.gameObject.SetActive(false);
     }
 }
