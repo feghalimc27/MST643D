@@ -28,9 +28,11 @@ public class ScreenFader : MonoBehaviour {
         return fadeSpeed;
     }
 
+    /*
     private void OnLevelWasLoaded()
     {
         // alpha = 1; only if alpha isn't 1
         BeginFade(-1);
     }
+    */
 }
