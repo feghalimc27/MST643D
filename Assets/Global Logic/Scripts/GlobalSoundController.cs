@@ -34,4 +34,24 @@ public class GlobalSoundController : MonoBehaviour
     {
         audioSource.PlayOneShot(selectButtonClip);
     }
+
+    public void playCodecCall()
+    {
+        audioSource.PlayOneShot(codecCall);
+    }
+
+    public void playCodecOpen()
+    {
+        audioSource.PlayOneShot(codecOpen);
+    }
+
+    public void playCodecTalk()
+    {
+        audioSource.PlayOneShot(codecTalk);
+    }
+
+    public void playCodecClose()
+    {
+        audioSource.PlayOneShot(codecClose);
+    }
 }

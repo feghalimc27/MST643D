@@ -17,7 +17,6 @@ public class LevelSelect : MonoBehaviour
     public Button level6Button;
     public Button level7Button;
     public Button level8Button;
-    public Button level9Button;
     public GameObject selectionCursor;
     public GameObject selectedLevelText;
     public Texture superSeoulBallText;
@@ -26,9 +25,8 @@ public class LevelSelect : MonoBehaviour
     public Texture flamingSymbolText;
     public Texture superSeoulSistersText;
     public Texture spookyBasementText;
-    public Texture visualNovelText; //
+    public Texture visualNovelText;
     public Texture westernDentistText;
-    public Texture masterFootText;
 
     float lastInput;
     int sceneToLoad;
@@ -44,7 +42,6 @@ public class LevelSelect : MonoBehaviour
         Button level6ButtonPress = level6Button.GetComponent<Button>();
         Button level7ButtonPress = level7Button.GetComponent<Button>();
         Button level8ButtonPress = level8Button.GetComponent<Button>();
-        Button level9ButtonPress = level9Button.GetComponent<Button>();
         level1ButtonPress.onClick.AddListener(() => {
                                                         if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
@@ -98,13 +95,6 @@ public class LevelSelect : MonoBehaviour
                                                         if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
                                                         {
                                                             sceneToLoad = 9;
-                                                            StartCoroutine(fadeOut());
-                                                        }
-                                                    });
-        level9ButtonPress.onClick.AddListener(() => {
-                                                        if ((Time.time > MainMenu.lastInput + 1.0f) && fading == false)
-                                                        {
-                                                            sceneToLoad = 10;
                                                             StartCoroutine(fadeOut());
                                                         }
                                                     });
@@ -163,10 +153,6 @@ public class LevelSelect : MonoBehaviour
         {
             selectedLevelText.GetComponent<RawImage>().texture = westernDentistText;
         }
-        else if (currentEventSystem.currentSelectedGameObject == level9Button.gameObject)
-        {
-            selectedLevelText.GetComponent<RawImage>().texture = masterFootText;
-        }
 
         if (currentEventSystem.currentSelectedGameObject == level1Button.gameObject && Time.time > lastInput + 0.25f)
         {
@@ -218,7 +204,7 @@ public class LevelSelect : MonoBehaviour
             }
             else if (Input.GetAxisRaw("Vertical") > 0.25f)
             {
-                currentEventSystem.SetSelectedGameObject(level9Button.gameObject);
+                currentEventSystem.SetSelectedGameObject(level6Button.gameObject);
             }
             else if (Input.GetAxisRaw("Vertical") < -0.25f)
             {
@@ -279,7 +265,7 @@ public class LevelSelect : MonoBehaviour
             }
             else if (Input.GetAxisRaw("Vertical") < -0.25f)
             {
-                currentEventSystem.SetSelectedGameObject(level9Button.gameObject);
+                currentEventSystem.SetSelectedGameObject(level3Button.gameObject);
             }
         }
         else if (currentEventSystem.currentSelectedGameObject == level7Button.gameObject && Time.time > lastInput + 0.25f)
@@ -290,7 +276,7 @@ public class LevelSelect : MonoBehaviour
             }
             else if (Input.GetAxisRaw("Horizontal") < -0.25f)
             {
-                currentEventSystem.SetSelectedGameObject(level9Button.gameObject);
+                currentEventSystem.SetSelectedGameObject(level8Button.gameObject);
             }
             else if (Input.GetAxisRaw("Vertical") > 0.25f)
             {
@@ -305,7 +291,7 @@ public class LevelSelect : MonoBehaviour
         {
             if (Input.GetAxisRaw("Horizontal") > 0.25f)
             {
-                currentEventSystem.SetSelectedGameObject(level9Button.gameObject);
+                currentEventSystem.SetSelectedGameObject(level7Button.gameObject);
             }
             else if (Input.GetAxisRaw("Horizontal") < -0.25f)
             {
@@ -318,25 +304,6 @@ public class LevelSelect : MonoBehaviour
             else if (Input.GetAxisRaw("Vertical") < -0.25f)
             {
                 currentEventSystem.SetSelectedGameObject(level2Button.gameObject);
-            }
-        }
-        else if (currentEventSystem.currentSelectedGameObject == level9Button.gameObject && Time.time > lastInput + 0.25f)
-        {
-            if (Input.GetAxisRaw("Horizontal") > 0.25f)
-            {
-                currentEventSystem.SetSelectedGameObject(level7Button.gameObject);
-            }
-            else if (Input.GetAxisRaw("Horizontal") < -0.25f)
-            {
-                currentEventSystem.SetSelectedGameObject(level8Button.gameObject);
-            }
-            else if (Input.GetAxisRaw("Vertical") > 0.25f)
-            {
-                currentEventSystem.SetSelectedGameObject(level6Button.gameObject);
-            }
-            else if (Input.GetAxisRaw("Vertical") < -0.25f)
-            {
-                currentEventSystem.SetSelectedGameObject(level3Button.gameObject);
             }
         }
         else if (Time.time > lastInput + 0.25f)

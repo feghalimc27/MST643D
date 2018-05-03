@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ public class GlobalLogic : MonoBehaviour
     public static float currentTime;
     
     public static bool finalBossKilled;
+
+    public GameObject eventSystemObj;
 
     GameObject levelCompleted;
     GameObject levelTesting;
@@ -69,10 +72,20 @@ public class GlobalLogic : MonoBehaviour
             try
             {
                 levelCompleted = GameObject.Find("levelCompleted").gameObject;
-                if (levelCompleted != null || Input.GetKeyDown(KeyCode.BackQuote))
+                if (levelCompleted != null)
                 {
                     if (levelTesting != null)
                     {
+                        Destroy(levelCompleted);
+                        StartCoroutine(fadeOutSpecial());
+                    }
+                    else if (SceneManager.GetActiveScene().buildIndex == 9)
+                    {
+                        if (currentTime > SaveLoad.bestScore)
+                        {
+                            SaveLoad.bestScore = currentTime;
+                            SaveLoad.Save();
+                        }
                         Destroy(levelCompleted);
                         StartCoroutine(fadeOutSpecial());
                     }
@@ -113,6 +126,8 @@ public class GlobalLogic : MonoBehaviour
     IEnumerator fadeOut()
     {
         Time.timeScale = 0;
+        eventSystemObj.GetComponent<GlobalSoundController>().playCodecCall();
+        yield return new WaitForSecondsRealtime(eventSystemObj.GetComponent<GlobalSoundController>().codecCall.length);
         transform.Find("Fade/Fade").gameObject.SetActive(true);
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
         {

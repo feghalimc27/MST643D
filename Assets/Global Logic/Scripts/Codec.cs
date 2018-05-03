@@ -32,7 +32,7 @@ public class Codec : MonoBehaviour
     void Awake()
     {
         allBars = new Texture[] { bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9 };
-        levelOrder = new int[] { 3, 4, 5, 6, 7, 8, 9 };
+        levelOrder = new int[] { 3, 4, 5, 6, 7, 8 };
         for (int i = 0; i < levelOrder.Length; i++)
         {
             int temp = levelOrder[i];
@@ -106,12 +106,6 @@ public class Codec : MonoBehaviour
         }
         else if (levelOrder[currentLevel] == 9)
         {
-            selectedLines = new string[] { "Is this some kind of reference? I can tell it's a reference to something, but I'm lost to it.",
-                                           "It's called Western Dentist, and it looks like the title is in, Japanese, I think?",
-                                           "A bullet hell? That's what it is apparently. Have fun with that one, yeesh." };
-        }
-        else if (levelOrder[currentLevel] == 10)
-        {
             selectedLines = new string[] { "\t.\t.\t.\t.\t.\t.\t.\t.\t.\t",
                                            "Huh? Wait, you're still here? I thought you'd quit by now.",
                                            "I mean, you can always still quit you know. It'd be much easier. Just pause, then select that 'Quit to Desktop' button.",
@@ -119,14 +113,13 @@ public class Codec : MonoBehaviour
                                            "Cut me some slack would ya?",
                                            "Ugh, fine. I don't know how you made it this far, but I guess I've got no choice.",
                                            "Now you have to face me!",
-                                           "Our battle arena, and your final resting place, will be the stage called 'Final Location'!",
                                            "Prepare yourself, Merry. Because there's no way I can lose, probably!" };
         }
 
 
         if (currentLevel == (levelOrder.Length - 1))
         {
-            levelOrder[currentLevel] = 10;
+            levelOrder[currentLevel] = 9;
         }
         else
         {
