@@ -14,9 +14,12 @@ public class Character_Move : MonoBehaviour
     public bool onObstacle = false;
     public bool canDoubleJump = true;
     public float raycastDown = .3f;
+    public int monsterPoints;
+    public int duckPoints;
 
     public Player_Health _player_health;
     public Enemy_AI enemyAI;
+    private ScoreManager _score_manager;
 
     public AudioClip playDeath;
     public AudioSource deathSound;
@@ -39,6 +42,11 @@ public class Character_Move : MonoBehaviour
         monsterDieSound = GetComponent<AudioSource>();    // assign AudioSource
         landingSound = GetComponent<AudioSource>();    // assign AudioSource
         deathSound = GetComponent<AudioSource>();   // assign AudioSource
+
+        _score_manager = FindObjectOfType<ScoreManager>();
+
+        monsterPoints = 50;
+        duckPoints = 100;
     }
     // Update is called once per frame
     void Update()
@@ -156,6 +164,8 @@ public class Character_Move : MonoBehaviour
                 monster1.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 monster1.GetComponent<BoxCollider2D>().enabled = false;
                 monster1.GetComponent<Enemy_AI>().enabled = false;
+
+                _score_manager.AddScore(monsterPoints);
             }
         }
 
@@ -189,6 +199,8 @@ public class Character_Move : MonoBehaviour
                 monster2.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 monster2.GetComponent<BoxCollider2D>().enabled = false;
                 monster2.GetComponent<Enemy_AI>().enabled = false;
+
+                _score_manager.AddScore(monsterPoints);
             }
         }
 
@@ -222,6 +234,8 @@ public class Character_Move : MonoBehaviour
                 monster3.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 monster3.GetComponent<BoxCollider2D>().enabled = false;
                 monster3.GetComponent<Enemy_AI>().enabled = false;
+
+                _score_manager.AddScore(monsterPoints);
             }
             
         }
@@ -256,6 +270,8 @@ public class Character_Move : MonoBehaviour
                 monster4.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 monster4.GetComponent<BoxCollider2D>().enabled = false;
                 monster4.GetComponent<Enemy_AI>().enabled = false;
+
+                _score_manager.AddScore(monsterPoints);
             }
         }
 
@@ -289,6 +305,8 @@ public class Character_Move : MonoBehaviour
                 monster5.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 monster5.GetComponent<BoxCollider2D>().enabled = false;
                 monster5.GetComponent<Enemy_AI>().enabled = false;
+
+                _score_manager.AddScore(monsterPoints);
             }
         }
     }
@@ -311,6 +329,8 @@ public class Character_Move : MonoBehaviour
                 hit.collider.gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
                 hit.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 hit.collider.gameObject.GetComponent<EdgeCollider2D>().enabled = false;
+
+                _score_manager.AddScore(duckPoints);
             }
         }
     }

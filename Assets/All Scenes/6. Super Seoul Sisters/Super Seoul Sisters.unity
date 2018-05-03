@@ -5029,14 +5029,14 @@ RectTransform:
   m_GameObject: {fileID: 973446424}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3599999, y: 1.3599997, z: 1.3599997}
+  m_LocalScale: {x: 1.0530479, y: 1.0530478, z: 1.0530478}
   m_Children: []
   m_Father: {fileID: 1317083677}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225.5, y: 321}
+  m_AnchoredPosition: {x: -376, y: 327}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &973446426
@@ -5052,7 +5052,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   printScore: {fileID: 973446427}
   currentScore: 0
-  coinPoints: 100
 --- !u!114 &973446427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5085,7 +5084,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Test
+  m_Text: 'Score : 0000'
 --- !u!222 &973446428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5529,7 +5528,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1092555840}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 53.19, y: -7.030315, z: 10.087533}
+  m_LocalPosition: {x: 53.19, y: -7.11, z: 10.087533}
   m_LocalScale: {x: 0.48757374, y: 0.48757374, z: 0.48757374}
   m_Children: []
   m_Father: {fileID: 1389963224}
@@ -9068,6 +9067,8 @@ MonoBehaviour:
   onObstacle: 0
   canDoubleJump: 1
   raycastDown: 0.4
+  monsterPoints: 0
+  duckPoints: 0
   _player_health: {fileID: 1617807280}
   enemyAI: {fileID: 0}
   playDeath: {fileID: 8300000, guid: e8e877ac01fe0e645b37ba8a2fa63448, type: 3}

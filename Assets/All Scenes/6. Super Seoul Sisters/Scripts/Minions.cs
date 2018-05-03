@@ -12,6 +12,8 @@ public class Minions : MonoBehaviour {
     public AudioClip playDeath;
     public AudioSource deathSound;
 
+    private Character_Move _character_move;
+
 
     void Start()
     {
@@ -19,6 +21,8 @@ public class Minions : MonoBehaviour {
 
         landSound = GetComponent<AudioSource>();    // assign AudioSource
         deathSound = GetComponent<AudioSource>();    // assign AudioSource
+
+        _character_move = FindObjectOfType<Character_Move>();
 
         Physics2D.IgnoreLayerCollision(12, 13);
         StartCoroutine(EnableMovementAfterDelay(1.5f));
@@ -33,7 +37,7 @@ public class Minions : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Merry")
+        if(collision.name == "Merry" && _character_move.onGround == true)
         {
             deathSound.PlayOneShot(playDeath); // play sound
             merry.GetComponent<Rigidbody2D>().gravityScale = 5;

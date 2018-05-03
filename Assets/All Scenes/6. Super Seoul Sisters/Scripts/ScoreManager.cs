@@ -8,8 +8,6 @@ public class ScoreManager : MonoBehaviour {
 	public Text printScore;
 	public int currentScore;
 
-	public int coinPoints;
-
 	// Use this for initialization
 	void Start () {
 	}
@@ -24,6 +22,6 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	public void PrintText(){
-		printScore.text = "Score: " + currentScore;
+		printScore.text = "Score : " + currentScore.ToString("0000");
 	}
 }
