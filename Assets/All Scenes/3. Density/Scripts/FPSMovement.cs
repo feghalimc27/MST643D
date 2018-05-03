@@ -13,6 +13,8 @@ public class FPSMovement: MonoBehaviour {
     public float dodgeCooldown = 300.0f;
     public float dodgeForce = 7000f;
     public float friction = 0.34f;
+    public AudioClip liftSound;
+    public AudioClip dodgeSound;
 
     private bool onGround = false;
     private bool lifting = false;
@@ -100,6 +102,7 @@ public class FPSMovement: MonoBehaviour {
     void Dodge() {
         if (!onGround) {
             if (Input.GetButtonDown("Dodge") && dodgeCooldown == 0) {
+                GetComponent<AudioSource>().PlayOneShot(dodgeSound);
                 GetComponent<Rigidbody>().AddRelativeForce(new Vector3(dodgeForce * Input.GetAxis("Horizontal"), 0, dodgeForce * Input.GetAxis("Vertical")));
                 dodgeCooldown = _dodgeCooldown;
             }
@@ -145,6 +148,7 @@ public class FPSMovement: MonoBehaviour {
                     boostRate.x *= liftForce * initialLiftMultiplier * liftCooldown / _liftCooldown * (Input.GetAxis("Horizontal"));
                 }
                 GetComponent<Rigidbody>().AddRelativeForce(boostRate);
+                GetComponent<AudioSource>().PlayOneShot(liftSound);
                 liftCooldown -= 15f * Time.deltaTime;
             }
             else {
@@ -160,5 +164,13 @@ public class FPSMovement: MonoBehaviour {
                 liftCooldown = _liftCooldown * 3;
             }
         }
+    }
+
+    public float GetLiftFill() {
+        return liftCooldown / (_liftCooldown * 3);
+    }
+
+    public float GetDodgeFill() {
+        return 1 - (dodgeCooldown / _dodgeCooldown);
     }
 }

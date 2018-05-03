@@ -16,6 +16,17 @@ public class FPSPlayer : MonoBehaviour {
         if (col.gameObject.tag == "Finish") {
             DontDestroyOnLoad(new GameObject("levelCompleted"));
         }
+
+        if (col.gameObject.tag == "Pickup") {
+            if (col.gameObject.GetComponent<Pickups>().type == Pickups.PickupType.health) {
+                hp += 20;
+                if (hp > maxHp) {
+                    hp = maxHp;
+                }
+            }
+
+            col.gameObject.GetComponent<Pickups>().SendMessage("PlayPickupSound");
+        }
     }
 	
 	// Update is called once per frame

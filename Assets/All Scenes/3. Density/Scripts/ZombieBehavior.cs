@@ -13,6 +13,8 @@ public class ZombieBehavior : MonoBehaviour {
 	public static int zombieKillCount = 0;
 	public static int zombieKillsRequired = 70;
 	public static bool objectiveAccomplished = false;
+    [SerializeField]
+    private GameObject[] pickups;
 
 	// Use this for initialization
 	void Start () {
@@ -52,6 +54,12 @@ public class ZombieBehavior : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
 
         if (health <= 0) {
+            int dropChance = Random.Range(0, 100);
+            if (dropChance >= 97) {
+                GameObject drop = Instantiate(pickups[Random.Range(0, pickups.Length)]);
+                drop.transform.position = transform.position + new Vector3(0, 1, 0);
+            }
+
             Object.Destroy(gameObject);
 
 			objectiveAccomplished = isObjectiveAccomplished ();

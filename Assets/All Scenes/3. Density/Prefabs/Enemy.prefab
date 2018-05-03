@@ -206,6 +206,8 @@ MonoBehaviour:
   randomSpeed: 3
   damage: 4
   player: {fileID: 0}
+  pickups:
+  - {fileID: 1981870745747878, guid: 2945489d0f170e74d9acdb03f707cb6e, type: 2}
 --- !u!212 &212098132417027266
 SpriteRenderer:
   m_ObjectHideFlags: 1
