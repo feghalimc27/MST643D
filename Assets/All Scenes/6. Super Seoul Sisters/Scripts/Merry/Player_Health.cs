@@ -23,7 +23,7 @@ public class Player_Health : MonoBehaviour
         {
             hasDeathSoundPlayed = true;
         }
-		if (gameObject.transform.position.y < -6.38f)
+		if (gameObject.transform.position.y < -6.38f && gameObject != null)
         {
             if (hasDeathSoundPlayed == false)
             {

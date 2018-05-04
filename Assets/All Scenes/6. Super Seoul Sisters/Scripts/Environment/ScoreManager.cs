@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour {
 
 	public Text printScore;
+
 	public int currentScore;
 
 	// Use this for initialization
 	void Start () {
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		PrintText();
 	}
 

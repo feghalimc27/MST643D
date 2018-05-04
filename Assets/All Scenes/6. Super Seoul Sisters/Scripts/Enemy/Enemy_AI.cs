@@ -40,16 +40,22 @@ public class Enemy_AI : MonoBehaviour {
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(xMoveDirection, 0));
 
-        if (hit.distance < .2f && hit.collider.tag != "Player")
+        //if (hit.distance < .2f && hit.collider.tag != "Player" && hit != null && hit.collider != null)
+        //{
+        //    FlipEnemy();
+        //}
+
+        if(hit.collider.tag != "Player" && hit.distance < .2f)
         {
             FlipEnemy();
         }
-
-        if(_character_move.howIsMerry == 2 && hasMonsterFlipped == false && _character_move.moveX > 0)
+        if (_character_move.howIsMerry == 2 && hasMonsterFlipped == false && _character_move.moveX > 0)
         {
             FlipEnemy();
             hasMonsterFlipped = true;
         }
+
+
     }
 
     public void FlipEnemy()

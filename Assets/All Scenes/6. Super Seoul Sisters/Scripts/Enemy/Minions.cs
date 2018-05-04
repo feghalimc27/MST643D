@@ -15,6 +15,7 @@ public class Minions : MonoBehaviour {
     private AudioSource deathSound;
 
     private Character_Move _character_move;
+    
 
 
     void Start()

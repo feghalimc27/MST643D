@@ -6,11 +6,7 @@ public class Enemy_Health : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.transform.position.y < -4.5f)
-        {
-
-        }
-        else if (gameObject.transform.position.y < -4.5f)
+        if (gameObject.transform.position.y < 0)
         {
             Destroy(gameObject);
         }
