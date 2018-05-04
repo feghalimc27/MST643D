@@ -3114,7 +3114,6 @@ MonoBehaviour:
   loading: {fileID: 621659233}
   playing: {fileID: 2106064366}
   objectiveSound: {fileID: 8300000, guid: a8f745c61cc40e9488ccf4aa1cee5938, type: 3}
-  hitSound: {fileID: 0}
 --- !u!82 &1887234129
 AudioSource:
   m_ObjectHideFlags: 0
