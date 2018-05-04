@@ -20,6 +20,7 @@ public class FPSMovement: MonoBehaviour {
     private bool lifting = false;
     private float _liftCooldown;
     private float _dodgeCooldown;
+    private float distanceToGround;
     [SerializeField]
     private int initialLiftMultiplier = 3;
 
@@ -32,6 +33,7 @@ public class FPSMovement: MonoBehaviour {
         _dodgeCooldown = dodgeCooldown;
         dodgeCooldown = 0;
         liftCooldown *= 3;
+        distanceToGround = GetComponent<Collider>().bounds.extents.y;
 	}
 	
 	// Update is called once per frame
@@ -41,6 +43,7 @@ public class FPSMovement: MonoBehaviour {
 
     // Called at a consistent point per frame
     void FixedUpdate() {
+        onGround = IsGrounded();
         MovePlayer();
         Jump();
         Lift();
@@ -49,7 +52,6 @@ public class FPSMovement: MonoBehaviour {
 
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.layer == 8) {
-            onGround = true;
             lifting = false;
         }
     }
@@ -57,7 +59,6 @@ public class FPSMovement: MonoBehaviour {
     void OnCollisionStay(Collision col) {
         // Layer 8 = Ground
         if (col.gameObject.layer == 8) {
-            onGround = true;
             lifting = false;
         }
     }
@@ -65,7 +66,7 @@ public class FPSMovement: MonoBehaviour {
     void OnCollisionExit(Collision col) {
         // Layer 8 = Ground
         if (col.gameObject.layer == 8) {
-            onGround = false;
+
         }
     }
 
@@ -164,6 +165,10 @@ public class FPSMovement: MonoBehaviour {
                 liftCooldown = _liftCooldown * 3;
             }
         }
+    }
+
+    bool IsGrounded() {
+        return Physics.Raycast(transform.position, -Vector3.up, distanceToGround + 0.1f);
     }
 
     public float GetLiftFill() {
