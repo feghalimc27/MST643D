@@ -16,6 +16,8 @@ public class SelectionCursor : MonoBehaviour {
     [HideInInspector]
     public GameObject enemy = null;
 
+    public AudioClip hitSound, critSound, moveSound, selectSound;
+
 	private Vector3 startPos;
 	private float endPosPlusX;
 	private float endPosMinusX;
@@ -88,11 +90,15 @@ public class SelectionCursor : MonoBehaviour {
             
 			if ((transform.position + move).x < endPosPlusX && Input.GetAxis("Horizontal") > deadzone && coolCounter == 0 && !blocked[2]) { // right
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
 					move.x += speed;
 					movCountX += 1;
 				}
 				else if (movCountX < 0) {
-					move.x += speed;
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                    move.x += speed;
 					movCountX += 1;
 				}
 
@@ -100,11 +106,15 @@ public class SelectionCursor : MonoBehaviour {
 			}
 			else if ((transform.position - move).x > endPosMinusX && Input.GetAxis("Horizontal") < -deadzone && coolCounter == 0 && !blocked[3]) { // left
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
-					move.x -= speed;
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                    move.x -= speed;
 					movCountX -= 1;
 				}
 				else if (movCountX > 0) {
-					move.x -= speed;
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                    move.x -= speed;
 					movCountX -= 1;
 				}
 
@@ -112,11 +122,15 @@ public class SelectionCursor : MonoBehaviour {
 			}
 			else if ((transform.position + move).y < endPosPlusY && Input.GetAxis("Vertical") > deadzone && coolCounter == 0 && !blocked[0]) { // up
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
-					move.y += speed;
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                    move.y += speed;
 					movCountY += 1;
 				}
 				else if (movCountY < 0) {
-					move.y += speed;
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                    move.y += speed;
 					movCountY += 1;
 				}
 
@@ -124,11 +138,15 @@ public class SelectionCursor : MonoBehaviour {
 			}
 			else if ((transform.position - move).y > endPosMinusY && Input.GetAxis("Vertical") < -deadzone && coolCounter == 0 && !blocked[1]) { // down
 				if (Mathf.Abs(movCountX) + Mathf.Abs(movCountY) != player.gameObject.GetComponent<FEFriendlyUnit>().mov) {
-					move.y -= speed;
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                    move.y -= speed;
 					movCountY -= 1;
 				}
 				else if (movCountY > 0) {
-					move.y -= speed;
+                    GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                    move.y -= speed;
 					movCountY -= 1;
 				}
 
@@ -139,22 +157,30 @@ public class SelectionCursor : MonoBehaviour {
             movementCooldown = reserveCool;
 
 			if (Input.GetAxis("Horizontal") > deadzone && coolCounter == 0) {
-				move.x += speed;
+                GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                move.x += speed;
 
 				coolCounter = movementCooldown;
 			}
 			else if (Input.GetAxis("Horizontal") < -deadzone && coolCounter == 0) {
-				move.x -= speed;
+                GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                move.x -= speed;
 
 				coolCounter = movementCooldown;
 			}
 			else if (Input.GetAxis("Vertical") > deadzone && coolCounter == 0) {
-				move.y += speed;
+                GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                move.y += speed;
 
 				coolCounter = movementCooldown;
 			}
 			else if (Input.GetAxis("Vertical") < -deadzone && coolCounter == 0) {
-				move.y -= speed;
+                GetComponent<AudioSource>().PlayOneShot(moveSound);
+
+                move.y -= speed;
 
 				coolCounter = movementCooldown;
 			}
@@ -172,7 +198,9 @@ public class SelectionCursor : MonoBehaviour {
 			if (Input.GetButtonDown("Jump") && !unitSelected && !player.GetComponent<FEFriendlyUnit>().turnOver) {
 				unitSelected = true;
 
-				startPos = player.transform.position;
+                GetComponent<AudioSource>().PlayOneShot(selectSound);
+
+                startPos = player.transform.position;
 				float movRange = player.GetComponent<FEFriendlyUnit>().mov * speed;
 
 				endPosPlusX = startPos.x + movRange;
@@ -243,7 +271,8 @@ public class SelectionCursor : MonoBehaviour {
 
 		if (playerHit) {
 			attacking = true;
-			attackAnimation = StartCoroutine("AttackAnimation");
+            GetComponent<AudioSource>().PlayOneShot(hitSound);
+            attackAnimation = StartCoroutine("AttackAnimation");
 			playerAnimator.SetBool("attackPhase", attacking);
 
 			bool crit = (Random.Range(0, 100) <= playerStats.lck);
@@ -259,7 +288,8 @@ public class SelectionCursor : MonoBehaviour {
 			}
 
 			if (crit) {
-				damage *= 3;
+                GetComponent<AudioSource>().PlayOneShot(critSound);
+                damage *= 3;
 			}
 
 			if (damage >= enemyStats.GetCurrentHP()) {

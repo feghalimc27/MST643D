@@ -8,6 +8,7 @@ public class ZombieBehavior : MonoBehaviour {
 	public float randomSpeed;
     public float damage;
     public GameObject player;
+    public AudioClip hitSound;
 
     private int damageWait;
 	public static int zombieKillCount = 0;
@@ -23,6 +24,7 @@ public class ZombieBehavior : MonoBehaviour {
 
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.tag == "Player") {
+            GetComponent<AudioSource>().PlayOneShot(hitSound);
             col.gameObject.SendMessage("TakeDamage", damage);
             damageWait = 60;
         }
@@ -32,6 +34,7 @@ public class ZombieBehavior : MonoBehaviour {
         if (col.gameObject.tag == "Player") {
             if (damageWait == 0) {
                 col.gameObject.SendMessage("TakeDamage", damage);
+                GetComponent<AudioSource>().PlayOneShot(hitSound);
                 damageWait = 60;
             }
             else {

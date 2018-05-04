@@ -8,6 +8,9 @@ public class FPSUIController : MonoBehaviour {
     public Image healthBar, hitmarker, lift, liftBar, dodge, dodgeBar;
     public GameObject player;
     public Text loading, playing;
+    public AudioClip objectiveSound;
+
+    bool sounded = false;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +26,10 @@ public class FPSUIController : MonoBehaviour {
             playing.text = "Zombies Defeated: " + ZombieBehavior.zombieKillCount;
         }
         else {
+            if (!sounded) {
+                GetComponent<AudioSource>().PlayOneShot(objectiveSound);
+                sounded = true;
+            }
             playing.text = "Get to the house!";
         }
 

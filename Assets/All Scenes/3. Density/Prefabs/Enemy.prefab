@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 23313951537694348}
   - component: {fileID: 54537282989974280}
   - component: {fileID: 114752564323171994}
+  - component: {fileID: 82471432157425722}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -173,6 +174,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0072632, y: 1.6296985, z: 1}
   m_Center: {x: -0.09889221, y: 0.31484926, z: 0}
+--- !u!82 &82471432157425722
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661185556473580}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95122393432618250
 Animator:
   serializedVersion: 3
@@ -202,10 +283,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 500
-  speed: 15
+  speed: 17
   randomSpeed: 3
   damage: 4
   player: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: f14adc4b362e8954281dc12d5cada68f, type: 3}
   pickups:
   - {fileID: 1981870745747878, guid: 2945489d0f170e74d9acdb03f707cb6e, type: 2}
 --- !u!212 &212098132417027266

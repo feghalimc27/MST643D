@@ -15,6 +15,7 @@ public class FPSMovement: MonoBehaviour {
     public float friction = 0.34f;
     public AudioClip liftSound;
     public AudioClip dodgeSound;
+    public AudioClip landSound;
 
     private bool onGround = false;
     private bool lifting = false;
@@ -53,6 +54,7 @@ public class FPSMovement: MonoBehaviour {
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.layer == 8) {
             lifting = false;
+            GetComponent<AudioSource>().PlayOneShot(landSound);
         }
     }
 
@@ -93,7 +95,7 @@ public class FPSMovement: MonoBehaviour {
 
     void Jump() {
         if (onGround && Input.GetButtonDown("Jump")) {
-            GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpStrength, 0));
+            GetComponent<Rigidbody>().velocity = new Vector3(GetComponent<Rigidbody>().velocity.x, jumpStrength, GetComponent<Rigidbody>().velocity.z);
         }
         if (!onGround && GetComponent<Rigidbody>().velocity.y < 0) {
             GetComponent<Rigidbody>().AddForce(Physics.gravity);

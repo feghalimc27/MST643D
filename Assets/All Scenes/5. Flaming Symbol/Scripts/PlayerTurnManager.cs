@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 public class PlayerTurnManager : MonoBehaviour {
 
 	public Vector3 endTile = new Vector3(6.92f, 4.52f, 0);
+    public AudioClip victorySound;
 
     [SerializeField]
 	private FEFriendlyUnit[] units;
     bool endTurn = false;
+    bool sounded = false;
 
 	private void Awake() {
 		units = GetComponentsInChildren<FEFriendlyUnit>();
@@ -57,6 +59,10 @@ public class PlayerTurnManager : MonoBehaviour {
 
 			if (unit.transform.position == endTile) {
 				endTurn = true;
+                if (!sounded) {
+                    GetComponent<AudioSource>().PlayOneShot(victorySound);
+                    sounded = true;
+                }
 				GameObject.Find("Controller").GetComponent<UIController>().SendMessage("EndLevel");
 			}
 		}

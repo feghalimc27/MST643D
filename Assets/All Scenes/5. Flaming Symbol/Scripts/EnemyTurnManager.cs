@@ -11,6 +11,8 @@ public class EnemyTurnManager : MonoBehaviour {
 	private int unitMoves = 0;
 	private int waitStart = 300;
 
+    public AudioClip hitSound, critSound;
+
     [SerializeField]
     private float movSpeed = 0.5f;
 
@@ -77,6 +79,8 @@ public class EnemyTurnManager : MonoBehaviour {
                     bool playerHit = (Random.Range(0, 100) <= playerChance);
                     bool hit = (Random.Range(0, 100) <= chance);
 
+                    GetComponent<AudioSource>().PlayOneShot(hitSound);
+
                     yield return StartCoroutine("AttackAnimation");
 
                     if (hit) {
@@ -94,6 +98,7 @@ public class EnemyTurnManager : MonoBehaviour {
                         }
 
                         if (crit) {
+                            GetComponent<AudioSource>().PlayOneShot(critSound);
                             damage *= 3;
                         }
 

@@ -9,6 +9,8 @@ public class UIController : MonoBehaviour {
     public Text[] playerStatsText = new Text[5]; // HP, ATK, DEF, SPD, LCK
     public Text[] enemyStatsText = new Text[5]; // HP, ATK, DEF, SPD, LCK
 
+    public AudioClip phaseSwitch;
+
     public GameObject playerCursor;
     public GameObject playerTurnManager;
     public GameObject enemyTurnManger;
@@ -39,6 +41,8 @@ public class UIController : MonoBehaviour {
 
     IEnumerator StartEnemyPhase() {
         ePhaseText.enabled = true;
+
+        GetComponent<AudioSource>().PlayOneShot(phaseSwitch);
 
         for (float i = 0; i <= 1; i += 0.1f) {
             Color c = ePhaseText.color;
@@ -71,6 +75,8 @@ public class UIController : MonoBehaviour {
     IEnumerator StartPlayerPhase() {
         pPhaseText.enabled = true;
 
+        GetComponent<AudioSource>().PlayOneShot(phaseSwitch);
+
         for (float i = 0; i <= 1; i += 0.1f) {
             Color c = pPhaseText.color;
 
@@ -99,7 +105,7 @@ public class UIController : MonoBehaviour {
 	IEnumerator EndLevel() {
 		completeText.enabled = true;
 
-		GetComponent<GameController>().SendMessage("DisableCursor");
+        GetComponent<GameController>().SendMessage("DisableCursor");
 
 		for (float i = 0; i <= 1; i += 0.1f) {
 			Color c = completeText.color;
