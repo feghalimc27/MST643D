@@ -1,21 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playerControl : MonoBehaviour {
 
     private float xMove, yMove, xFacing, yFacing;
     private Quaternion lastFacing = Quaternion.Euler(0,0,0);
-    private float shotCooldown = 0;
+    private bool shotCooldown = false;
     private Vector2 moveVector;
-    private float levelComplete = 0;
     public float speed = 3;
     public float projDelay = 0.5f;
     public Transform bulletObj;
+    public float playerHealth;
+    public Slider healthBar;
 
 	// Use this for initialization
 	void Start () {
-		
+
+        healthBar.value = playerHealth;
+
 	}
 
     void PlayerMovement()
@@ -37,7 +42,7 @@ public class playerControl : MonoBehaviour {
 
     void PlayerAttack()
     {
-        Instantiate(bulletObj, (transform.position + new Vector3 (-xFacing/2, yFacing/2, 0)), bulletObj.rotation);
+        Instantiate(bulletObj, (transform.position + new Vector3(-xFacing / 2, yFacing / 2, 0)), bulletObj.rotation);
     }
 	
 	// Update is called once per frame
@@ -46,17 +51,29 @@ public class playerControl : MonoBehaviour {
         PlayerMovement();
 
         if (yFacing > 0.5 || yFacing < -0.5 || xFacing > 0.5 || xFacing < -0.5)
-            if (Input.GetAxis("backTriggers") > 0.9 && shotCooldown == 0)
+            if (Input.GetAxis("backTriggers") > 0.9 && shotCooldown == false)
             {
-                shotCooldown = 1;
+                shotCooldown = true;
                 PlayerAttack();
                 StartCoroutine(shotDelayReset());
             }
+
+        if(playerHealth <= 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.name == "Arrow(Clone)")
+        {
+            playerHealth--;
+            healthBar.value = playerHealth;
+        }
     }
 
     IEnumerator shotDelayReset()
     {
         yield return new WaitForSeconds(projDelay);
-        shotCooldown = 0;
+        shotCooldown = false;
     }
 }
