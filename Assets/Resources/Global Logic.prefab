@@ -784,6 +784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234192a38fef77c449ec554c6e4e11ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystemObj: {fileID: 1941620231835982}
   bar1: {fileID: 2800000, guid: f27b7fae19ef0894bbd33c47210c46a5, type: 3}
   bar2: {fileID: 2800000, guid: 93bebe148c86b3343a959cc0ce1658e9, type: 3}
   bar3: {fileID: 2800000, guid: c440be3d3df541c4bbdff1d887d9cf78, type: 3}
@@ -1227,9 +1228,9 @@ MonoBehaviour:
   changeSelectionClip: {fileID: 8300000, guid: a8f745c61cc40e9488ccf4aa1cee5938, type: 3}
   selectButtonClip: {fileID: 8300000, guid: 6df96a2dc08f5c4438745234b7019f18, type: 3}
   codecCall: {fileID: 8300000, guid: 858e2356c2a060a4898f36da0eab94df, type: 3}
-  codecOpen: {fileID: 0}
-  codecTalk: {fileID: 0}
-  codecClose: {fileID: 0}
+  codecOpen: {fileID: 8300000, guid: 8eadf759a34d0384c900a79a53b6be9a, type: 3}
+  codecTalk: {fileID: 8300000, guid: f438e269465cdd046a2b4417cabbe056, type: 3}
+  codecClose: {fileID: 8300000, guid: dc647095f2de5ed4b93ea031d9db9967, type: 3}
 --- !u!114 &114819924618860524
 MonoBehaviour:
   m_ObjectHideFlags: 1

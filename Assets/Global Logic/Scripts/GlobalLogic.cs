@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class GlobalLogic : MonoBehaviour
 {
+    public static float gameVolume = 1;
+
     private static GlobalLogic currentInstance;
 
     private static float startTime;
@@ -22,7 +24,7 @@ public class GlobalLogic : MonoBehaviour
 
     void Awake ()
     {
-		if (!currentInstance)
+        if (!currentInstance)
         {
             currentInstance = this;
         }
@@ -48,6 +50,8 @@ public class GlobalLogic : MonoBehaviour
 
     void Update ()
     {
+        AudioListener.volume = gameVolume;
+
         if (SceneManager.GetActiveScene().name != "Main Menu")
         {
             if ((SceneManager.GetActiveScene().name != "Super Seoul Ball 3D") && (startTime == -1) && (!(transform.Find("Codec").gameObject.activeInHierarchy)))
@@ -134,6 +138,8 @@ public class GlobalLogic : MonoBehaviour
             transform.Find("Fade/Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
             yield return null;
         }
+        SceneManager.LoadScene(11);
+        yield return null;
         transform.Find("Codec").gameObject.SetActive(true);
         yield return new WaitUntil(() => !(transform.Find("Codec").gameObject.activeInHierarchy));
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)

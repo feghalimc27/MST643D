@@ -29,6 +29,8 @@ public class BossController : MonoBehaviour
     public AudioClip phaseEndClip;
     public AudioClip deathClip;
 
+    public AudioClip postFightMusic;
+
     public GameObject deathBurst;
     public GameObject logicObject;
 
@@ -513,6 +515,7 @@ public class BossController : MonoBehaviour
     IEnumerator DeathAnimation()
     {
         Time.timeScale = 0;
+        logicObject.GetComponent<AudioSource>().Stop();
         logicObject.GetComponent<LogicController>().stopCameraShake();
         logicObject.GetComponent<LogicController>().startCameraShake();
         yield return new WaitForSecondsRealtime(2);
@@ -547,6 +550,7 @@ public class BossController : MonoBehaviour
     IEnumerator StartUp()
     {
         isStartup = true;
+        logicObject.GetComponent<AudioSource>().Play();
         mikeHoverCR = StartCoroutine(MikeHover());
         yield return new WaitForSeconds(4);
         mikeText.GetComponent<RawImage>().color = new Color(1, 1, 1, 1);
@@ -579,6 +583,7 @@ public class BossController : MonoBehaviour
         mikeText.SetActive(false);
         text.enabled = false;
         Destroy(mikeProjectile);
+        logicObject.GetComponent<AudioSource>().Stop();
         audioSource.PlayOneShot(deathClip);
         mikeDeathBurst.SetActive(true);
         mikeBoss.GetComponent<SpriteRenderer>().enabled = false;
@@ -598,6 +603,7 @@ public class BossController : MonoBehaviour
         }
         StartCoroutine(WarningTextSweep());
         transform.GetComponent<BoxCollider2D>().enabled = true;
+        logicObject.GetComponent<AudioSource>().clip = postFightMusic;
         logicObject.GetComponent<AudioSource>().Play();
         hp1.GetComponent<Image>().enabled = true;
         hp2.GetComponent<Image>().enabled = true;

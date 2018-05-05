@@ -9,6 +9,8 @@ public class SettingsButton : MonoBehaviour
 {
     EventSystem currentEventSystem;
 
+    public GameObject settingsObject;
+
     void Start()
     {
         currentEventSystem = EventSystem.current;
@@ -23,7 +25,7 @@ public class SettingsButton : MonoBehaviour
 
             if (Input.GetButtonDown("Submit"))
             {
-                //LoadScene();
+                StartCoroutine(fadeOut());
             }
 
             if (Input.GetAxisRaw("Horizontal") > 0.1 && Time.time > MainMenu.lastInput + 0.25f)
@@ -45,4 +47,20 @@ public class SettingsButton : MonoBehaviour
         }
     }
 
+    IEnumerator fadeOut()
+    {
+        Time.timeScale = 0;
+        currentEventSystem.gameObject.GetComponent<MainMenuSoundController>().playSelect();
+        transform.parent.Find("Fade").gameObject.SetActive(true);
+        transform.parent.Find("Fade").SetAsLastSibling();
+        for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime)
+        {
+            transform.parent.Find("Fade").gameObject.GetComponent<RawImage>().color = new Color(0, 0, 0, t);
+            yield return null;
+        }
+        transform.parent.Find("Fade").gameObject.SetActive(false);
+        Time.timeScale = 1;
+        transform.parent.gameObject.SetActive(false);
+        settingsObject.SetActive(true);
+    }
 }

@@ -38,3 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/All Scenes/6. Super Seoul Sisters/Mike.unity
     guid: 80dc80ac2c21f9441b6a5dd5e9b76907
+  - enabled: 1
+    path: Assets/Global Logic/Codec.unity
+    guid: a11e2e59352aa2742ac63a7b0b8de707

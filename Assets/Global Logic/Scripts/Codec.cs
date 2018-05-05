@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Codec : MonoBehaviour
 {
+    public GameObject eventSystemObj;
     public Texture bar1;
     public Texture bar2;
     public Texture bar3;
@@ -46,7 +47,8 @@ public class Codec : MonoBehaviour
     void OnEnable()
     {
         timeBetweenCharacters = 0.05f;
-        levelLoader = SceneManager.LoadSceneAsync(levelOrder[currentLevel], LoadSceneMode.Single);
+        levelLoader = SceneManager.LoadSceneAsync(levelOrder[currentLevel]);
+        levelLoader.allowSceneActivation = false;
         if (currentLevel == 0)
         {
             selectedLines = new string[] { "Is this thing on? Oh, looks like it.",
@@ -157,6 +159,7 @@ public class Codec : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(1.0f);
         transform.Find("Portraits Center").gameObject.SetActive(true);
+        eventSystemObj.GetComponent<GlobalSoundController>().playCodecOpen();
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 3)
         {
             transform.Find("Portraits Center").localScale = new Vector3(1, Mathf.Pow(t, 2), 1);
@@ -184,7 +187,21 @@ public class Codec : MonoBehaviour
             for (int j = 0; j < selectedLines[currentLine].Length; j++)
             {
                 transform.Find("Text Line").GetComponent<Text>().text += "" + selectedLines[currentLine][j];
-                yield return new WaitForSecondsRealtime(timeBetweenCharacters);
+                if (selectedLines[currentLine][j] != ' ' && selectedLines[currentLine][j] != '\n' && timeBetweenCharacters == 0.05f)
+                {
+                    eventSystemObj.GetComponent<GlobalSoundController>().playCodecTalk();
+                }
+                if (timeBetweenCharacters == 0.05f)
+                {
+                    if (selectedLines[currentLine][j] == '.' || selectedLines[currentLine][j] == '!' || selectedLines[currentLine][j] == '?')
+                    {
+                        yield return new WaitForSecondsRealtime(0.5f);
+                    }
+                    else
+                    {
+                        yield return new WaitForSecondsRealtime(timeBetweenCharacters);
+                    }
+                }
             }
             StopCoroutine(mikeCR);
             transform.Find("Bar").GetComponent<RawImage>().texture = allBars[5];
@@ -227,6 +244,7 @@ public class Codec : MonoBehaviour
         }
         transform.Find("Bar").gameObject.SetActive(false);
         yield return new WaitForSecondsRealtime(1.0f);
+        eventSystemObj.GetComponent<GlobalSoundController>().playCodecClose();
         for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 3)
         {
             transform.Find("Portraits Center").localScale = new Vector3(1, Mathf.Pow(1 - t, 2), 1);
@@ -234,6 +252,7 @@ public class Codec : MonoBehaviour
         }
         transform.Find("Portraits Center").gameObject.SetActive(false);
         yield return new WaitForSecondsRealtime(3.0f);
+        levelLoader.allowSceneActivation = true;
         yield return new WaitUntil(() => levelLoader.isDone);
         transform.gameObject.SetActive(false);
     }
