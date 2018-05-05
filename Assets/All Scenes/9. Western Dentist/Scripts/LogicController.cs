@@ -10,6 +10,7 @@ public class LogicController : MonoBehaviour
     public static GameObject merryObject;
     public static Sprite pointBallSprite;
     public static uint playerScore;
+    public static uint hiScore = 0;
     public GameObject mainCamera;
     public GameObject bossObject;
     public RawImage bossMarker;
@@ -54,6 +55,11 @@ public class LogicController : MonoBehaviour
 
     void Update()
     {
+        if (playerScore > hiScore)
+        {
+            hiScore = playerScore;
+        }
+
         if (backgroundScroll.rectTransform.localPosition.y == 2846 && BossController.isStartup == false)
         {
             backgroundScrollCR = StartCoroutine(BackgroundScroll());
@@ -71,7 +77,7 @@ public class LogicController : MonoBehaviour
         phase3HealthBar.fillAmount = (float)BossController.phase3Health / 1500;
         phase4HealthBar.fillAmount = (float)BossController.phase4Health / 2000;
         scoreText.text = "" + playerScore.ToString("0000000000");
-        hiScoreText.text = "" + playerScore.ToString("0000000000");
+        hiScoreText.text = "" + hiScore.ToString("0000000000");
         if (MerryController.merryHealth != 0)
         {
             lifeStatus.texture = lifeStars[MerryController.merryHealth - 1];

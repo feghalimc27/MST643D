@@ -20,6 +20,14 @@ TagManager:
   - HitBurst
   - Pickup
   - Duck
+  - PlayerPunchGrounded
+  - PlayerKickGrounded
+  - PlayerPunchAerial
+  - PlayerKickAerial
+  - EnemyPunchGrounded
+  - EnemyKickGrounded
+  - EnemyPunchAerial
+  - EnemyKickAerial
   layers:
   - Default
   - TransparentFX

@@ -133,7 +133,6 @@ public class MerryController : MonoBehaviour
         }
         spriteMaterial.color = new Color(1, 1, 1, 1);
         soul.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-        Time.timeScale = 1;
         audioSource.PlayOneShot(playerHitBurstClip);
         hitBurst.SetActive(true);
         if (merryHealth - 1 == 0)
@@ -149,11 +148,13 @@ public class MerryController : MonoBehaviour
                 hitBurst.transform.localScale = new Vector3(750 * t, 750 * t, 0);
                 yield return null;
             }
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSecondsRealtime(2);
+            Time.timeScale = 1;
             merryHealth--;
         }
         else
         {
+            Time.timeScale = 1;
             merryHealth--;
             for (float t = 0f; t < 1.0f; t += Time.unscaledDeltaTime * 4)
             {

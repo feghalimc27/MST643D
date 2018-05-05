@@ -85,6 +85,7 @@ public class GlobalLogic : MonoBehaviour
                     }
                     else if (SceneManager.GetActiveScene().buildIndex == 9)
                     {
+                        SaveLoad.Load();
                         if (currentTime > SaveLoad.bestScore)
                         {
                             SaveLoad.bestScore = currentTime;

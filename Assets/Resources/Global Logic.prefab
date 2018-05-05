@@ -1059,7 +1059,7 @@ MonoBehaviour:
   controls: {fileID: 1863952313066170}
   ssbControls: {fileID: 2800000, guid: d0720f3294f78f94d83539dc3af2ff6f, type: 3}
   densityControls: {fileID: 2800000, guid: 0c31c767f6f355c4dbb73f22e8c6c83a, type: 3}
-  alleyCombatantControls: {fileID: 2800000, guid: a923010b62d091c4287762f81b9315bc,
+  alleyCombatantControls: {fileID: 2800000, guid: ac7da09fb90f3574ba09c7a5993cf463,
     type: 3}
   flamingSymbolControls: {fileID: 2800000, guid: daf4a0aacae9d6f43b6fdc6d44b782ba,
     type: 3}
