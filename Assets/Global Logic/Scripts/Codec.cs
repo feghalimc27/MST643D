@@ -92,8 +92,10 @@ public class Codec : MonoBehaviour
         }
         else if (levelOrder[currentLevel] == 7)
         {
-            selectedLines = new string[] { "No idea what to say about this next one.",
-                                           "I'll just leave it to you, I guess." };
+            selectedLines = new string[] { "Twin stick? What's that got to do with anything?",
+                                           "Oh, pushing around these barrels is fun!",
+                                           "Whoops, you're the one who's supposed to be playing.",
+                                           "I'll just leave it to you, I guess. I hope you lose." };
         }
         else if (levelOrder[currentLevel] == 8)
         {

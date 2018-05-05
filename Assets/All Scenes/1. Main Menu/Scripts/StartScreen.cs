@@ -28,6 +28,11 @@ public class StartScreen : MonoBehaviour
         {
             StartCoroutine(fadeOut());
         }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Application.Quit();
+        }
     }
 
     void pressStart()
