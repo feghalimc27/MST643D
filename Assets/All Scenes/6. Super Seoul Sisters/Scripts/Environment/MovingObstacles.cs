@@ -7,6 +7,7 @@ public class MovingObstacles : MonoBehaviour {
 	public float obstacleSpeed;
 	public GameObject bottomSetPoint;
 	public GameObject topSetPoint;
+
 	// Use this for initialization
 	void Start () {
         Physics2D.IgnoreLayerCollision(13, 16);

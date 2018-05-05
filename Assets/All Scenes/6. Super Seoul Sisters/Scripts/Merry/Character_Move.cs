@@ -63,6 +63,24 @@ public class Character_Move : MonoBehaviour
     {
         CharacterMove();
         PlayerRaycast_duck();
+        if (gameObject.transform.position.x > 54.58 && gameObject.transform.position.x < 59.21 && gameObject.transform.position.y > 5.5f)
+        {
+            deathSound.PlayOneShot(playDeath); // play sound
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+            gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 100);
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
+            gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
+            gameObject.GetComponent<Rigidbody2D>().transform.eulerAngles = new Vector3(0, 0, 180);
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+            gameObject.GetComponent<Character_Move>().enabled = false;
+            Camera.main.GetComponent<Mike_Camera>().enabled = false;
+
+            if (gameObject.transform.position.y < -6.38)
+            {
+                SceneManager.LoadScene("Super Seoul Sisters");
+            }
+        }
     }
 
     // controls character movement and physics
