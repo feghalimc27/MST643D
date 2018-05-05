@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Mike_Camera : MonoBehaviour {
 
     private GameObject player;
     public GameObject spawnDuck;
 
-    MinionSpawn spawnMinion;
+    //MinionSpawn spawnMinion;
 
     public float xMin;
     public float xMax;
@@ -15,18 +16,19 @@ public class Mike_Camera : MonoBehaviour {
     public float yMax;
 
     public bool spawnAtForty;
+
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
-        spawnMinion = FindObjectOfType<MinionSpawn>();
+        //spawnMinion = FindObjectOfType<MinionSpawn>();
 
         spawnAtForty = false;
     }
 
     void Update(){
-        if (player.transform.position.y > 4)
+        if (player.transform.position.y > 6)
         {
             Camera.main.orthographicSize = 1.5f;
             yMax = 100;
@@ -46,11 +48,13 @@ public class Mike_Camera : MonoBehaviour {
             yMax = 1.9f;
         }
 
-        if(spawnDuck.transform.position.x > 40 && spawnAtForty == false)
-        {
-            spawnMinion.Spawn(spawnDuck.transform.position);
-            spawnAtForty = true;
-        }
+        //if(spawnDuck.transform.position.x > 40 && spawnAtForty == false)
+        //{
+        //    //spawnMinion.Spawn(spawnDuck.transform.position);
+        //    spawnAtForty = true;
+        //}
+
+        
     }
 	
 	// Update is called once per frame

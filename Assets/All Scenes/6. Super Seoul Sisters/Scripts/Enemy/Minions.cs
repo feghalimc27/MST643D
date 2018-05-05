@@ -36,10 +36,10 @@ public class Minions : MonoBehaviour {
 
     void Update()
     {
-        if(gameObject.transform.position.x < minionMovement.transform.position.x)
-        {
-            gameObject.SetActive(true);
-        }
+        //if(gameObject.transform.position.x < minionMovement.transform.position.x)
+        //{
+        //    gameObject.SetActive(true);
+        //}
 
         if (gameObject.transform.position.x < leftCamera.transform.position.x)
         {

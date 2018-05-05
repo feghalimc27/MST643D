@@ -29,7 +29,7 @@ public class Player_Health : MonoBehaviour
             {
                 deathSound.PlayOneShot(playDeath); // play sound
                 hasDeathSoundPlayed = true;
-                Camera.main.GetComponent<Camera_System>().enabled = false;
+                //Camera.main.GetComponent<Camera_System>().enabled = false;
             }
             Die();
         }
