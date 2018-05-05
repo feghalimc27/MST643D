@@ -12,7 +12,7 @@ public class ZombieBehavior : MonoBehaviour {
 
     private int damageWait;
 	public static int zombieKillCount = 0;
-	public static int zombieKillsRequired = 70;
+	public static int zombieKillsRequired = 20;
 	public static bool objectiveAccomplished = false;
     [SerializeField]
     private GameObject[] pickups;

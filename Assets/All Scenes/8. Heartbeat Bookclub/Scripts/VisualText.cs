@@ -532,7 +532,7 @@ public class VisualText : MonoBehaviour
         stairs.enabled = false;
         merry.enabled = true;
         text.text = "Oh, sorry. We're going to the roof.\n"
-            + "It's strange, nothing about this place feels familiar and I can't shake the feeling that something is off.";
+            + "I just wanted a look around, since I don't feel like this place is real. If you know what I mean.";
         if (Input.GetButtonDown("Jump")) { myState = States.hallway17; }
     }
 
@@ -545,7 +545,7 @@ public class VisualText : MonoBehaviour
         roof.enabled = false;
         stairs.enabled = true;
         merry.enabled = true;
-        text.text = "We turn the corner and I can see the entrance of the building down a flight of stairs. I stop for a moment with Mary stopping a few steps ahead.";
+        text.text = "<i>We walk up a flight of stairs, and just before she opens the door to the roof, I hesitate...</i>";
         if (Input.GetButtonDown("Jump")) { myState = States.stairs; }
     }
 
@@ -560,8 +560,8 @@ public class VisualText : MonoBehaviour
         merry.enabled = true;
         choiceOne.SetActive(true);
         choiceTwo.SetActive(true);
-        choiceText1.text = "Oh nothing, I spaced out for a moment.";
-        choiceText2.text = "Suggest Parting Here";
+        choiceText1.text = "\"Sorry, I spaced out for a second.\"";
+        choiceText2.text = "Suggest to Part Ways";
         text.text = "What's wrong?";
         if (Input.GetAxis("ADS") > 0.1) { myState = States.stairs1; }
         else if (Input.GetAxis("FPSFire") > 0.1) { myState = States.dead5; }
@@ -578,7 +578,7 @@ public class VisualText : MonoBehaviour
         merry.enabled = true;
         choiceOne.SetActive(false);
         choiceTwo.SetActive(false);
-        text.text = "I think it's about time I should-";
+        text.text = "I appreciate the, uh, time we've spent, but I've got to-";
         if (Input.GetButtonDown("Jump")) { myState = States.dead6; }
     }
 
@@ -591,8 +591,8 @@ public class VisualText : MonoBehaviour
         roof.enabled = false;
         stairs.enabled = true;
         merry.enabled = true;
-        text.text = "leave \n" + "I feel a chill crawl up my spine as Mary finished my sentence... \n"
-            + "She turns to look at me in eyes.";
+        text.text = "Leave, huh?\n" + "<i>A chill crawls up my spine...</i>\n"
+            + "<i>She turns to look at me in eyes.</i>";
         if (Input.GetButtonDown("Jump")) { myState = States.dead7; }
     }
 
@@ -605,8 +605,8 @@ public class VisualText : MonoBehaviour
         roof.enabled = false;
         stairs.enabled = true;
         merry.enabled = true;
-        text.text = "That's all everyone wants to do... \n" + "Everyone I knew always tries to leave. \n"
-            + "She looks down";
+        text.text = "I figured this would happen.\n" + "It's so lonely here, you know?\n"
+            + "<i>She looks down.</i>";
         if (Input.GetButtonDown("Jump")) { myState = States.dead8; }
     }
 
@@ -619,8 +619,8 @@ public class VisualText : MonoBehaviour
         roof.enabled = false;
         stairs.enabled = true;
         merry.enabled = true;
-        text.text = "It seems to be getting dark outside and I think maybe we should call it a day. I'm sure we'll see each other again though. \n"
-            + "I feel kind of bad about lying to her but I really need to figure out what's on.";
+        text.text = "<i>I'm really sorry, but it's getting pretty dark, and I'm sure my parents are worried.\n"
+            + "<i>I feel a little bad about lying, but I've gotta get away from this girl.</i>";
         if (Input.GetButtonDown("Jump")) { myState = States.dead9; }
     }
 
@@ -633,7 +633,7 @@ public class VisualText : MonoBehaviour
         roof.enabled = false;
         stairs.enabled = true;
         merry.enabled = true;
-        text.text = "Fine! If you're going to leave then just leave! \n" + "Her hands fly out at me and I tip over.";
+        text.text = "<i>She lunges at me.</i>\n" + "<i>Before I know it, I'm over the railing of the stairway.</i>";
         if (Input.GetButtonDown("Jump")) { myState = States.dead10; }
     }
 
@@ -646,8 +646,8 @@ public class VisualText : MonoBehaviour
         roof.enabled = false;
         stairs.enabled = true;
         merry.enabled = true;
-        text.text = "I'm free falling down but all I can see it is her at the top of the stairs. I see a tear fall down her face before everything goes black. \n"
-            + "Your dead.";
+        text.text = "<i>With the air rushing by my ears, I take one last look at Mary. She's angry, but crying. Whoops.</i>\n"
+            + "<i><b>You're dead.</i></b>";
         if (Input.GetButtonDown("Jump")) { myState = States.begin; }
     }
 
@@ -662,7 +662,7 @@ public class VisualText : MonoBehaviour
         merry.enabled = true;
         choiceOne.SetActive(false);
         choiceTwo.SetActive(false);
-        text.text = "Oh nothing, I spaced out for a moment.";
+        text.text = "Sorry, I just spaced out for a second.";
         if (Input.GetButtonDown("Jump")) { myState = States.stairs2; }
     }
 
