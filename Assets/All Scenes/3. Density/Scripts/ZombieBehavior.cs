@@ -26,7 +26,7 @@ public class ZombieBehavior : MonoBehaviour {
         if (col.gameObject.tag == "Player") {
             GetComponent<AudioSource>().PlayOneShot(hitSound);
             col.gameObject.SendMessage("TakeDamage", damage);
-            damageWait = 60;
+            damageWait = 240;
         }
     }
 
@@ -35,7 +35,7 @@ public class ZombieBehavior : MonoBehaviour {
             if (damageWait == 0) {
                 col.gameObject.SendMessage("TakeDamage", damage);
                 GetComponent<AudioSource>().PlayOneShot(hitSound);
-                damageWait = 60;
+                damageWait = 240;
             }
             else {
                 damageWait--;
