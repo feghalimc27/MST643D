@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 60324083}
   - component: {fileID: 60324082}
   m_Layer: 5
-  m_Name: Hellway Image
+  m_Name: Hallway Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 116552879}
   - component: {fileID: 116552881}
   - component: {fileID: 116552880}
+  - component: {fileID: 116552882}
   m_Layer: 5
   m_Name: Visual Novel Text
   m_TagString: Untagged
@@ -393,8 +394,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 408.19998, y: -8}
-  m_SizeDelta: {x: 783.6, y: 163.2}
+  m_AnchoredPosition: {x: 399.6, y: -8.8}
+  m_SizeDelta: {x: 766.5, y: 161.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &116552880
 MonoBehaviour:
@@ -428,13 +429,28 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This is some test text for the visual novel.
+  m_Text: Test
 --- !u!222 &116552881
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 116552878}
+--- !u!114 &116552882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 116552878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bd2df2738964d7681e306d72cd2848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 116552880}
+  myobject: {fileID: 107588243}
+  name1: {fileID: 596635407}
+  name2: {fileID: 849413358}
 --- !u!1 &244863039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +1029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &849413357
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1096,7 +1112,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e7d2c4a4154fc9548a181bc89dda82d3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 98772269ebe41ef47a5b186c8c38b123, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
