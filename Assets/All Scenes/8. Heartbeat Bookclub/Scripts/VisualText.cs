@@ -23,8 +23,6 @@ public class VisualText : MonoBehaviour
     void Start()
     {
         text.text = "Welcome to the Heartbeat Bookclub.";
-        name1 = myobject.transform.Find("Name1").GetComponent<Text>();
-        name2 = myobject.transform.Find("Name2").GetComponent<Text>();
         myState = States.begin;
     }
 
@@ -94,6 +92,8 @@ public class VisualText : MonoBehaviour
 
     void state_begin2()
     {
+        name1.enabled = true;
+        name2.enabled = false;
         text.text = "Oh Hey! Your finally up. I was getting worried there for a second. \n"
             + "\nSeoul gets up quickly";
         
@@ -102,6 +102,8 @@ public class VisualText : MonoBehaviour
 
     void state_class1()
     {
+        name1.enabled = false;
+        name2.enabled = true;
         text.text = "What's going on here? Who are you? \n"
             + "... \n" + "And why was I on your lap?";
         if (Input.GetButtonDown("Jump")) { myState = States.class2; }
@@ -116,6 +118,8 @@ public class VisualText : MonoBehaviour
 
     void state_class3()
     {
+        name1.enabled = true;
+        name2.enabled = false;
         text.text = "Why was my head on your lap though? Shouldn't you have gone to get the nurse? \n"
             + "What am I saying. I shouldn't even be here.";
         if (Input.GetButtonDown("Jump")) { myState = States.class4; }
