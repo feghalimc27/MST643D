@@ -210,8 +210,8 @@ public class VisualText : MonoBehaviour
         choiceText2.text = "Deny and Leave";
         text.text = "Soul gets in the way of Seoul \n"
             + "Awww don't leave just yet, let's walk around the school for a bit. ";
-        if (Input.GetButtonDown("Fire1")) { myState = States.class7; }
-        else if (Input.GetButtonDown("Fire2")) { myState = States.dead1; }
+        if (Input.GetAxis("ADS") > 0.1) { myState = States.class7; }
+        else if (Input.GetAxis("FPSFire") > 0.1) { myState = States.dead1; }
     }
 
     void state_class7()
@@ -381,8 +381,8 @@ public class VisualText : MonoBehaviour
         choiceText1.text = "Leave";
         choiceText2.text = "Wait";
         text.text = "I could use this opportunity to leave or maybe I should I wait for her...";
-        if (Input.GetButtonDown("Fire1")) { myState = States.dead3; }
-        else if (Input.GetButtonDown("Fire2")) { myState = States.hallway8; }    
+        if (Input.GetAxis("ADS") > 0.1) { myState = States.dead3; }
+        else if (Input.GetAxis("FPSFire") > 0.1) { myState = States.hallway8; }    
     }
 
     void state_dead3()
@@ -567,8 +567,8 @@ public class VisualText : MonoBehaviour
         choiceText1.text = "Oh nothing, I spaced out for a moment.";
         choiceText2.text = "Suggest Parting Here";
         text.text = "What's wrong?";
-        if (Input.GetButtonDown("Fire1")) { myState = States.stairs1; }
-        else if (Input.GetButtonDown("Fire2")) { myState = States.dead5; }
+        if (Input.GetAxis("ADS") > 0.1) { myState = States.stairs1; }
+        else if (Input.GetAxis("FPSFire") > 0.1) { myState = States.dead5; }
     }
 
     void state_dead5()
