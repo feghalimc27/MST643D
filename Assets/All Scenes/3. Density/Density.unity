@@ -715,7 +715,7 @@ MonoBehaviour:
   - {x: 90, y: 1.5, z: 290}
   - {x: 270, y: 15, z: 240}
   - {x: 520, y: 1.5, z: 480}
-  - {x: 600, y: 1.5, z: 500}
+  - {x: 577, y: 5, z: 450}
   zombieCount: 40
   enemy: {fileID: 1661185556473580, guid: 0315770b1e06083449c82fc36053a6a5, type: 2}
   spawnDelay: 20
